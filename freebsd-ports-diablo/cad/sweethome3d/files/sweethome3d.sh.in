@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# $FreeBSD$
+
+JAVA="%%LOCALBASE%%/bin/java"
+JARPATH="%%JAVALIBDIR%%"
+
+exec "${JAVA}" -Xmx1024m -jar "${JARPATH}/%%JARNAME%%" "$@"

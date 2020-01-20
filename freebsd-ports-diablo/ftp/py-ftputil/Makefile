@@ -1,0 +1,27 @@
+# $FreeBSD$
+
+PORTNAME=	ftputil
+PORTVERSION=	3.4
+CATEGORIES=	ftp python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	lwhsu@FreeBSD.org
+COMMENT=	High-level FTP client library
+
+LICENSE=	BSD3CLAUSE
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+USES=		python
+USE_PYTHON=	autoplist concurrent distutils
+
+OPTIONS_DEFINE=	DOCS
+
+NO_ARCH=	yes
+PORTDOCS=	doc/*
+
+post-install-DOCS-on:
+	${MKDIR} ${STAGEDIR}${DOCSDIR}
+	cd ${WRKSRC}/doc && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

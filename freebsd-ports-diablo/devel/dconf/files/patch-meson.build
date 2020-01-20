@@ -1,0 +1,9 @@
+--- meson.build.orig	2019-01-01 10:35:43.697088000 +0100
++++ meson.build	2019-01-01 10:35:50.224916000 +0100
+@@ -82,6 +82,5 @@
+ subdir('client')
+ subdir('bin')
+ subdir('docs')
+-subdir('tests')
+
+ meson.add_install_script('meson_post_install.py', gio_module_dir)

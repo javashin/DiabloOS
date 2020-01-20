@@ -1,0 +1,13 @@
+# $FreeBSD$
+
+PORTVERSION=	3711
+PORTREVISION=	2
+PKGNAMESUFFIX=	${PORTVERSION}
+
+MASTERDIR=	${.CURDIR}/../openbor
+PATCHDIR=	${.CURDIR}/../openbor3482/files
+DISTINFO_FILE=	${.CURDIR}/distinfo
+
+GH_TAGNAME=	6ec17fa
+
+.include "${MASTERDIR}/Makefile"

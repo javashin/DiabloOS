@@ -1,0 +1,111 @@
+# Created by: Oliver Lehmann <oliver@FreeBSD.org>
+# $FreeBSD$
+
+PORTNAME=	ogre3d
+DISTVERSIONPREFIX=	v
+DISTVERSION=	1.11.6
+PORTREVISION=	0
+CATEGORIES=	graphics devel
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	OGRECave
+GH_PROJECT=	ogre
+
+MAINTAINER=	oliver@FreeBSD.org
+COMMENT=	Scene-oriented, flexible 3D engine written in C++
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+LIB_DEPENDS=	libzzip.so:devel/zziplib \
+		libfreetype.so:print/freetype2
+
+CONFLICTS=	ogre3d19-[0-9]*
+
+USE_LDCONFIG=	yes
+USES=		cmake pkgconfig compiler:c++11-lib sdl xorg
+USE_SDL=	sdl2
+USE_XORG=	x11 xaw xext xrandr xt
+
+CMAKE_ARGS+=	-DOGRE_BUILD_RENDERSYSTEM_GL3PLUS:BOOL=OFF \
+		-DOGRE_BUILD_RENDERSYSTEM_GL:BOOL=OFF \
+		-DOGRE_BUILD_RENDERSYSTEM_GLES2:BOOL=OFF \
+		-DOGRE_BUILD_COMPONENT_PYTHON:BOOL=OFF \
+		-DOGRE_BUILD_COMPONENT_JAVA:BOOL=OFF \
+		-DOGRE_BUILD_COMPONENT_CSHARP:BOOL=OFF \
+		-DOGRE_BUILD_PLUGIN_FREEIMAGE:BOOL=OFF \
+		-DOGRE_BUILD_PLUGIN_EXRCODEC:BOOL=OFF \
+		-DOGRE_CONFIG_ENABLE_ZIP:BOOL=ON \
+		-DOGRE_INSTALL_DOCS:BOOL=OFF \
+		-DOGRE_INSTALL_SAMPLES_SOURCE:BOOL=OFF
+
+OPTIONS_DEFINE=		CSHARP DOCS FREEIMAGE JAVA OPENEXR OPENGL PROFILE \
+			PYTHON
+OPTIONS_DEFAULT=	DOCS OPENGL
+OPTIONS_SUB=		yes
+
+DOCS_BUILD_DEPENDS=	doxygen:devel/doxygen
+DOCS_CMAKE_BOOL=	OGRE_INSTALL_DOCS
+ 
+FREEIMAGE_DESC=		Build FreeImage codec
+FREEIMAGE_CMAKE_BOOL=	OGRE_BUILD_PLUGIN_FREEIMAGE
+FREEIMAGE_LIB_DEPENDS=	libfreeimage.so:graphics/freeimage
+
+OPENEXR_USE=		XORG=ice
+OPENEXR_CMAKE_BOOL=	OGRE_BUILD_PLUGIN_EXRCODEC
+OPENEXR_LIB_DEPENDS=	libIlmImf.so:graphics/openexr \
+			libIlmThread-2_3.so:graphics/ilmbase \
+			libHalf.so:graphics/ilmbase \
+			libIex-2_3.so:graphics/ilmbase
+
+OPENGL_CMAKE_BOOL=	OGRE_BUILD_RENDERSYSTEM_GL3PLUS \
+			OGRE_BUILD_RENDERSYSTEM_GL \
+			OGRE_BUILD_RENDERSYSTEM_GLES2
+OPENGL_USES=		gl xorg
+OPENGL_USE=		XORG=sm,ice GL=gl,glu
+
+PROFILE_CMAKE_BOOL=	OGRE_PROFILING
+
+CSHARP_DESC=		Build Csharp bindings
+CSHARP_CMAKE_BOOL=	OGRE_BUILD_COMPONENT_CSHARP
+CSHARP_BUILD_DEPENDS=	swig3.0:devel/swig30
+
+JAVA_CMAKE_BOOL=	OGRE_BUILD_COMPONENT_JAVA
+JAVA_BUILD_DEPENDS=	swig3.0:devel/swig30
+JAVA_VARS=		CMAKE_ARGS+=-DJAVA_HOME=${JAVA_HOME}
+JAVA_USE=		JAVA=yes
+
+PYTHON_CMAKE_BOOL=	OGRE_BUILD_COMPONENT_PYTHON
+PYTHON_BUILD_DEPENDS=	swig3.0:devel/swig30
+PYTHON_USES=		python
+
+CXXFLAGS+=		-DNDEBUG -I${LOCALBASE}/include
+
+post-patch:
+	@${REINPLACE_CMD} -e '\
+		s,defined(__x86_64__),& || defined(__sparc64__) || defined(__amd64__),' \
+		${WRKSRC}/OgreMain/include/OgrePlatform.h
+
+post-patch-PYTHON-on:
+	${REINPLACE_CMD} -e 's/\(Python_ADDITIONAL_VERSIONS\) [0-9\.]*/\$1 ${PYTHON_VER}/' \
+		${WRKSRC}/CMake/Dependencies.cmake
+	${REINPLACE_CMD} -e "s/dist-packages/site-packages/" \
+		${WRKSRC}/Components/Python/CMakeLists.txt
+
+post-build-DOCS-on:
+	${MAKE_CMD} -C ${BUILD_WRKSRC} OgreDoc
+
+post-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+.for docfile in README.md LICENSE AUTHORS
+	${INSTALL_DATA} ${WRKSRC}/${docfile} ${STAGEDIR}${DOCSDIR}
+.endfor
+
+post-install-JAVA-on:
+	@${MKDIR} ${STAGEDIR}${LOCALBASE}/share/OGRE/java
+	${INSTALL_DATA} ${BUILD_WRKSRC}/java/Ogre-${DISTVERSION}.jar \
+		${STAGEDIR}${LOCALBASE}/share/OGRE/java
+	${INSTALL_LIB} ${BUILD_WRKSRC}/java/libs/libOgreJNI.so \
+		${STAGEDIR}${LOCALBASE}/lib/OGRE
+
+.include <bsd.port.mk>

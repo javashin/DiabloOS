@@ -1,0 +1,17 @@
+--- Imakefile.orig	1992-12-16 00:04:35 UTC
++++ Imakefile
+@@ -2,12 +2,12 @@
+ LOCAL_LIBRARIES = $(XLIB)
+         DEPLIBS = $(DEPXLIB)
+   SYS_LIBRARIES = -lm
+-    CDEBUGFLAGS = -g
++XCOMM    CDEBUGFLAGS = -g
+ 
+            SRCS = xfish.c medcut.c read.c gifread.c
+            OBJS = xfish.o medcut.o read.o gifread.o
+ 
+-ComplexProgramTarget(xfishtank)
++ComplexProgramTargetNoMan(xfishtank)
+ 
+ xfishy.h: makeh FishList
+ 	./makeh > xfishy.h

@@ -1,0 +1,5 @@
+TIMESTAMP = 1557059422
+SHA256 (pytest-mock-1.10.4.tar.gz) = 5bf5771b1db93beac965a7347dc81c675ec4090cb841e49d9d34637a25c30568
+SIZE (pytest-mock-1.10.4.tar.gz) = 18790
+SHA256 (b3badafebedea3605c90eb22a68adff2885a8bb0.patch) = 8c6d1028175b1a524cbcb1df3aeaa725fed9a1aa3ad0499a242ac65b65e855e0
+SIZE (b3badafebedea3605c90eb22a68adff2885a8bb0.patch) = 1667

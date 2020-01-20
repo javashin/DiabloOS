@@ -1,0 +1,76 @@
+# $FreeBSD$
+#
+
+    COMMENT = Ports for managing, installing, and developing FreeBSD ports and packages
+
+    SUBDIR += bsdadminscripts2
+    SUBDIR += caronade
+    SUBDIR += chucky
+    SUBDIR += create-rb-port
+    SUBDIR += dialog4ports
+    SUBDIR += dialog4ports-static
+    SUBDIR += distilator
+    SUBDIR += freebsd-bugzilla-cli
+    SUBDIR += genpatch
+    SUBDIR += genplist
+    SUBDIR += jailaudit
+    SUBDIR += lsknobs
+    SUBDIR += managepkg
+    SUBDIR += mkreadmes
+    SUBDIR += modules2tuple
+    SUBDIR += octopkg
+    SUBDIR += p5-FreeBSD-Portindex
+    SUBDIR += p5-FreeBSD-Ports
+    SUBDIR += p5-FreeBSD-Ports-INDEXhash
+    SUBDIR += packagekit
+    SUBDIR += pchecker
+    SUBDIR += pkg
+    SUBDIR += pkg-devel
+    SUBDIR += pkg-provides
+    SUBDIR += pkg-rmleaf
+    SUBDIR += pkg_cleanup
+    SUBDIR += pkg_cutleaves
+    SUBDIR += pkg_jail
+    SUBDIR += pkg_replace
+    SUBDIR += pkg_rmleaves
+    SUBDIR += pkg_search
+    SUBDIR += pkg_tree
+    SUBDIR += pkgcompare
+    SUBDIR += pkgs_which
+    SUBDIR += port-authoring-tools
+    SUBDIR += port-index-uniquifier
+    SUBDIR += port-maintenance-tools
+    SUBDIR += portal
+    SUBDIR += portconf
+    SUBDIR += portdowngrade
+    SUBDIR += portell
+    SUBDIR += portest
+    SUBDIR += portfind
+    SUBDIR += portfmt
+    SUBDIR += portgraph
+    SUBDIR += portgrep
+    SUBDIR += portless
+    SUBDIR += portlint
+    SUBDIR += portmaster
+    SUBDIR += portrac
+    SUBDIR += ports-tools
+    SUBDIR += portscout
+    SUBDIR += portsearch
+    SUBDIR += portshaker
+    SUBDIR += portshaker-config
+    SUBDIR += portsreinstall
+    SUBDIR += porttools
+    SUBDIR += porttree
+    SUBDIR += portupdate-scan
+    SUBDIR += portupgrade
+    SUBDIR += portupgrade-devel
+    SUBDIR += poudriere
+    SUBDIR += poudriere-devel
+    SUBDIR += psearch
+    SUBDIR += py-FreeBSD-ports
+    SUBDIR += py-pytoport
+    SUBDIR += py-skog
+    SUBDIR += synth
+    SUBDIR += wanted-ports
+
+.include <bsd.port.subdir.mk>

@@ -1,0 +1,20 @@
+--- ruby/Gemfile.orig	2019-11-22 14:21:07 UTC
++++ ruby/Gemfile
+@@ -24,17 +24,3 @@ gem 'licensee', '~> 8.9.0'
+ 
+ gem 'google-protobuf', '~> 3.8.0'
+ 
+-group :development, :test do
+-  gem 'rubocop', '~> 0.69', require: false
+-  gem 'rspec', require: false
+-  gem 'rspec-parameterized', require: false
+-  gem 'timecop', require: false
+-  gem 'factory_bot', require: false
+-  gem 'pry', '~> 0.12.2', require: false
+-
+-  # gitlab-shell spec gems
+-  gem 'listen', '~> 0.5.0'
+-  gem 'simplecov', '~> 0.9.0', require: false
+-  gem 'vcr', '~> 4.0.0'
+-  gem 'webmock', '~> 3.4.0'
+-end

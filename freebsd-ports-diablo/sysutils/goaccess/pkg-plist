@@ -1,0 +1,8 @@
+bin/goaccess
+%%ETCDIR%%/browsers.list
+@sample %%ETCDIR%%/goaccess.conf.sample etc/goaccess.conf
+man/man1/goaccess.1.gz
+%%NLS%%share/locale/es/LC_MESSAGES/goaccess.mo
+%%NLS%%share/locale/fr/LC_MESSAGES/goaccess.mo
+%%NLS%%share/locale/ja/LC_MESSAGES/goaccess.mo
+%%NLS%%share/locale/zh_CN/LC_MESSAGES/goaccess.mo

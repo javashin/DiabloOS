@@ -1,0 +1,459 @@
+diff -ur mesa-19.2.0-rc2/include/GL/glcorearb.h mesa-19.2.0-rc2.mod/include/GL/glcorearb.h
+--- mesa-19.2.0-rc2/include/GL/glcorearb.h	2019-09-04 18:38:53.000000000 -0400
++++ mesa-19.2.0-rc2.mod/include/GL/glcorearb.h	2019-09-08 13:48:57.484200000 -0400
+@@ -1,5 +1,5 @@
+-#ifndef __gl_glcorearb_h_
+-#define __gl_glcorearb_h_ 1
++#ifndef __glcorearb_h_
++#define __glcorearb_h_ 1
+ 
+ #ifdef __cplusplus
+ extern "C" {
+diff -ur mesa-19.2.0-rc2/include/GL/glext.h mesa-19.2.0-rc2.mod/include/GL/glext.h
+--- mesa-19.2.0-rc2/include/GL/glext.h	2019-09-04 18:38:53.000000000 -0400
++++ mesa-19.2.0-rc2.mod/include/GL/glext.h	2019-09-08 13:48:57.486037000 -0400
+@@ -1,5 +1,5 @@
+-#ifndef __gl_glext_h_
+-#define __gl_glext_h_ 1
++#ifndef __glext_h_
++#define __glext_h_ 1
+ 
+ #ifdef __cplusplus
+ extern "C" {
+diff -ur mesa-19.2.0-rc2/include/GL/glxext.h mesa-19.2.0-rc2.mod/include/GL/glxext.h
+--- mesa-19.2.0-rc2/include/GL/glxext.h	2019-09-04 18:38:53.000000000 -0400
++++ mesa-19.2.0-rc2.mod/include/GL/glxext.h	2019-09-08 13:48:57.486365000 -0400
+@@ -1,5 +1,5 @@
+-#ifndef __glx_glxext_h_
+-#define __glx_glxext_h_ 1
++#ifndef __glxext_h_
++#define __glxext_h_ 1
+ 
+ #ifdef __cplusplus
+ extern "C" {
+diff -ur mesa-19.2.0-rc2/include/GL/internal/dri_interface.h mesa-19.2.0-rc2.mod/include/GL/internal/dri_interface.h
+--- mesa-19.2.0-rc2/include/GL/internal/dri_interface.h	2019-09-04 18:38:53.000000000 -0400
++++ mesa-19.2.0-rc2.mod/include/GL/internal/dri_interface.h	2019-09-08 13:48:57.486763000 -0400
+@@ -40,13 +40,7 @@
+ #ifndef DRI_INTERFACE_H
+ #define DRI_INTERFACE_H
+ 
+-#ifdef HAVE_LIBDRM
+ #include <drm.h>
+-#else
+-typedef unsigned int drm_context_t;
+-typedef unsigned int drm_drawable_t;
+-typedef struct drm_clip_rect drm_clip_rect_t;
+-#endif
+ 
+ #include <GL/gl.h>
+ 
+diff -ur mesa-19.2.0-rc2/include/GLES2/gl2.h mesa-19.2.0-rc2.mod/include/GLES2/gl2.h
+--- mesa-19.2.0-rc2/include/GLES2/gl2.h	2019-09-04 18:38:53.000000000 -0400
++++ mesa-19.2.0-rc2.mod/include/GLES2/gl2.h	2019-09-08 13:48:57.487581000 -0400
+@@ -1,5 +1,5 @@
+-#ifndef __gles2_gl2_h_
+-#define __gles2_gl2_h_ 1
++#ifndef __gl2_h_
++#define __gl2_h_ 1
+ 
+ #ifdef __cplusplus
+ extern "C" {
+diff -ur mesa-19.2.0-rc2/include/GLES2/gl2ext.h mesa-19.2.0-rc2.mod/include/GLES2/gl2ext.h
+--- mesa-19.2.0-rc2/include/GLES2/gl2ext.h	2019-09-04 18:38:53.000000000 -0400
++++ mesa-19.2.0-rc2.mod/include/GLES2/gl2ext.h	2019-09-08 13:48:57.487323000 -0400
+@@ -1,5 +1,5 @@
+-#ifndef __gles2_gl2ext_h_
+-#define __gles2_gl2ext_h_ 1
++#ifndef __gl2ext_h_
++#define __gl2ext_h_ 1
+ 
+ #ifdef __cplusplus
+ extern "C" {
+diff -ur mesa-19.2.0-rc2/include/GLES3/gl3.h mesa-19.2.0-rc2.mod/include/GLES3/gl3.h
+--- mesa-19.2.0-rc2/include/GLES3/gl3.h	2019-09-04 18:38:53.000000000 -0400
++++ mesa-19.2.0-rc2.mod/include/GLES3/gl3.h	2019-09-08 13:48:57.487863000 -0400
+@@ -1,5 +1,5 @@
+-#ifndef __gles2_gl3_h_
+-#define __gles2_gl3_h_ 1
++#ifndef __gl3_h_
++#define __gl3_h_ 1
+ 
+ #ifdef __cplusplus
+ extern "C" {
+diff -ur mesa-19.2.0-rc2/meson.build mesa-19.2.0-rc2.mod/meson.build
+--- mesa-19.2.0-rc2/meson.build	2019-09-04 18:38:53.000000000 -0400
++++ mesa-19.2.0-rc2.mod/meson.build	2019-09-08 13:48:57.493878000 -0400
+@@ -1299,7 +1299,7 @@
+ if (with_amd_vk or with_gallium_radeonsi or with_gallium_opencl or
+     (with_gallium_r600 and with_llvm))
+   dep_elf = dependency('libelf', required : false)
+-  if not dep_elf.found()
++  if not dep_elf.found() or host_machine.system() == 'freebsd'
+     dep_elf = cc.find_library('elf')
+   endif
+ else
+Only in mesa-19.2.0-rc2.mod/src/compiler/nir: __pycache__
+diff -ur mesa-19.2.0-rc2/src/egl/drivers/dri2/platform_x11.c mesa-19.2.0-rc2.mod/src/egl/drivers/dri2/platform_x11.c
+--- mesa-19.2.0-rc2/src/egl/drivers/dri2/platform_x11.c	2019-09-04 18:38:53.000000000 -0400
++++ mesa-19.2.0-rc2.mod/src/egl/drivers/dri2/platform_x11.c	2019-09-08 13:48:57.488194000 -0400
+@@ -1632,7 +1632,11 @@
+ 
+    if (!disp->Options.ForceSoftware) {
+ #ifdef HAVE_DRI3
++#if (defined(__FreeBSD__) || defined(__FreeBSD_kernel__)) && !defined(__DRM_NEXT__)
++      if (env_var_as_boolean("LIBGL_DRI3_ENABLE", false) && !env_var_as_boolean("LIBGL_DRI3_DISABLE", false))
++#else
+       if (!env_var_as_boolean("LIBGL_DRI3_DISABLE", false))
++#endif
+          initialized = dri2_initialize_x11_dri3(drv, disp);
+ #endif
+ 
+diff -ur mesa-19.2.0-rc2/src/glx/glxext.c mesa-19.2.0-rc2.mod/src/glx/glxext.c
+--- mesa-19.2.0-rc2/src/glx/glxext.c	2019-09-04 18:38:54.000000000 -0400
++++ mesa-19.2.0-rc2.mod/src/glx/glxext.c	2019-09-08 13:48:57.488463000 -0400
+@@ -912,7 +912,11 @@
+ #if defined(GLX_USE_DRM)
+    if (glx_direct && glx_accel) {
+ #if defined(HAVE_DRI3)
++#if (defined(__FreeBSD__) || defined(__FreeBSD_kernel__)) && !defined(__DRM_NEXT__)
++      if (env_var_as_boolean("LIBGL_DRI3_ENABLE", false) && !env_var_as_boolean("LIBGL_DRI3_DISABLE", false))
++#else
+       if (!env_var_as_boolean("LIBGL_DRI3_DISABLE", false))
++#endif
+          dpyPriv->dri3Display = dri3_create_display(dpy);
+ #endif /* HAVE_DRI3 */
+       dpyPriv->dri2Display = dri2CreateDisplay(dpy);
+diff -ur mesa-19.2.0-rc2/src/intel/compiler/brw_fs_bank_conflicts.cpp mesa-19.2.0-rc2.mod/src/intel/compiler/brw_fs_bank_conflicts.cpp
+--- mesa-19.2.0-rc2/src/intel/compiler/brw_fs_bank_conflicts.cpp	2019-09-04 18:38:54.000000000 -0400
++++ mesa-19.2.0-rc2.mod/src/intel/compiler/brw_fs_bank_conflicts.cpp	2019-09-08 13:48:57.488730000 -0400
+@@ -728,7 +728,7 @@
+                    const weight_vector_type &conflicts)
+    {
+       const unsigned m = DIV_ROUND_UP(conflicts.size, vector_width);
+-      vector_type s_p = {}, s_n = {};
++      vector_type s_p = {0}, s_n = {0};
+ 
+       for (unsigned r = 0; r < m; r++) {
+          s_p = adds(s_p, mask(bank_mask_p.v[r], conflicts.v[r]));
+diff -ur mesa-19.2.0-rc2/src/intel/tools/aub_mem.c mesa-19.2.0-rc2.mod/src/intel/tools/aub_mem.c
+--- mesa-19.2.0-rc2/src/intel/tools/aub_mem.c	2019-09-04 18:38:54.000000000 -0400
++++ mesa-19.2.0-rc2.mod/src/intel/tools/aub_mem.c	2019-09-08 13:48:57.489179000 -0400
+@@ -28,6 +28,39 @@
+ 
+ #include "aub_mem.h"
+ #include "util/anon_file.h"
++#ifndef HAVE_MEMFD_CREATE
++#include <sys/syscall.h>
++#include <fcntl.h>
++ 
++ static inline int
++ memfd_create(const char *name, unsigned int flags)
++ {
++#if defined(__linux__)
++    return syscall(SYS_memfd_create, name, flags);
++#elif defined(__FreeBSD__)
++   return shm_open(SHM_ANON, flags | O_RDWR | O_CREAT, 0600);
++#else /* DragonFly, NetBSD, OpenBSD, Solaris */
++   char template[] = "/tmp/shmfd-XXXXXX";
++#ifdef HAVE_MKOSTEMP
++   int fd = mkostemp(template, flags);
++#else
++   int fd = mkstemp(template);
++   if (flags & O_CLOEXEC) {
++     int flags = fcntl(fd, F_GETFD);
++     if (flags != -1) {
++       flags |= FD_CLOEXEC;
++       (void) fcntl(fd, F_SETFD, &flags);
++     }
++   }
++#endif /* HAVE_MKOSTEMP */
++   if (fd >= 0)
++     unlink(template);
++
++   return fd;
++#endif /* __linux__ */
++ }
++ #endif
++
+ 
+ struct bo_map {
+    struct list_head link;
+diff -ur mesa-19.2.0-rc2/src/intel/tools/aubinator_error_decode.c mesa-19.2.0-rc2.mod/src/intel/tools/aubinator_error_decode.c
+--- mesa-19.2.0-rc2/src/intel/tools/aubinator_error_decode.c	2019-09-04 18:38:54.000000000 -0400
++++ mesa-19.2.0-rc2.mod/src/intel/tools/aubinator_error_decode.c	2019-09-08 13:48:57.488973000 -0400
+@@ -22,6 +22,9 @@
+  *
+  */
+ 
++#if defined(__FreeBSD__) && __FreeBSD__ < 12
++#define _WITH_GETLINE
++#endif
+ #include <stdbool.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+diff -ur mesa-19.2.0-rc2/src/intel/tools/error2aub.c mesa-19.2.0-rc2.mod/src/intel/tools/error2aub.c
+--- mesa-19.2.0-rc2/src/intel/tools/error2aub.c	2019-09-04 18:38:54.000000000 -0400
++++ mesa-19.2.0-rc2.mod/src/intel/tools/error2aub.c	2019-09-08 13:48:57.489391000 -0400
+@@ -26,6 +26,9 @@
+ #include <getopt.h>
+ #include <inttypes.h>
+ #include <signal.h>
++#if defined(__FreeBSD__) && __FreeBSD__ < 12
++#define _WITH_GETLINE
++#endif
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+Only in mesa-19.2.0-rc2.mod/src/intel/vulkan: __pycache__
+diff -ur mesa-19.2.0-rc2/src/intel/vulkan/anv_allocator.c mesa-19.2.0-rc2.mod/src/intel/vulkan/anv_allocator.c
+--- mesa-19.2.0-rc2/src/intel/vulkan/anv_allocator.c	2019-09-04 18:38:54.000000000 -0400
++++ mesa-19.2.0-rc2.mod/src/intel/vulkan/anv_allocator.c	2019-09-08 13:48:57.489761000 -0400
+@@ -25,8 +25,17 @@
+ #include <unistd.h>
+ #include <limits.h>
+ #include <assert.h>
++#include <fcntl.h>
+ #include <sys/mman.h>
+ 
++#ifndef MAP_POPULATE
++#define MAP_POPULATE 0
++#endif
++
++#ifndef MFD_CLOEXEC
++#define MFD_CLOEXEC O_CLOEXEC
++#endif
++
+ #include "anv_private.h"
+ 
+ #include "util/hash_table.h"
+@@ -113,6 +122,15 @@
+    uint32_t gem_handle;
+ };
+ 
++#if __FreeBSD__
++#elif defined(__FreeBSD__)
++   return shm_open(SHM_ANON, flags | O_RDWR | O_CREAT, 0600);
++#else /* DragonFly, NetBSD, OpenBSD, Solaris */
++   char template[] = "/tmp/shmfd-XXXXXX";
++#endif
++
++
++
+ #define ANV_MMAP_CLEANUP_INIT ((struct anv_mmap_cleanup){0})
+ 
+ static inline uint32_t
+@@ -122,6 +140,7 @@
+    return 32 - __builtin_clz(value - 1);
+ }
+ 
++
+ static inline uint32_t
+ round_to_power_of_two(uint32_t value)
+ {
+diff -ur mesa-19.2.0-rc2/src/intel/vulkan/anv_device.c mesa-19.2.0-rc2.mod/src/intel/vulkan/anv_device.c
+--- mesa-19.2.0-rc2/src/intel/vulkan/anv_device.c	2019-09-04 18:38:54.000000000 -0400
++++ mesa-19.2.0-rc2.mod/src/intel/vulkan/anv_device.c	2019-09-08 13:48:57.490327000 -0400
+@@ -25,7 +25,9 @@
+ #include <stdbool.h>
+ #include <string.h>
+ #include <sys/mman.h>
++#ifdef __GLIBC__
+ #include <sys/sysinfo.h>
++#endif
+ #include <unistd.h>
+ #include <fcntl.h>
+ #include <xf86drm.h>
+@@ -52,6 +54,17 @@
+  */
+ #define MAX_DEBUG_MESSAGE_LENGTH    4096
+ 
++#ifndef ETIME
++#define ETIME ETIMEDOUT
++#endif
++#ifndef CLOCK_MONOTONIC_RAW
++# ifdef CLOCK_MONOTONIC_FAST
++#  define CLOCK_MONOTONIC_RAW CLOCK_MONOTONIC_FAST
++# else
++#  define CLOCK_MONOTONIC_RAW CLOCK_MONOTONIC
++# endif
++#endif
++
+ static void
+ compiler_debug_log(void *data, const char *fmt, ...)
+ {
+@@ -88,10 +101,15 @@
+ anv_compute_heap_size(int fd, uint64_t gtt_size)
+ {
+    /* Query the total ram from the system */
++#ifdef __GLIBC__
+    struct sysinfo info;
+    sysinfo(&info);
+ 
+    uint64_t total_ram = (uint64_t)info.totalram * (uint64_t)info.mem_unit;
++#else
++   uint64_t total_ram = sysconf(_SC_PHYS_PAGES) * sysconf(_SC_PAGE_SIZE);
++#endif
++
+ 
+    /* We don't want to burn too much ram with the GPU.  If the user has 4GiB
+     * or less, we use at most half.  If they have more than 4GiB, we use 3/4.
+diff -ur mesa-19.2.0-rc2/src/intel/vulkan/anv_gem.c mesa-19.2.0-rc2.mod/src/intel/vulkan/anv_gem.c
+--- mesa-19.2.0-rc2/src/intel/vulkan/anv_gem.c	2019-09-04 18:38:54.000000000 -0400
++++ mesa-19.2.0-rc2.mod/src/intel/vulkan/anv_gem.c	2019-09-08 13:48:57.490552000 -0400
+@@ -26,6 +26,9 @@
+ #include <sys/mman.h>
+ #include <string.h>
+ #include <errno.h>
++#ifndef ETIME
++#define ETIME ETIMEDOUT
++#endif
+ #include <unistd.h>
+ #include <fcntl.h>
+ 
+diff -ur mesa-19.2.0-rc2/src/intel/vulkan/anv_queue.c mesa-19.2.0-rc2.mod/src/intel/vulkan/anv_queue.c
+--- mesa-19.2.0-rc2/src/intel/vulkan/anv_queue.c	2019-09-04 18:38:54.000000000 -0400
++++ mesa-19.2.0-rc2.mod/src/intel/vulkan/anv_queue.c	2019-09-08 13:48:57.490829000 -0400
+@@ -26,6 +26,10 @@
+  */
+ 
+ #include <fcntl.h>
++#include <errno.h>
++#ifndef ETIME
++#define ETIME ETIMEDOUT
++#endif
+ #include <unistd.h>
+ 
+ #include "anv_private.h"
+Only in mesa-19.2.0-rc2.mod/src/mapi/glapi/gen: __pycache__
+diff -ur mesa-19.2.0-rc2/src/mapi/glapi/gen/gl_gentable.py mesa-19.2.0-rc2.mod/src/mapi/glapi/gen/gl_gentable.py
+--- mesa-19.2.0-rc2/src/mapi/glapi/gen/gl_gentable.py	2019-09-04 18:38:54.000000000 -0400
++++ mesa-19.2.0-rc2.mod/src/mapi/glapi/gen/gl_gentable.py	2019-09-08 13:48:57.491022000 -0400
+@@ -45,7 +45,7 @@
+ #endif
+ 
+ #if (defined(GLXEXT) && defined(HAVE_BACKTRACE)) \\
+-	|| (!defined(GLXEXT) && defined(DEBUG) && defined(HAVE_EXECINFO_H))
++	|| (!defined(GLXEXT) && defined(DEBUG) && !defined(__CYGWIN__) && !defined(__MINGW32__) && !defined(__OpenBSD__) && !defined(__NetBSD__) && !defined(__FreeBSD__) && !defined(__DragonFly__))
+ #define USE_BACKTRACE
+ #endif
+ 
+Only in mesa-19.2.0-rc2.mod/src/mapi/new: __pycache__
+diff -ur mesa-19.2.0-rc2/src/mesa/drivers/dri/i965/intel_screen.c mesa-19.2.0-rc2.mod/src/mesa/drivers/dri/i965/intel_screen.c
+--- mesa-19.2.0-rc2/src/mesa/drivers/dri/i965/intel_screen.c	2019-09-04 18:38:54.000000000 -0400
++++ mesa-19.2.0-rc2.mod/src/mesa/drivers/dri/i965/intel_screen.c	2019-09-08 13:48:57.491463000 -0400
+@@ -1900,8 +1900,8 @@
+       return false;
+    }
+ 
+-   if (!intel_get_boolean(screen, I915_PARAM_HAS_EXEC_NO_RELOC)) {
+-      fprintf(stderr, "[%s: %u] Kernel 3.9 required.\n", __func__, __LINE__);
++   if (!intel_get_boolean(screen, I915_PARAM_HAS_RELAXED_DELTA)) {
++      fprintf(stderr, "[%s: %u] Kernel 2.6.39 required.\n", __func__, __LINE__);
+       return false;
+    }
+ 
+Only in mesa-19.2.0-rc2.mod/src/mesa/main: __pycache__
+diff -ur mesa-19.2.0-rc2/src/util/build_id.c mesa-19.2.0-rc2.mod/src/util/build_id.c
+--- mesa-19.2.0-rc2/src/util/build_id.c	2019-09-04 18:38:54.000000000 -0400
++++ mesa-19.2.0-rc2.mod/src/util/build_id.c	2019-09-08 13:48:57.491651000 -0400
+@@ -38,6 +38,10 @@
+ #define ElfW(type) Elf_##type
+ #endif
+ 
++#if defined(__FreeBSD__) && __FreeBSD__ < 12
++typedef Elf_Note Elf_Nhdr;
++#endif
++
+ struct build_id_note {
+    ElfW(Nhdr) nhdr;
+ 
+diff -ur mesa-19.2.0-rc2/src/util/futex.h mesa-19.2.0-rc2.mod/src/util/futex.h
+--- mesa-19.2.0-rc2/src/util/futex.h	2019-09-04 18:38:54.000000000 -0400
++++ mesa-19.2.0-rc2.mod/src/util/futex.h	2019-09-08 13:48:57.491817000 -0400
+@@ -29,10 +29,32 @@
+ #include <limits.h>
+ #include <stdint.h>
+ #include <unistd.h>
++#if defined(__FreeBSD__)
++#include <errno.h>
++#include <sys/umtx.h>
++#else
+ #include <linux/futex.h>
+ #include <sys/syscall.h>
++#endif
+ #include <sys/time.h>
+ 
++#if defined(__FreeBSD__)
++static inline int futex_wake(uint32_t *addr, int count)
++{
++   return _umtx_op(addr, UMTX_OP_WAKE, (uint32_t)count, NULL, NULL) == -1 ? errno : 0;
++}
++
++static inline int futex_wait(uint32_t *addr, int32_t value, struct timespec *timeout)
++{
++   void *uaddr = NULL, *uaddr2 = NULL;
++   if (timeout != NULL) {
++      const struct _umtx_time tmo = { ._timeout = *timeout, ._flags = UMTX_ABSTIME, ._clockid = CLOCK_MONOTONIC };
++      uaddr = (void *)(uintptr_t)sizeof(tmo);
++      uaddr2 = (void *)&tmo;
++   }
++   return _umtx_op(addr, UMTX_OP_WAIT_UINT, (uint32_t)value, uaddr, uaddr2) == -1 ? errno : 0;
++}
++#else
+ static inline long sys_futex(void *addr1, int op, int val1, const struct timespec *timeout, void *addr2, int val3)
+ {
+    return syscall(SYS_futex, addr1, op, val1, timeout, addr2, val3);
+@@ -50,6 +72,7 @@
+    return sys_futex(addr, FUTEX_WAIT_BITSET, value, timeout, NULL,
+                     FUTEX_BITSET_MATCH_ANY);
+ }
++#endif
+ 
+ #elif defined(__FreeBSD__)
+ 
+diff -ur mesa-19.2.0-rc2/src/util/os_time.c mesa-19.2.0-rc2.mod/src/util/os_time.c
+--- mesa-19.2.0-rc2/src/util/os_time.c	2019-09-04 18:38:54.000000000 -0400
++++ mesa-19.2.0-rc2.mod/src/util/os_time.c	2019-09-08 13:48:57.491984000 -0400
+@@ -93,7 +93,7 @@
+ void
+ os_time_sleep(int64_t usecs)
+ {
+-#if DETECT_OS_LINUX
++#if defined(HAVE_CLOCK_NANOSLEEP)
+    struct timespec time;
+    time.tv_sec = usecs / 1000000;
+    time.tv_nsec = (usecs % 1000000) * 1000;
+diff -ur mesa-19.2.0-rc2/src/util/u_thread.h mesa-19.2.0-rc2.mod/src/util/u_thread.h
+--- mesa-19.2.0-rc2/src/util/u_thread.h	2019-09-04 18:38:54.000000000 -0400
++++ mesa-19.2.0-rc2.mod/src/util/u_thread.h	2019-09-08 13:48:57.492170000 -0400
+@@ -36,14 +36,17 @@
+ #ifdef HAVE_PTHREAD
+ #include <signal.h>
+ #ifdef PTHREAD_SETAFFINITY_IN_NP_HEADER
++#if defined(__DragonFly__) || defined(__FreeBSD__) || defined(__OpenBSD__)
+ #include <pthread_np.h>
++# if !defined(__DragonFly__)
++#  define cpu_set_t cpuset_t
++#endif
++#undef ALIGN /* Avoid conflict on FreeBSD in main/macros.h */
+ #endif
+ #endif
+-
+-#ifdef __FreeBSD__
+-#define cpu_set_t cpuset_t
+ #endif
+ 
++
+ static inline thrd_t u_thread_create(int (*routine)(void *), void *param)
+ {
+    thrd_t thread;
+@@ -149,7 +152,7 @@
+ static inline int64_t
+ u_thread_get_time_nano(thrd_t thread)
+ {
+-#if defined(__linux__) && defined(HAVE_PTHREAD)
++#if defined(HAVE_PTHREAD)
+    struct timespec ts;
+    clockid_t cid;
+ 

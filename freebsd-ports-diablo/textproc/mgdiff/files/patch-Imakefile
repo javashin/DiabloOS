@@ -1,0 +1,11 @@
+--- Imakefile.orig	2019-09-28 11:43:48 UTC
++++ Imakefile
+@@ -8,7 +8,7 @@ XMLIB = -lXm
+ XCOMM
+ XCOMM for Dell SVR4
+ XCOMM
+-EXTRA_LIBRARIES = -lc -lucb
++EXTRA_LIBRARIES = -lgnuregex
+ 
+ SRCS = mgdiff.c rundiff.c misc.c files.c spawn.c manual.c modal.c legend.c
+ OBJS = mgdiff.o rundiff.o misc.o files.o spawn.o manual.o modal.o legend.o

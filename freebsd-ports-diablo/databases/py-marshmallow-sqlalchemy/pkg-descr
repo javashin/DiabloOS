@@ -1,0 +1,3 @@
+SQLAlchemy integration with the marshmallow (de)serialization library.
+
+WWW: https://github.com/marshmallow-code/marshmallow-sqlalchemy

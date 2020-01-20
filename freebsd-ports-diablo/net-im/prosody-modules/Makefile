@@ -1,0 +1,32 @@
+# $FreeBSD$
+
+PORTNAME=	prosody-modules
+PORTVERSION=	20191017
+CATEGORIES=	net-im
+MASTER_SITES=	https://hg.prosody.im/${PORTNAME}/archive/
+DISTNAME=	a6db99c1420a
+DIST_SUBDIR=	${PORTNAME}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Prosody Community modules repository snapshot
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+RUN_DEPENDS=	prosodyctl:net-im/prosody
+
+NO_BUILD=	yes
+SUB_FILES=	pkg-message
+SUB_LIST=	INSTALLPATH=${INSTALLPATH}
+PLIST_SUB=	INSTALLPATH=${INSTALLPATH}
+WRKSRC=		${WRKDIR}/Community-Modules-${DISTNAME}
+INSTALLPATH=	${PREFIX}/lib/${PORTNAME}
+
+OPTIONS_DEFINE=	DOCS
+
+do-install:
+	${MKDIR} ${STAGEDIR}${INSTALLPATH} ${STAGEDIR}${DOCSDIR}
+	cd ${WRKSRC} && ${INSTALL_DATA} mod_*/*.lua ${STAGEDIR}${INSTALLPATH}
+	cd ${WRKSRC} && ${INSTALL_DATA} README ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

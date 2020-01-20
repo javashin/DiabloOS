@@ -1,0 +1,7 @@
+[
+{ type: install
+  message: <<EOM
+Please change the password in %%PREFIX%%/etc/mpd.conf
+EOM
+}
+]

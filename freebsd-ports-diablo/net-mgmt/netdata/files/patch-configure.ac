@@ -1,0 +1,23 @@
+--- configure.ac.orig	2018-11-02 14:04:52 UTC
++++ configure.ac
+@@ -497,15 +497,15 @@ AC_MSG_RESULT([${enable_lto}])
+ 
+ AC_DEFINE_UNQUOTED([NETDATA_USER], ["${with_user}"], [use this user to drop privileged])
+ 
+-varlibdir="${localstatedir}/lib/netdata"
+-registrydir="${localstatedir}/lib/netdata/registry"
+-cachedir="${localstatedir}/cache/netdata"
++varlibdir="%%NETDATA_PERST%%"
++registrydir="%%NETDATA_PERST%%/registry"
++cachedir="%%NETDATA_CACHE%%"
+ chartsdir="${libexecdir}/netdata/charts.d"
+ nodedir="${libexecdir}/netdata/node.d"
+ pythondir="${libexecdir}/netdata/python.d"
+-configdir="${sysconfdir}/netdata"
++configdir="%%ETCDIR%%"
+ libconfigdir="${libdir}/netdata/conf.d"
+-logdir="${localstatedir}/log/netdata"
++logdir="%%NETDATA_LOG%%"
+ pluginsdir="${libexecdir}/netdata/plugins.d"
+ 
+ AC_SUBST([build_target])

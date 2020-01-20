@@ -1,0 +1,33 @@
+# Created by: Dmitry Sivachenko <mitya@yandex-team.ru>
+# $FreeBSD$
+
+PORTNAME=	pycares
+PORTVERSION=	3.1.1
+CATEGORIES=	dns python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	demon@FreeBSD.org
+COMMENT=	Python interface to c-ares
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cffi>=1.5.0:devel/py-cffi@${PY_FLAVOR}
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cffi>=1.5.0:devel/py-cffi@${PY_FLAVOR}
+
+USES=		python:3.5+
+USE_PYTHON=	distutils autoplist
+
+OPTIONS_DEFINE=	IDNA
+IDNA_DESC=	IDNA support
+IDNA_BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}idna>0:dns/py-idna@${PY_FLAVOR}
+IDNA_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}idna>0:dns/py-idna@${PY_FLAVOR}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/${PORTNAME}/_cares.so
+
+do-test:
+	cd ${WRKSRC} && ${SETENV} PYTHONPATH=${STAGEDIR}${PYTHONPREFIX_SITELIBDIR} ${PYTHON_CMD} tests/tests.py
+
+.include <bsd.port.mk>

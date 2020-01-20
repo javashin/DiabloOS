@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# $FreeBSD$
+
+cd %%DATADIR%%
+"%%LOCALBASE%%/bin/java" -cp "%%DATADIR%%" RunGui

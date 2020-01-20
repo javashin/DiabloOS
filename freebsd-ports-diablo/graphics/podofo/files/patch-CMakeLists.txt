@@ -1,0 +1,79 @@
+--- CMakeLists.txt.orig	2018-07-08 10:33:27 UTC
++++ CMakeLists.txt
+@@ -339,6 +339,7 @@ ELSE(LIBIDN_FOUND)
+ 	MESSAGE("Libidn not found. AES-256 Encryption support will be disabled")
+ ENDIF(LIBIDN_FOUND)
+ 
++IF(WANT_LIBJPEG)
+ FIND_PACKAGE(LIBJPEG)
+ 
+ IF(LIBJPEG_FOUND)
+@@ -348,7 +349,9 @@ IF(LIBJPEG_FOUND)
+ ELSE(LIBJPEG_FOUND)
+   MESSAGE("Libjpeg not found. JPEG support will be disabled")
+ ENDIF(LIBJPEG_FOUND)
++ENDIF(WANT_LIBJPEG)
+ 
++IF(WANT_TIFF)
+ FIND_PACKAGE(TIFF)
+ 
+ IF(TIFF_FOUND)
+@@ -358,7 +361,9 @@ IF(TIFF_FOUND)
+ ELSE(TIFF_FOUND)
+   MESSAGE("Libtiff not found. TIFF support will be disabled")
+ ENDIF(TIFF_FOUND)
++ENDIF(WANT_TIFF)
+ 
++IF(WANT_PNG)
+ FIND_PACKAGE(PNG)
+ 
+ IF(PNG_FOUND)
+@@ -369,6 +374,7 @@ ELSE(PNG_FOUND)
+   MESSAGE("LibPng not found. PNG support will be disabled")
+   SET(PNG_LIBRARIES "")
+ ENDIF(PNG_FOUND)
++ENDIF(WANT_PNG)
+ 
+ FIND_PACKAGE(UNISTRING)
+ 
+@@ -384,6 +390,7 @@ ENDIF(UNISTRING_FOUND)
+ 
+ IF(NOT PODOFO_BUILD_LIB_ONLY)
+ 
++IF(WANT_CppUnit)
+ FIND_PACKAGE(CppUnit)
+ 
+ IF(CppUnit_FOUND)
+@@ -393,6 +400,7 @@ IF(CppUnit_FOUND)
+ ELSE(CppUnit_FOUND)
+   MESSAGE("Cppunit not found. No unit tests will be built.")
+ ENDIF(CppUnit_FOUND)
++ENDIF(WANT_CppUnit)
+ 
+ ENDIF(NOT PODOFO_BUILD_LIB_ONLY)
+ 
+@@ -433,6 +441,7 @@ ELSE(WANT_FONTCONFIG)
+ ENDIF(WANT_FONTCONFIG)
+ 
+ IF(NOT PODOFO_BUILD_LIB_ONLY)
++IF(WANT_LUA)
+ FIND_PACKAGE(LUA)
+ IF(LUA_FOUND)
+ 	# If we have lua, we can build podofoimpose.
+@@ -444,6 +453,7 @@ IF(LUA_FOUND)
+ ELSE(LUA_FOUND)
+ 	MESSAGE("Lua not found - PoDoFoImpose and PoDoFoColor will be built without Lua support")
+ ENDIF(LUA_FOUND)
++ENDIF(WANT_LUA)
+ ENDIF(NOT PODOFO_BUILD_LIB_ONLY)
+ 
+ 
+@@ -530,7 +540,7 @@ ENDIF(WIN32 OR PODOFO_BUILD_STATIC)
+ #
+ # Setup directories we will need
+ #
+-SET(MANDIR "share/man/")
++SET(MANDIR "man/")
+ 
+ # Create the config file. It'll be appended to as the subdirs run though
+ # then dependency information will be written to it at the end of the

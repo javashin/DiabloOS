@@ -1,0 +1,19 @@
+# $FreeBSD$
+
+# netdata configuration
+#
+# This file is a small subset of the full configuration which can be downloaded
+# from http://localhost:19999/netdata.conf
+
+# global netdata configuration
+
+[global]
+	history = 86400
+
+[plugins]
+	freebsd = yes
+
+[web]
+	respect do not track policy = yes
+	disconnect idle clients after seconds = 3600
+	bind to = 127.0.0.1

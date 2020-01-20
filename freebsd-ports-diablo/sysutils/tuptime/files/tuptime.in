@@ -1,0 +1,44 @@
+# $FreeBSD$
+#!/bin/sh
+#
+# PROVIDE: tuptime
+# REQUIRE: DAEMON
+# KEYWORD: nojail shutdown
+
+. /etc/rc.subr
+
+name="tuptime"
+rcvar=tuptime_enable
+tuptime_user="tuptime"
+
+start_cmd="${name}_start"
+stop_cmd="${name}_stop"
+
+export PATH=$PATH:/usr/local/bin/
+
+tuptime_start()
+{
+	echo "Starting $name."
+	command_args="-x"
+
+	if /usr/sbin/pw usershow "${tuptime_user}" >/dev/null 2>&1; then
+		su -m ${tuptime_user} -c "$name $command_args"
+	else
+		$name $command_args
+	fi
+}
+
+tuptime_stop()
+{
+	echo "Stopping $name."
+	command_args="-xg"
+
+	if /usr/sbin/pw usershow "${tuptime_user}" >/dev/null 2>&1; then
+		su -m ${tuptime_user} -c "$name $command_args"
+	else
+		$name $command_args
+	fi
+}
+
+load_rc_config $name
+run_rc_command "$1"

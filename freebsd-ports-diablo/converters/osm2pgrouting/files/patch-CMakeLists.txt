@@ -1,0 +1,23 @@
+--- CMakeLists.txt.orig	2019-01-11 07:48:53 UTC
++++ CMakeLists.txt
+@@ -8,7 +8,7 @@ if ( ${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR} 
+ endif()
+ 
+ LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+-SET(SHARE_DIR "${CMAKE_INSTALL_PREFIX}/share/osm2pgrouting")
++SET(SHARE_DIR "${CMAKE_INSTALL_PREFIX}/etc/osm2pgrouting")
+ 
+ FIND_PACKAGE(PostgreSQL REQUIRED)
+ find_package(LibPQXX REQUIRED)
+@@ -114,8 +114,10 @@ if(WIN32)
+ endif()
+ 
+ INSTALL(FILES
+-    "${CMAKE_SOURCE_DIR}/COPYING"
+     "${CMAKE_SOURCE_DIR}/Readme.md"
++    DESTINATION "${CMAKE_INSTALL_PREFIX}/share/doc/osm2pgrouting")
++
++INSTALL(FILES
+     "${CMAKE_SOURCE_DIR}/mapconfig.xml"
+     "${CMAKE_SOURCE_DIR}/mapconfig_for_cars.xml"
+     "${CMAKE_SOURCE_DIR}/mapconfig_for_bicycles.xml"

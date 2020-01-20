@@ -1,0 +1,22 @@
+--- core/CMakeLists.txt.orig	2019-07-31 16:12:57 UTC
++++ core/CMakeLists.txt
+@@ -8,6 +8,7 @@
+ 
+ project(digikam)
+ 
++cmake_policy(SET CMP0063 OLD) # Suppress visibility warnings
+ message(STATUS "----------------------------------------------------------------------------------")
+ message(STATUS "Starting CMake configuration for: ${PROJECT_NAME}")
+ 
+@@ -401,6 +402,11 @@ endif()
+ 
+ find_package(Doxygen)
+ find_package(Lqr-1)
++if(LQR-1_FOUND)
++    include_directories(${LQR-1_INCLUDE_DIRS})
++    set(liblqr_LIBS ${LQR-1_LIBRARIES})
++    link_directories(${LQR-1_LIBDIR})
++endif()
+ 
+ # -- libgphoto2 rules ----------------------------------------------------------
+ 

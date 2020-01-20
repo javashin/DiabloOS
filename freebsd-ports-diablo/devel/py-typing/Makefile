@@ -1,0 +1,20 @@
+# $FreeBSD$
+
+PORTNAME=	typing
+PORTVERSION=	3.7.4
+CATEGORIES=	devel python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	rm@FreeBSD.org
+COMMENT=	Type Hints for Python
+
+LICENSE=	PSFL
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+USES=		python:-3.4
+USE_PYTHON=	autoplist distutils
+
+NO_ARCH=	yes
+
+.include <bsd.port.mk>

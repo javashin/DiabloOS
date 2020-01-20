@@ -1,0 +1,51 @@
+# Created by: Sean Chittenden <seanc@FreeBSD.org>
+# $FreeBSD$
+
+PORTNAME=	bmf
+PORTVERSION=	0.84
+PORTREVISION=	1
+CATEGORIES=	mail
+MASTER_SITES=	SF
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Fst Bayesian Mail Filter compatible with maildrop and procmail
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+HAS_CONFIGURE=	yes
+ALL_TARGET=	apps
+BINARY_ALIAS=	gcc=${CC} g++=${CXX}
+CONFIGURE_ENV=	CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}"
+
+OPTIONS_DEFINE=	BDB DEBUG DOCS MANPAGES MYSQL
+OPTIONS_DEFAULT=BDB MANPAGES
+OPTIONS_SUB=	yes
+
+BDB_USES=		bdb
+BDB_CONFIGURE_WITH=	libdb
+BDB_CFLAGS=		-I${BDB_INCLUDE_DIR}
+BDB_LDFLAGS=		-L${BDB_LIB_DIR}
+BDB_CONFIGURE_ENV=	DB_LIBNAME=-l${BDB_LIB_NAME}
+
+DEBUG_CONFIGURE_ON=	--debug=yes
+
+MANPAGES_ALL_TARGET=	docs
+MANPAGES_BUILD_DEPENDS=	xmlto:textproc/xmlto
+
+MYSQL_CONFIGURE_WITH=	mysql
+MYSQL_CFLAGS=		-I${LOCALBASE}/include/mysql
+MYSQL_LDFLAGS=		-L${LOCALBASE}/lib/mysql
+MYSQL_USES=		mysql
+
+do-install:
+	(cd ${WRKSRC} ; ${INSTALL_PROGRAM} bmf bmfconv ${STAGEDIR}${PREFIX}/bin)
+
+do-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/README ${STAGEDIR}${DOCSDIR}
+
+do-install-MANPAGES-on:
+	cd ${WRKSRC} && ${INSTALL_MAN} bmf.1 bmfconv.1 ${STAGEDIR}${PREFIX}/man/man1
+
+.include <bsd.port.mk>

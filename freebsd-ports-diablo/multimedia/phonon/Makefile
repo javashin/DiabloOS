@@ -1,0 +1,37 @@
+# Created by: Martin Wilke <miwi@FreeBSD.org>
+# $FreeBSD$
+
+PORTNAME=	phonon
+DISTVERSION=	4.11.1
+CATEGORIES=	multimedia kde
+MASTER_SITES=	KDE/stable/${PORTNAME}/${DISTVERSION}
+DIST_SUBDIR=	KDE/phonon
+PKGNAMESUFFIX=	-qt5
+
+MAINTAINER=	kde@FreeBSD.org
+COMMENT=	KDE multimedia framework
+
+LICENSE=	LGPL21+
+LICENSE_FILE=	${WRKSRC}/COPYING.LIB
+
+USES=		cmake compiler:c++11-lang kde:5 pathfix qt:5 tar:xz
+CMAKE_ON=	PHONON_INSTALL_QT_EXTENSIONS_INTO_SYSTEM_QT \
+		PHONON_NO_PLATFORMPLUGIN \
+		PHONON_BUILD_PHONON4QT5
+CMAKE_OFF=	PHONON_BUILD_DESIGNER_PLUGIN \
+		PHONON_BUILD_DECLARATIVE_PLUGIN
+USE_LDCONFIG=	yes
+USE_KDE=	ecm
+USE_QT=		core dbus gui opengl widgets \
+		buildtools_build qmake_build
+
+PLIST_SUB=	SHLIB_VER=${DISTVERSION}
+
+OPTIONS_DEFINE=	PULSEAUDIO
+
+PULSEAUDIO_LIB_DEPENDS=	libpulse.so:audio/pulseaudio
+PULSEAUDIO_USES=	gnome
+PULSEAUDIO_USE=		GNOME=glib20
+PULSEAUDIO_CMAKE_BOOL=	WITH_PulseAudio
+
+.include <bsd.port.mk>

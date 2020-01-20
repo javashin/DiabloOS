@@ -1,0 +1,7 @@
+The FreeBSD Services Control software provides service
+monitoring, restarting, and event logging for FreeBSD
+servers.  The core functionality is a daemon (fscd)
+which is interfaced with using fscadm.  See manual pages
+for more information.
+
+WWW: https://github.com/bsdtrhodes/freebsd-fscd/

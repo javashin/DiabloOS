@@ -1,0 +1,40 @@
+# Created by: Hye-Shik Chang <perky@FreeBSD.org>
+# $FreeBSD$
+
+PORTNAME=	eyed3
+PORTVERSION=	0.8.11
+CATEGORIES=	audio python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DISTNAME=	eyeD3-${PORTVERSION}
+
+MAINTAINER=	rm@FreeBSD.org
+COMMENT=	Python module for processing ID3 tags
+
+LICENSE=	GPLv3
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+NO_ARCH=	yes
+USES=		python
+USE_PYTHON=	autoplist distutils
+
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}python-magic>0:devel/py-python-magic@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}six>0:devel/py-six@${PY_FLAVOR} \
+		${PY_PATHLIB}
+
+DOCSDIR=	${PREFIX}/share/doc/${PKGNAMEPREFIX}${PORTNAME}
+EXAMPLESDIR=	${PREFIX}/share/examples/${PKGNAMEPREFIX}${PORTNAME}
+PORTDOCS=	AUTHORS.rst CONTRIBUTING.rst HISTORY.rst README.rst
+PORTEXAMPLES=	*
+
+OPTIONS_DEFINE=	DOCS EXAMPLES
+
+post-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${PORTDOCS:S|^|${WRKSRC}/|} ${STAGEDIR}${DOCSDIR}
+
+post-install-EXAMPLES-on:
+	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+	(cd ${WRKSRC}/examples && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR})
+
+.include <bsd.port.mk>

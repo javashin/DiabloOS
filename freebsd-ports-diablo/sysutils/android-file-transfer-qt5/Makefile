@@ -1,0 +1,11 @@
+# $FreeBSD$
+
+PORTREVISION=	0
+PKGNAMESUFFIX=	-qt5
+
+MASTERDIR=	${.CURDIR}/../android-file-transfer
+
+OPTIONS_SLAVE=	QT5
+OPTIONS_EXCLUDE=CLI FUSE
+
+.include "${MASTERDIR}/Makefile"

@@ -1,0 +1,62 @@
+# $FreeBSD$
+
+PORTNAME=	g2o
+DISTVERSION=	20170730_git-239
+DISTVERSIONSUFFIX=	-ge7b5b7a
+CATEGORIES=	math
+
+MAINTAINER=	yuri@FreeBSD.org
+COMMENT=	General framework for graph optimization
+
+LICENSE=	LGPL3 GPLv3
+LICENSE_COMB=	dual
+
+LIB_DEPENDS=	libcxsparse.so:math/suitesparse \
+		libQGLViewer-qt5.so:graphics/libQGLViewer \
+		libmetis.so:math/metis \
+		libopenblas.so:math/openblas
+
+USES=		cmake compiler:c++11-lang gl eigen:3 blaslapack:netlib qt:5
+USE_GITHUB=	yes
+GH_ACCOUNT=	RainerKuemmerle
+USE_GL=		gl glu
+USE_QT=		core gui opengl xml widgets buildtools_build qmake_build
+USE_LDCONFIG=	yes
+
+CMAKE_OFF=	DO_SSE_AUTODETECT
+
+OPTIONS_DEFINE=			FAST_MATH
+OPTIONS_SINGLE=			SIMD_${ARCH:tu}
+OPTIONS_SINGLE_SIMD_AMD64=	NOSSE SSE2 SSE3 SSE41 SSE42 SSE4A
+OPTIONS_SINGLE_SIMD_I386=	${OPTIONS_SINGLE_SIMD_AMD64}
+OPTIONS_DEFAULT_amd64=		SSE2
+OPTIONS_DEFAULT_i386=		SSE2
+
+SIMD_AMD64_DESC=	Use SSE SIMD optimizations
+SIMD_I386_DESC=		${SIMD_AMD64_DESC}
+FAST_MATH_DESC=		Enable fast math operations
+NOSSE_DESC=		Do not use SIMD optimization
+SSE2_DESC=		SSE2 optimization
+SSE3_DESC=		SSE3 optimization
+SSE41_DESC=		SSE41 optimization
+SSE42_DESC=		SSE42 optimization
+SSE4A_DESC=		SSE4a optimization
+
+FAST_MATH_CMAKE_BOOL=	G2O_FAST_MATH
+NOSSE_CMAKE_ON=		-DDISABLE_SSE2:BOOL=ON -DDISABLE_SSE3:BOOL=ON -DDISABLE_SSE4_1:BOOL=ON -DDISABLE_SSE4_2:BOOL=ON -DDISABLE_SSE4_A:BOOL=ON
+SSE2_CMAKE_ON=		-DDISABLE_SSE3:BOOL=ON -DDISABLE_SSE4_1:BOOL=ON -DDISABLE_SSE4_2:BOOL=ON -DDISABLE_SSE4_A:BOOL=ON
+SSE3_CMAKE_ON=		-DDISABLE_SSE4_1:BOOL=ON -DDISABLE_SSE4_2:BOOL=ON -DDISABLE_SSE4_A:BOOL=ON
+SSE41_CMAKE_ON=		-DDISABLE_SSE4_2:BOOL=ON -DDISABLE_SSE4_A:BOOL=ON
+SSE42_CMAKE_ON=		-DDISABLE_SSE4_A:BOOL=ON
+
+.include <bsd.port.options.mk>
+
+.if ${ARCH} != amd64 && ${ARCH} != i386
+CMAKE_ARGS+=	-DDISABLE_SSE2:BOOL=ON -DDISABLE_SSE3:BOOL=ON -DDISABLE_SSE4_1:BOOL=ON -DDISABLE_SSE4_2:BOOL=ON -DDISABLE_SSE4_A:BOOL=ON
+.endif
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|/usr/include|${LOCALBASE}/include|' \
+		${WRKSRC}/cmake_modules/*.cmake
+
+.include <bsd.port.mk>

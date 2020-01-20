@@ -1,0 +1,556 @@
+@comment env LC_ALL=C sort -f
+bin/rawtherapee
+bin/rawtherapee-cli
+man/man1/rawtherapee.1.gz
+share/applications/rawtherapee.desktop
+share/icons/hicolor/128x128/apps/rawtherapee.png
+share/icons/hicolor/16x16/apps/rawtherapee.png
+share/icons/hicolor/24x24/apps/rawtherapee.png
+share/icons/hicolor/256x256/apps/rawtherapee.png
+share/icons/hicolor/48x48/apps/rawtherapee.png
+share/metainfo/com.rawtherapee.RawTherapee.appdata.xml
+%%PORTDOCS%%%%DOCSDIR%%/AboutThisBuild.txt
+%%PORTDOCS%%%%DOCSDIR%%/AUTHORS.txt
+%%PORTDOCS%%%%DOCSDIR%%/LICENSE.txt
+%%PORTDOCS%%%%DOCSDIR%%/RELEASE_NOTES.txt
+%%DATADIR%%/camconst.json
+%%DATADIR%%/dcpprofiles/camera_model_aliases.json
+%%DATADIR%%/dcpprofiles/Canon EOS 100D.dcp
+%%DATADIR%%/dcpprofiles/Canon EOS 1300D.dcp
+%%DATADIR%%/dcpprofiles/Canon EOS 20D.dcp
+%%DATADIR%%/dcpprofiles/Canon EOS 400D.dcp
+%%DATADIR%%/dcpprofiles/Canon EOS 40D.dcp
+%%DATADIR%%/dcpprofiles/Canon EOS 450D.dcp
+%%DATADIR%%/dcpprofiles/Canon EOS 50D.dcp
+%%DATADIR%%/dcpprofiles/Canon EOS 550D.dcp
+%%DATADIR%%/dcpprofiles/Canon EOS 5D Mark III.dcp
+%%DATADIR%%/dcpprofiles/Canon EOS 5D.dcp
+%%DATADIR%%/dcpprofiles/Canon EOS 600D.dcp
+%%DATADIR%%/dcpprofiles/Canon EOS 60D.dcp
+%%DATADIR%%/dcpprofiles/Canon EOS 650D.dcp
+%%DATADIR%%/dcpprofiles/Canon EOS 6D Mark II.dcp
+%%DATADIR%%/dcpprofiles/Canon EOS 6D.dcp
+%%DATADIR%%/dcpprofiles/Canon EOS 7D Mark II.dcp
+%%DATADIR%%/dcpprofiles/Canon EOS 7D.dcp
+%%DATADIR%%/dcpprofiles/Canon EOS D60.dcp
+%%DATADIR%%/dcpprofiles/Canon EOS-1D Mark III.dcp
+%%DATADIR%%/dcpprofiles/Canon PowerShot G10.dcp
+%%DATADIR%%/dcpprofiles/Canon PowerShot G12.dcp
+%%DATADIR%%/dcpprofiles/Canon PowerShot G7 X.dcp
+%%DATADIR%%/dcpprofiles/Canon PowerShot S110.dcp
+%%DATADIR%%/dcpprofiles/FUJIFILM FinePix F600EXR.dcp
+%%DATADIR%%/dcpprofiles/Fujifilm FinePix S9500.dcp
+%%DATADIR%%/dcpprofiles/FUJIFILM GFX 50R.dcp
+%%DATADIR%%/dcpprofiles/Fujifilm X-E1.dcp
+%%DATADIR%%/dcpprofiles/Fujifilm X-E2.dcp
+%%DATADIR%%/dcpprofiles/FUJIFILM X-Pro2.dcp
+%%DATADIR%%/dcpprofiles/FUJIFILM X-S1.dcp
+%%DATADIR%%/dcpprofiles/FUJIFILM X-T1.dcp
+%%DATADIR%%/dcpprofiles/FUJIFILM X-T20.dcp
+%%DATADIR%%/dcpprofiles/FUJIFILM X100S.dcp
+%%DATADIR%%/dcpprofiles/FUJIFILM X100T.dcp
+%%DATADIR%%/dcpprofiles/Leaf Aptus 75.dcp
+%%DATADIR%%/dcpprofiles/LG Mobile LG-H815.dcp
+%%DATADIR%%/dcpprofiles/MINOLTA DYNAX 7D.dcp
+%%DATADIR%%/dcpprofiles/NIKON COOLPIX P7800.dcp
+%%DATADIR%%/dcpprofiles/Nikon D200.dcp
+%%DATADIR%%/dcpprofiles/NIKON D300.dcp
+%%DATADIR%%/dcpprofiles/Nikon D3000.dcp
+%%DATADIR%%/dcpprofiles/Nikon D3100.dcp
+%%DATADIR%%/dcpprofiles/Nikon D3S.dcp
+%%DATADIR%%/dcpprofiles/NIKON D50.dcp
+%%DATADIR%%/dcpprofiles/NIKON D5000.dcp
+%%DATADIR%%/dcpprofiles/Nikon D5100.dcp
+%%DATADIR%%/dcpprofiles/NIKON D5600.dcp
+%%DATADIR%%/dcpprofiles/NIKON D600.dcp
+%%DATADIR%%/dcpprofiles/NIKON D700.dcp
+%%DATADIR%%/dcpprofiles/Nikon D7000.dcp
+%%DATADIR%%/dcpprofiles/NIKON D70s.dcp
+%%DATADIR%%/dcpprofiles/NIKON D7200.dcp
+%%DATADIR%%/dcpprofiles/NIKON D750.dcp
+%%DATADIR%%/dcpprofiles/NIKON D80.dcp
+%%DATADIR%%/dcpprofiles/NIKON D800E.dcp
+%%DATADIR%%/dcpprofiles/NIKON D810.dcp
+%%DATADIR%%/dcpprofiles/Olympus E-1.dcp
+%%DATADIR%%/dcpprofiles/OLYMPUS E-510.dcp
+%%DATADIR%%/dcpprofiles/Olympus E-520.dcp
+%%DATADIR%%/dcpprofiles/OLYMPUS E-M10.dcp
+%%DATADIR%%/dcpprofiles/OLYMPUS E-M1MarkII.dcp
+%%DATADIR%%/dcpprofiles/Olympus E-M5.dcp
+%%DATADIR%%/dcpprofiles/Olympus E-P2.dcp
+%%DATADIR%%/dcpprofiles/Olympus XZ-1.dcp
+%%DATADIR%%/dcpprofiles/Panasonic DC-G9.dcp
+%%DATADIR%%/dcpprofiles/Panasonic DC-GX9.dcp
+%%DATADIR%%/dcpprofiles/Panasonic DC-S1.dcp
+%%DATADIR%%/dcpprofiles/Panasonic DC-TZ91.dcp
+%%DATADIR%%/dcpprofiles/Panasonic DMC-FZ1000.dcp
+%%DATADIR%%/dcpprofiles/Panasonic DMC-FZ150.dcp
+%%DATADIR%%/dcpprofiles/Panasonic DMC-FZ35.dcp
+%%DATADIR%%/dcpprofiles/Panasonic DMC-FZ38.dcp
+%%DATADIR%%/dcpprofiles/Panasonic DMC-G1.dcp
+%%DATADIR%%/dcpprofiles/Panasonic DMC-G3.dcp
+%%DATADIR%%/dcpprofiles/Panasonic DMC-G5.dcp
+%%DATADIR%%/dcpprofiles/Panasonic DMC-GH1.dcp
+%%DATADIR%%/dcpprofiles/Panasonic DMC-GH2.dcp
+%%DATADIR%%/dcpprofiles/Panasonic DMC-GX85.dcp
+%%DATADIR%%/dcpprofiles/PENTAX K-5 II.dcp
+%%DATADIR%%/dcpprofiles/PENTAX K-5.dcp
+%%DATADIR%%/dcpprofiles/Pentax K-r.dcp
+%%DATADIR%%/dcpprofiles/PENTAX K10D.dcp
+%%DATADIR%%/dcpprofiles/Pentax K200D.dcp
+%%DATADIR%%/dcpprofiles/RICOH PENTAX K-1.dcp
+%%DATADIR%%/dcpprofiles/RICOH PENTAX K-3.dcp
+%%DATADIR%%/dcpprofiles/SONY DSLR-A580.dcp
+%%DATADIR%%/dcpprofiles/Sony DSLR-A700.dcp
+%%DATADIR%%/dcpprofiles/Sony DSLR-A900.dcp
+%%DATADIR%%/dcpprofiles/SONY ILCE-6000.dcp
+%%DATADIR%%/dcpprofiles/SONY ILCE-7M2.dcp
+%%DATADIR%%/dcpprofiles/SONY ILCE-7M3.dcp
+%%DATADIR%%/dcpprofiles/SONY ILCE-7RM3.dcp
+%%DATADIR%%/dcpprofiles/Sony NEX-5N.dcp
+%%DATADIR%%/dcpprofiles/Sony SLT-A55V.dcp
+%%DATADIR%%/dcpprofiles/SONY SLT-A99V.dcp
+%%DATADIR%%/dcpprofiles/YI TECHNOLOGY M1.dcp
+%%DATADIR%%/iccprofiles/input/Canon EOS 20D.icc
+%%DATADIR%%/iccprofiles/input/Canon EOS 40D.icc
+%%DATADIR%%/iccprofiles/input/Canon EOS 450D.icc
+%%DATADIR%%/iccprofiles/input/Canon EOS 550D.icc
+%%DATADIR%%/iccprofiles/input/Canon EOS 5D.icc
+%%DATADIR%%/iccprofiles/input/Canon EOS-1D Mark III.icc
+%%DATADIR%%/iccprofiles/input/Canon PowerShot G10.icc
+%%DATADIR%%/iccprofiles/input/Canon PowerShot G12.icc
+%%DATADIR%%/iccprofiles/input/Nikon D200.icc
+%%DATADIR%%/iccprofiles/input/Nikon D3000.icc
+%%DATADIR%%/iccprofiles/input/Nikon D3100.icc
+%%DATADIR%%/iccprofiles/input/Nikon D3S.icc
+%%DATADIR%%/iccprofiles/input/Nikon D700.icc
+%%DATADIR%%/iccprofiles/input/Nikon D7000.icc
+%%DATADIR%%/iccprofiles/input/Olympus E-P2.icc
+%%DATADIR%%/iccprofiles/input/Panasonic DMC-FZ150.icc
+%%DATADIR%%/iccprofiles/input/Panasonic DMC-FZ35.icc
+%%DATADIR%%/iccprofiles/input/Panasonic DMC-FZ38.icc
+%%DATADIR%%/iccprofiles/input/Panasonic DMC-G1.icc
+%%DATADIR%%/iccprofiles/input/Panasonic DMC-G3.icc
+%%DATADIR%%/iccprofiles/input/Panasonic DMC-GH1.icc
+%%DATADIR%%/iccprofiles/input/Panasonic DMC-GH2.icc
+%%DATADIR%%/iccprofiles/input/Pentax K200D.icc
+%%DATADIR%%/iccprofiles/input/sd14-bl15-crop-matrix-gamma-wp10.icm
+%%DATADIR%%/iccprofiles/input/sd14-bl15-crop-matrix-gamma-wp11.icm
+%%DATADIR%%/iccprofiles/input/sd14-bl15-crop-matrix-gamma-wp12.icm
+%%DATADIR%%/iccprofiles/input/sd1_merrill_cloudy8140-CROP-WP10.icm
+%%DATADIR%%/iccprofiles/input/sd1_merrill_cloudy8140-CROP-WP11.icm
+%%DATADIR%%/iccprofiles/input/sd1_merrill_sunny8161-crop-wp10.icm
+%%DATADIR%%/iccprofiles/input/sd1_merrill_sunny8161-crop-wp11.icm
+%%DATADIR%%/iccprofiles/input/sd1_merrill_tungsten8130-CROP-WP10.icm
+%%DATADIR%%/iccprofiles/input/sd1_merrill_tungsten8130-CROP-WP11.icm
+%%DATADIR%%/iccprofiles/input/Sony DSLR-A700.icc
+%%DATADIR%%/iccprofiles/input/Sony DSLR-A900.icc
+%%DATADIR%%/iccprofiles/input/Sony SLT-A55V.icc
+%%DATADIR%%/iccprofiles/output/DCI-P3 D65.icc
+%%DATADIR%%/iccprofiles/output/DCI-P3 Theater.icc
+%%DATADIR%%/iccprofiles/output/RTv2_ACES-AP0.icc
+%%DATADIR%%/iccprofiles/output/RTv2_ACES-AP1.icc
+%%DATADIR%%/iccprofiles/output/RTv2_Best.icc
+%%DATADIR%%/iccprofiles/output/RTv2_Beta.icc
+%%DATADIR%%/iccprofiles/output/RTv2_Bruce.icc
+%%DATADIR%%/iccprofiles/output/RTv2_Large.icc
+%%DATADIR%%/iccprofiles/output/RTv2_Medium.icc
+%%DATADIR%%/iccprofiles/output/RTv2_Rec2020.icc
+%%DATADIR%%/iccprofiles/output/RTv2_sRGB.icc
+%%DATADIR%%/iccprofiles/output/RTv2_Wide.icc
+%%DATADIR%%/iccprofiles/output/RTv4_ACES-AP0.icc
+%%DATADIR%%/iccprofiles/output/RTv4_ACES-AP1.icc
+%%DATADIR%%/iccprofiles/output/RTv4_Best.icc
+%%DATADIR%%/iccprofiles/output/RTv4_Beta.icc
+%%DATADIR%%/iccprofiles/output/RTv4_Bruce.icc
+%%DATADIR%%/iccprofiles/output/RTv4_Large.icc
+%%DATADIR%%/iccprofiles/output/RTv4_Medium.icc
+%%DATADIR%%/iccprofiles/output/RTv4_Rec2020.icc
+%%DATADIR%%/iccprofiles/output/RTv4_sRGB.icc
+%%DATADIR%%/iccprofiles/output/RTv4_Wide.icc
+%%DATADIR%%/images/add-small.svg
+%%DATADIR%%/images/add.svg
+%%DATADIR%%/images/aperture.svg
+%%DATADIR%%/images/arrow-down-small.svg
+%%DATADIR%%/images/arrow-left-small.svg
+%%DATADIR%%/images/arrow-right-small.svg
+%%DATADIR%%/images/arrow-up-small.svg
+%%DATADIR%%/images/arrow-updown.svg
+%%DATADIR%%/images/arrow2-left.svg
+%%DATADIR%%/images/arrow2-right.svg
+%%DATADIR%%/images/atom.svg
+%%DATADIR%%/images/bayer.svg
+%%DATADIR%%/images/beforeafter.svg
+%%DATADIR%%/images/cancel-small.svg
+%%DATADIR%%/images/cancel.svg
+%%DATADIR%%/images/circle-black-small.svg
+%%DATADIR%%/images/circle-blue-green-small.svg
+%%DATADIR%%/images/circle-blue-red-small.svg
+%%DATADIR%%/images/circle-blue-small.svg
+%%DATADIR%%/images/circle-blue-yellow-small.svg
+%%DATADIR%%/images/circle-cyan-red-small.svg
+%%DATADIR%%/images/circle-cyan-small.svg
+%%DATADIR%%/images/circle-darkgray-small.svg
+%%DATADIR%%/images/circle-empty-blue-small.svg
+%%DATADIR%%/images/circle-empty-darkgray-small.svg
+%%DATADIR%%/images/circle-empty-gray-small.svg
+%%DATADIR%%/images/circle-empty-green-small.svg
+%%DATADIR%%/images/circle-empty-purple-small.svg
+%%DATADIR%%/images/circle-empty-red-small.svg
+%%DATADIR%%/images/circle-empty-yellow-small.svg
+%%DATADIR%%/images/circle-gray-blue-small.svg
+%%DATADIR%%/images/circle-gray-green-small.svg
+%%DATADIR%%/images/circle-gray-red-small.svg
+%%DATADIR%%/images/circle-gray-small.svg
+%%DATADIR%%/images/circle-green-blue-small.svg
+%%DATADIR%%/images/circle-green-red-small.svg
+%%DATADIR%%/images/circle-green-small.svg
+%%DATADIR%%/images/circle-magenta-small.svg
+%%DATADIR%%/images/circle-orange-small.svg
+%%DATADIR%%/images/circle-purple-small.svg
+%%DATADIR%%/images/circle-red-blue-small.svg
+%%DATADIR%%/images/circle-red-cyan-small.svg
+%%DATADIR%%/images/circle-red-green-small.svg
+%%DATADIR%%/images/circle-red-small.svg
+%%DATADIR%%/images/circle-white-small.svg
+%%DATADIR%%/images/circle-yellow-blue-small.svg
+%%DATADIR%%/images/circle-yellow-small.svg
+%%DATADIR%%/images/color-circles.svg
+%%DATADIR%%/images/color-picker-add-hicontrast.svg
+%%DATADIR%%/images/color-picker-add.svg
+%%DATADIR%%/images/color-picker-bars.svg
+%%DATADIR%%/images/color-picker-hicontrast.svg
+%%DATADIR%%/images/color-picker-hide.svg
+%%DATADIR%%/images/color-picker-small.svg
+%%DATADIR%%/images/color-picker.svg
+%%DATADIR%%/images/contrastmask-off.svg
+%%DATADIR%%/images/contrastmask-on.svg
+%%DATADIR%%/images/copy.svg
+%%DATADIR%%/images/crop-auto-small.svg
+%%DATADIR%%/images/crop-auto.svg
+%%DATADIR%%/images/crop-point-hicontrast.svg
+%%DATADIR%%/images/crop-small.svg
+%%DATADIR%%/images/crop.svg
+%%DATADIR%%/images/crossed-arrows-in.svg
+%%DATADIR%%/images/crossed-arrows-out.svg
+%%DATADIR%%/images/crosshair-adjust.svg
+%%DATADIR%%/images/crosshair-hicontrast.svg
+%%DATADIR%%/images/crosshair-node-curve.svg
+%%DATADIR%%/images/crosshair-small.svg
+%%DATADIR%%/images/curve-catmullrom-small.svg
+%%DATADIR%%/images/curve-catmullrom.svg
+%%DATADIR%%/images/curve-controlpoints-small.svg
+%%DATADIR%%/images/curve-controlpoints.svg
+%%DATADIR%%/images/curve-flat-small.svg
+%%DATADIR%%/images/curve-flat.svg
+%%DATADIR%%/images/curve-linear-small.svg
+%%DATADIR%%/images/curve-linear.svg
+%%DATADIR%%/images/curve-nurbs-small.svg
+%%DATADIR%%/images/curve-nurbs.svg
+%%DATADIR%%/images/curve-parametric-small.svg
+%%DATADIR%%/images/curve-parametric.svg
+%%DATADIR%%/images/curve-spline-small.svg
+%%DATADIR%%/images/curve-spline.svg
+%%DATADIR%%/images/detail.svg
+%%DATADIR%%/images/device-floppy.svg
+%%DATADIR%%/images/device-hdd.svg
+%%DATADIR%%/images/device-network.svg
+%%DATADIR%%/images/device-optical.svg
+%%DATADIR%%/images/device-usb.svg
+%%DATADIR%%/images/distortion-auto-small.svg
+%%DATADIR%%/images/distortion-auto.svg
+%%DATADIR%%/images/distortion-barrel-small.svg
+%%DATADIR%%/images/distortion-barrel.svg
+%%DATADIR%%/images/distortion-pincushion-small.svg
+%%DATADIR%%/images/distortion-pincushion.svg
+%%DATADIR%%/images/edit-point.svg
+%%DATADIR%%/images/empty.png
+%%DATADIR%%/images/equilizer-narrow.svg
+%%DATADIR%%/images/equilizer-wide.svg
+%%DATADIR%%/images/expander-closed-small.svg
+%%DATADIR%%/images/expander-open-small.svg
+%%DATADIR%%/images/exposure.svg
+%%DATADIR%%/images/filetype-hdr.svg
+%%DATADIR%%/images/filetype-ps.svg
+%%DATADIR%%/images/filter-clear.svg
+%%DATADIR%%/images/filter-original.svg
+%%DATADIR%%/images/filter-original2.svg
+%%DATADIR%%/images/filter.svg
+%%DATADIR%%/images/flip-horizontal.svg
+%%DATADIR%%/images/flip-vertical.svg
+%%DATADIR%%/images/focusscreen-off.svg
+%%DATADIR%%/images/focusscreen-on.svg
+%%DATADIR%%/images/folder-closed-home-small.svg
+%%DATADIR%%/images/folder-closed-home.svg
+%%DATADIR%%/images/folder-closed-recent-small.svg
+%%DATADIR%%/images/folder-closed-recent.svg
+%%DATADIR%%/images/folder-closed-small.svg
+%%DATADIR%%/images/folder-closed.svg
+%%DATADIR%%/images/folder-open-recent-small.svg
+%%DATADIR%%/images/folder-open-recent.svg
+%%DATADIR%%/images/folder-open-small.svg
+%%DATADIR%%/images/folder-open.svg
+%%DATADIR%%/images/fullscreen-enter.svg
+%%DATADIR%%/images/fullscreen-leave.svg
+%%DATADIR%%/images/gamut-hist.svg
+%%DATADIR%%/images/gamut-plus.svg
+%%DATADIR%%/images/gamut-softproof.svg
+%%DATADIR%%/images/gamut-warning.svg
+%%DATADIR%%/images/gamut_srgb_prophoto_xy.svg
+%%DATADIR%%/images/gears-pause.svg
+%%DATADIR%%/images/gears-play.svg
+%%DATADIR%%/images/gears-small.svg
+%%DATADIR%%/images/gears.svg
+%%DATADIR%%/images/goto-end-small.svg
+%%DATADIR%%/images/goto-start-small.svg
+%%DATADIR%%/images/hand-closed-hicontrast.svg
+%%DATADIR%%/images/hand-open-hicontrast.svg
+%%DATADIR%%/images/hand-open.svg
+%%DATADIR%%/images/histogram-bar-off-small.svg
+%%DATADIR%%/images/histogram-bar-on-small.svg
+%%DATADIR%%/images/histogram-bayer-off-small.svg
+%%DATADIR%%/images/histogram-bayer-on-small.svg
+%%DATADIR%%/images/histogram-blue-off-small.svg
+%%DATADIR%%/images/histogram-blue-on-small.svg
+%%DATADIR%%/images/histogram-gold-off-small.svg
+%%DATADIR%%/images/histogram-gold-on-small.svg
+%%DATADIR%%/images/histogram-green-off-small.svg
+%%DATADIR%%/images/histogram-green-on-small.svg
+%%DATADIR%%/images/histogram-mode-linear-small.svg
+%%DATADIR%%/images/histogram-mode-logx-small.svg
+%%DATADIR%%/images/histogram-mode-logxy-small.svg
+%%DATADIR%%/images/histogram-red-off-small.svg
+%%DATADIR%%/images/histogram-red-on-small.svg
+%%DATADIR%%/images/histogram-silver-off-small.svg
+%%DATADIR%%/images/histogram-silver-on-small.svg
+%%DATADIR%%/images/info.svg
+%%DATADIR%%/images/intent-absolute.svg
+%%DATADIR%%/images/intent-perceptual.svg
+%%DATADIR%%/images/intent-relative.svg
+%%DATADIR%%/images/intent-saturation.svg
+%%DATADIR%%/images/magnifier-1to1-small.svg
+%%DATADIR%%/images/magnifier-1to1.svg
+%%DATADIR%%/images/magnifier-crop.svg
+%%DATADIR%%/images/magnifier-fit.svg
+%%DATADIR%%/images/magnifier-minus-small.svg
+%%DATADIR%%/images/magnifier-minus.svg
+%%DATADIR%%/images/magnifier-plus-small.svg
+%%DATADIR%%/images/magnifier-plus.svg
+%%DATADIR%%/images/magnifier.svg
+%%DATADIR%%/images/metadata.svg
+%%DATADIR%%/images/node-move-nw-se-hicontrast.svg
+%%DATADIR%%/images/node-move-sw-ne-hicontrast.svg
+%%DATADIR%%/images/node-move-x-hicontrast.svg
+%%DATADIR%%/images/node-move-xy-hicontrast.svg
+%%DATADIR%%/images/node-move-y-hicontrast.svg
+%%DATADIR%%/images/one-to-one-small.svg
+%%DATADIR%%/images/ornament1.svg
+%%DATADIR%%/images/padlock-locked-small.svg
+%%DATADIR%%/images/padlock-unlocked-small.svg
+%%DATADIR%%/images/palette-brush.svg
+%%DATADIR%%/images/panel-to-bottom.svg
+%%DATADIR%%/images/panel-to-left.svg
+%%DATADIR%%/images/panel-to-right.svg
+%%DATADIR%%/images/panel-to-top.svg
+%%DATADIR%%/images/paste.svg
+%%DATADIR%%/images/perspective-horizontal-left-small.svg
+%%DATADIR%%/images/perspective-horizontal-left.svg
+%%DATADIR%%/images/perspective-horizontal-right-small.svg
+%%DATADIR%%/images/perspective-horizontal-right.svg
+%%DATADIR%%/images/perspective-vertical-bottom-small.svg
+%%DATADIR%%/images/perspective-vertical-bottom.svg
+%%DATADIR%%/images/perspective-vertical-top-small.svg
+%%DATADIR%%/images/perspective-vertical-top.svg
+%%DATADIR%%/images/power-inconsistent-small.svg
+%%DATADIR%%/images/power-off-small.svg
+%%DATADIR%%/images/power-on-small.svg
+%%DATADIR%%/images/preferences.svg
+%%DATADIR%%/images/profile-filled.svg
+%%DATADIR%%/images/profile-partial.svg
+%%DATADIR%%/images/rawtherapee-logo-128.png
+%%DATADIR%%/images/rawtherapee-logo-16.png
+%%DATADIR%%/images/rawtherapee-logo-24.png
+%%DATADIR%%/images/rawtherapee-logo-256.png
+%%DATADIR%%/images/rawtherapee-logo-32.png
+%%DATADIR%%/images/rawtherapee-logo-48.png
+%%DATADIR%%/images/rawtherapee-logo-64.png
+%%DATADIR%%/images/rawtherapee.ico
+%%DATADIR%%/images/rawtherapee_ico.xcf
+%%DATADIR%%/images/redo-all.svg
+%%DATADIR%%/images/redo-small.svg
+%%DATADIR%%/images/redo.svg
+%%DATADIR%%/images/refresh-red-small.svg
+%%DATADIR%%/images/refresh-small.svg
+%%DATADIR%%/images/refresh.svg
+%%DATADIR%%/images/remove-small.svg
+%%DATADIR%%/images/remove.svg
+%%DATADIR%%/images/rotate-aroundnode-hicontrast.svg
+%%DATADIR%%/images/rotate-aroundnode.svg
+%%DATADIR%%/images/rotate-left-90.svg
+%%DATADIR%%/images/rotate-left-small.svg
+%%DATADIR%%/images/rotate-left.svg
+%%DATADIR%%/images/rotate-right-90.svg
+%%DATADIR%%/images/rotate-right-small.svg
+%%DATADIR%%/images/rotate-right.svg
+%%DATADIR%%/images/rotate-straighten-small.svg
+%%DATADIR%%/images/rotate-straighten.svg
+%%DATADIR%%/images/rt-logo.svg
+%%DATADIR%%/images/save-small.svg
+%%DATADIR%%/images/save.svg
+%%DATADIR%%/images/saved-no-small.svg
+%%DATADIR%%/images/saved-yes-small.svg
+%%DATADIR%%/images/splash.svg
+%%DATADIR%%/images/square-toggle-black-off-narrow.svg
+%%DATADIR%%/images/square-toggle-black-on-narrow.svg
+%%DATADIR%%/images/square-toggle-blue-off-narrow.svg
+%%DATADIR%%/images/square-toggle-blue-on-narrow.svg
+%%DATADIR%%/images/square-toggle-gray-off-narrow.svg
+%%DATADIR%%/images/square-toggle-gray-on-narrow.svg
+%%DATADIR%%/images/square-toggle-green-off-narrow.svg
+%%DATADIR%%/images/square-toggle-green-on-narrow.svg
+%%DATADIR%%/images/square-toggle-luminosity-off-narrow.svg
+%%DATADIR%%/images/square-toggle-luminosity-on-narrow.svg
+%%DATADIR%%/images/square-toggle-red-off-narrow.svg
+%%DATADIR%%/images/square-toggle-red-on-narrow.svg
+%%DATADIR%%/images/square-toggle-theme-off-narrow.svg
+%%DATADIR%%/images/square-toggle-theme-on-narrow.svg
+%%DATADIR%%/images/square-toggle-white-off-narrow.svg
+%%DATADIR%%/images/square-toggle-white-on-narrow.svg
+%%DATADIR%%/images/star-gold-hollow-narrow.svg
+%%DATADIR%%/images/star-gold-hollow-small.svg
+%%DATADIR%%/images/star-gold-narrow.svg
+%%DATADIR%%/images/star-gold-small.svg
+%%DATADIR%%/images/star-hollow-narrow.svg
+%%DATADIR%%/images/star-hollow-small.svg
+%%DATADIR%%/images/star-narrow.svg
+%%DATADIR%%/images/star-small.svg
+%%DATADIR%%/images/star.svg
+%%DATADIR%%/images/template-16.svg
+%%DATADIR%%/images/template-24.svg
+%%DATADIR%%/images/template-narrow.svg
+%%DATADIR%%/images/tick-green-hollow-small.svg
+%%DATADIR%%/images/tick-green-hollow.svg
+%%DATADIR%%/images/tick-green-small.svg
+%%DATADIR%%/images/tick-green.svg
+%%DATADIR%%/images/tick-hollow-small.svg
+%%DATADIR%%/images/tick-small.svg
+%%DATADIR%%/images/tick.svg
+%%DATADIR%%/images/transform.svg
+%%DATADIR%%/images/trash-delete.svg
+%%DATADIR%%/images/trash-empty-show.svg
+%%DATADIR%%/images/trash-empty.svg
+%%DATADIR%%/images/trash-full-show.svg
+%%DATADIR%%/images/trash-full.svg
+%%DATADIR%%/images/trash-hide-deleted.svg
+%%DATADIR%%/images/trash-remove-small.svg
+%%DATADIR%%/images/trash-remove.svg
+%%DATADIR%%/images/trash-small.svg
+%%DATADIR%%/images/undo-all.svg
+%%DATADIR%%/images/undo-small.svg
+%%DATADIR%%/images/undo.svg
+%%DATADIR%%/images/warning-highlights.svg
+%%DATADIR%%/images/warning-shadows.svg
+%%DATADIR%%/images/warning.svg
+%%DATADIR%%/images/wavelets.svg
+%%DATADIR%%/images/wb-auto-small.svg
+%%DATADIR%%/images/wb-auto.svg
+%%DATADIR%%/images/wb-camera-small.svg
+%%DATADIR%%/images/wb-camera.svg
+%%DATADIR%%/images/wb-cloudy-small.svg
+%%DATADIR%%/images/wb-cloudy.svg
+%%DATADIR%%/images/wb-custom-small.svg
+%%DATADIR%%/images/wb-custom.svg
+%%DATADIR%%/images/wb-flash-small.svg
+%%DATADIR%%/images/wb-flash.svg
+%%DATADIR%%/images/wb-fluorescent-small.svg
+%%DATADIR%%/images/wb-fluorescent.svg
+%%DATADIR%%/images/wb-lamp-small.svg
+%%DATADIR%%/images/wb-lamp.svg
+%%DATADIR%%/images/wb-led-small.svg
+%%DATADIR%%/images/wb-led.svg
+%%DATADIR%%/images/wb-shade-small.svg
+%%DATADIR%%/images/wb-shade.svg
+%%DATADIR%%/images/wb-sun-small.svg
+%%DATADIR%%/images/wb-sun.svg
+%%DATADIR%%/images/wb-tungsten-small.svg
+%%DATADIR%%/images/wb-tungsten.svg
+%%DATADIR%%/images/wb-water-small.svg
+%%DATADIR%%/images/wb-water.svg
+%%DATADIR%%/images/window-add.svg
+%%DATADIR%%/languages/Catala
+%%DATADIR%%/languages/Chinese (Simplified)
+%%DATADIR%%/languages/Czech
+%%DATADIR%%/languages/default
+%%DATADIR%%/languages/Deutsch
+%%DATADIR%%/languages/English (UK)
+%%DATADIR%%/languages/English (US)
+%%DATADIR%%/languages/Espanol
+%%DATADIR%%/languages/Francais
+%%DATADIR%%/languages/Italiano
+%%DATADIR%%/languages/Japanese
+%%DATADIR%%/languages/LICENSE
+%%DATADIR%%/languages/Magyar
+%%DATADIR%%/languages/Nederlands
+%%DATADIR%%/languages/Polish
+%%DATADIR%%/languages/Portugues
+%%DATADIR%%/languages/Portugues (Brasil)
+%%DATADIR%%/languages/README
+%%DATADIR%%/languages/Russian
+%%DATADIR%%/languages/Serbian (Cyrilic Characters)
+%%DATADIR%%/languages/Swedish
+%%DATADIR%%/options
+%%DATADIR%%/profiles/Auto-Matched Curve - ISO High.pp3
+%%DATADIR%%/profiles/Auto-Matched Curve - ISO Low.pp3
+%%DATADIR%%/profiles/Auto-Matched Curve - ISO Medium.pp3
+%%DATADIR%%/profiles/Non-raw/Brighten.pp3
+%%DATADIR%%/profiles/Pixel Shift/PS ISO High.pp3
+%%DATADIR%%/profiles/Pixel Shift/PS ISO Low.pp3
+%%DATADIR%%/profiles/Pixel Shift/PS ISO Medium.pp3
+%%DATADIR%%/profiles/Pixel Shift/PS No Motion.pp3
+%%DATADIR%%/profiles/Pop/Pop 1.pp3
+%%DATADIR%%/profiles/Pop/Pop 2 Lab.pp3
+%%DATADIR%%/profiles/Pop/Pop 3 Skin.pp3
+%%DATADIR%%/profiles/Pop/Pop 4 Black-and-White.pp3
+%%DATADIR%%/profiles/Standard Film Curve - ISO High.pp3
+%%DATADIR%%/profiles/Standard Film Curve - ISO Low.pp3
+%%DATADIR%%/profiles/Standard Film Curve - ISO Medium.pp3
+%%DATADIR%%/profiles/Unclipped.pp3
+%%DATADIR%%/sounds/BatchComplete.wav
+%%DATADIR%%/sounds/Empty.wav
+%%DATADIR%%/sounds/ProcessComplete.wav
+%%DATADIR%%/themes/images/svg/twb/checkbox-checked-disabled.svg
+%%DATADIR%%/themes/images/svg/twb/checkbox-checked.svg
+%%DATADIR%%/themes/images/svg/twb/checkbox-inconsistent-disabled.svg
+%%DATADIR%%/themes/images/svg/twb/checkbox-inconsistent.svg
+%%DATADIR%%/themes/images/svg/twb/checkbox-unchecked-disabled.svg
+%%DATADIR%%/themes/images/svg/twb/checkbox-unchecked.svg
+%%DATADIR%%/themes/images/svg/twb/radio-checked-disabled.svg
+%%DATADIR%%/themes/images/svg/twb/radio-checked.svg
+%%DATADIR%%/themes/images/svg/twb/radio-inconsistent-disabled.svg
+%%DATADIR%%/themes/images/svg/twb/radio-inconsistent.svg
+%%DATADIR%%/themes/images/svg/twb/radio-unchecked-disabled.svg
+%%DATADIR%%/themes/images/svg/twb/radio-unchecked.svg
+%%DATADIR%%/themes/images/twb/checkbox-checked-disabled.png
+%%DATADIR%%/themes/images/twb/checkbox-checked.png
+%%DATADIR%%/themes/images/twb/checkbox-inconsistent-disabled.png
+%%DATADIR%%/themes/images/twb/checkbox-inconsistent.png
+%%DATADIR%%/themes/images/twb/checkbox-unchecked-disabled.png
+%%DATADIR%%/themes/images/twb/checkbox-unchecked.png
+%%DATADIR%%/themes/images/twb/radio-checked-disabled.png
+%%DATADIR%%/themes/images/twb/radio-checked.png
+%%DATADIR%%/themes/images/twb/radio-inconsistent-disabled.png
+%%DATADIR%%/themes/images/twb/radio-inconsistent.png
+%%DATADIR%%/themes/images/twb/radio-unchecked-disabled.png
+%%DATADIR%%/themes/images/twb/radio-unchecked.png
+%%DATADIR%%/themes/RawTherapee-GTK3-20_.css
+%%DATADIR%%/themes/RawTherapee-GTK3-_19.css
+%%DATADIR%%/themes/size.css
+%%DATADIR%%/themes/system.iconset
+%%DATADIR%%/themes/TooWaBlue - Bright-GTK3-20_.css
+%%DATADIR%%/themes/TooWaBlue - Dark-GTK3-20_.css
+%%DATADIR%%/themes/TooWaBlue-GTK3-20_.css
+%%DATADIR%%/themes/TooWaBlue-GTK3-_19.css
+%%DATADIR%%/themes/TooWaGrey - Average Surround-GTK3-20_.css
+%%DATADIR%%/themes/TooWaGrey - Bright-GTK3-20_.css
+%%DATADIR%%/themes/TooWaGrey - Dark-GTK3-20_.css
+%%DATADIR%%/themes/TooWaGrey-GTK3-20_.css

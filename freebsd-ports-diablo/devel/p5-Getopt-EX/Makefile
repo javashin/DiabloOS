@@ -1,0 +1,22 @@
+# $FreeBSD$
+
+PORTNAME=	Getopt-EX
+PORTVERSION=	1.15.0
+DISTVERSIONPREFIX=	v
+PORTEPOCH=	1
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+MASTER_SITE_SUBDIR=	CPAN:UTASHIRO
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	hrs@FreeBSD.org
+COMMENT=	Getopt Extender
+
+LICENSE=	ART10
+
+USES=		perl5
+USE_PERL5=	modbuildtiny
+
+NO_ARCH=	yes
+
+.include <bsd.port.mk>

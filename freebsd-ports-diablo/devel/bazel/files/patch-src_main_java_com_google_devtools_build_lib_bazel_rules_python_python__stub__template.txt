@@ -1,0 +1,11 @@
+--- src/main/java/com/google/devtools/build/lib/bazel/rules/python/python_stub_template.txt.orig	2019-11-13 08:37:00 UTC
++++ src/main/java/com/google/devtools/build/lib/bazel/rules/python/python_stub_template.txt
+@@ -52,7 +52,7 @@
+ 
+ def SearchPath(name):
+   """Finds a file in a given search path."""
+-  search_path = os.getenv('PATH', os.defpath).split(os.pathsep)
++  search_path = os.getenv('PATH', os.defpath + ':/usr/local/bin').split(os.pathsep)
+   for directory in search_path:
+     if directory:
+       path = os.path.join(directory, name)

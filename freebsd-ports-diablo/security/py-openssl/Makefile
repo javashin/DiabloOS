@@ -1,0 +1,55 @@
+# Created by: ijliao
+# $FreeBSD$
+
+PORTNAME=	openssl
+PORTVERSION=	19.0.0
+CATEGORIES=	security python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DISTNAME=	pyOpenSSL-${PORTVERSION}
+
+MAINTAINER=	sbz@FreeBSD.org
+COMMENT=	Python interface to the OpenSSL library
+
+LICENSE=	APACHE20
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cryptography>=2.2.1:security/py-cryptography@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}six>=1.5.2:devel/py-six@${PY_FLAVOR}
+TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pytest>=3.0.1:devel/py-pytest@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}flaky>0:devel/py-flaky@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}pretend>0:devel/py-pretend@${PY_FLAVOR} \
+		${LOCALBASE}/share/certs/ca-root-nss.crt:security/ca_root_nss
+
+USES=		cpe python
+USE_PYTHON=	autoplist concurrent distutils pythonprefix
+
+NO_ARCH=	yes
+
+CPE_VENDOR=	jean-paul_calderone
+CPE_PRODUCT=	py${PORTNAME}
+
+PORTEXAMPLES=	*
+
+OPTIONS_DEFINE=	EXAMPLES
+
+post-install-EXAMPLES-on:
+	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+	(cd ${WRKSRC}/examples/ && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR})
+
+# These tests will be skipped due the following reasons:
+#
+# * test_connect_refused: Avoid stalling in build environments that don't have
+#   a internet connection
+# * test_set_verify_callback_exception: Fails on *BSD systems, see also
+#   https://github.com/pyca/pyopenssl/issues/656 for further details
+# 
+# The system clock must be in sync otherwise the test "test_verify_with_time"
+# will fail.
+do-test:
+	@cd ${WRKSRC} && \
+		${SET_ENV} LC_ALL=en_US.UTF-8 ${PYTHON_CMD} -m pytest -rs -v -k ' \
+	       		not test_connect_refused and \
+		       	not test_set_verify_callback_exception'
+
+.include <bsd.port.mk>

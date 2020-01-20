@@ -1,0 +1,16 @@
+--- Engine/Makefile-defs.linux.orig	2019-02-12 12:39:10 UTC
++++ Engine/Makefile-defs.linux
+@@ -1,6 +1,6 @@
+ INCDIR = ../Engine ../Common ../Common/libinclude ../Plugins
+ LIBDIR =
+-CFLAGS := -O2 -g -fsigned-char -Wfatal-errors -DNDEBUG -DALLEGRO_NO_FIX_ALIASES -DAGS_RUNTIME_PATCH_ALLEGRO -DAGS_HAS_CD_AUDIO -DAGS_CASE_SENSITIVE_FILESYSTEM -DALLEGRO_STATICLINK -DLINUX_VERSION -DDISABLE_MPEG_AUDIO -DBUILTIN_PLUGINS -DRTLD_NEXT $(shell pkg-config --cflags freetype2) $(CFLAGS)
++CFLAGS := -O2 -fsigned-char -Wfatal-errors -DNDEBUG -DALLEGRO_NO_FIX_ALIASES -DAGS_RUNTIME_PATCH_ALLEGRO -DAGS_CASE_SENSITIVE_FILESYSTEM -DALLEGRO_STATICLINK -DLINUX_VERSION -DDISABLE_MPEG_AUDIO -DBUILTIN_PLUGINS -DRTLD_NEXT $(shell pkg-config --cflags freetype2) $(CFLAGS)
+ CXXFLAGS := -fno-rtti -Wno-write-strings $(CXXFLAGS)
+ LIBS := -rdynamic -laldmb -ldumb -Wl,-Bdynamic
+ LIBS += $(shell pkg-config --libs allegro)
+@@ -44,4 +44,4 @@ platform/linux/acpllnx.cpp \
+ platform/util/pe.c \
+ platform/util/libc.c
+ 
+-CDA = libsrc/libcda-0.5/linux.c
++# CDA = libsrc/libcda-0.5/linux.c

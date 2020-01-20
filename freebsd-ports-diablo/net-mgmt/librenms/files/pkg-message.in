@@ -1,0 +1,63 @@
+[
+{ type: install
+  message: <<EOM
+NOTE: setting sql-mode="" is no longer required. You can remove
+it from /usr/local/etc/mysql/my.cnf
+
+You can mostly follow the guide at:
+http://docs.librenms.org/
+
+with the following notes:
+- Installation directory is %%WWWDIR%%
+- The following lines should be added to /etc/crontab:
+
+PATH=/etc:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+33	*/6	*	*	*	www	cd %%WWWDIR%% && %%PHP%% discovery.php -h all >> /dev/null 2>&1
+*/5	*	*	*	*	www	cd %%WWWDIR%% && %%PHP%% discovery.php -h new >> /dev/null 2>&1
+*/5	*	*	*	*	www	cd %%WWWDIR%% && %%PYTHON%% poller-wrapper.py 16 >> /dev/null 2>&1
+15	0	*	*	*	www	%%LOCALBASE%%/bin/bash %%WWWDIR%%/daily.sh >> /dev/null 2>&1
+*	*	*	*	*	www	%%PHP%% %%WWWDIR%%/alerts.php >> /dev/null 2>&1
+*/5 	*	*	*	*	www	%%PHP%% %%WWWDIR%%/poll-billing.php >> /dev/null 2>&1
+01	*	*	*	*	www	%%PHP%% %%WWWDIR%%/billing-calculate.php >> /dev/null 2>&1
+*/5	*	*	*	*	www	%%PHP%% %%WWWDIR%%/check-services.php >> /dev/null 2>&1
+
+For a fresh install, you need to create an APP_KEY:
+
+cd %%WWWDIR%%
+cp -i .env.example .env
+
+It is also a good idea to:
+cd %%WWWDIR%%
+./validate
+
+You might need to set your database details in that file
+Then run:
+
+php artisan key:generate
+
+The output should look something like this:
+
+**************************************
+*     Application In Production!     *
+**************************************
+
+ Do you really wish to run this command? (yes/no) [no]:
+ > y
+
+Application key [base64:P62La9V........qw=] set successfully.
+
+After that, follow the LibreNMS documentation for configuration.
+
+EOM
+}
+{ type: upgrade
+  message: <<EOM
+Depending on the version, you may have to run the upgrade script.
+
+cd %%WWWDIR%%
+./build-base.php
+
+re: https://docs.librenms.org/#General/Updating/
+EOM
+}
+]

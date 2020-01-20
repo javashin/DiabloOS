@@ -1,0 +1,8 @@
+[
+{ type: install
+  message: <<EOM
+ Run Exult from directory containing original Ultima VII data.
+ Please, read %%DOCSDIR%%/README for additional information.
+EOM
+}
+]

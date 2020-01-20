@@ -1,0 +1,3 @@
+Wand is a ctypes-based simple MagickWand API binding for python.
+
+WWW: https://github.com/emcconville/wand

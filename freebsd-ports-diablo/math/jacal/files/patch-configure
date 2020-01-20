@@ -1,0 +1,11 @@
+--- configure.orig	2011-10-24 02:30:35 UTC
++++ configure
+@@ -67,7 +67,7 @@ pdfdir='${docdir}'
+ psdir='${docdir}'
+ libdir='${exec_prefix}lib/'
+ localedir='${datarootdir}locale/'
+-mandir='${datarootdir}man/'
++mandir='${prefix}man/'
+ snapdir='${srcdir}'
+ distdir='${srcdir}'
+ 

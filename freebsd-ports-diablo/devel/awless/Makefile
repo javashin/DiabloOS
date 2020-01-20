@@ -1,0 +1,30 @@
+# $FreeBSD$
+
+PORTNAME=	awless
+DISTVERSIONPREFIX=	v
+DISTVERSION=	0.1.11
+PORTREVISION=	1
+CATEGORIES=	devel
+
+MAINTAINER=	dmgk@FreeBSD.org
+COMMENT=	Fast, powerful and easy-to-use CLI for AWS
+
+LICENSE=	APACHE20
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+USES=		go
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	wallix
+GH_SUBDIR=	src/github.com/wallix/${PORTNAME}
+
+OPTIONS_DEFINE=	DOCS
+
+PLIST_FILES=	bin/awless
+PORTDOCS=	README.md CHANGELOG.md
+
+do-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${PORTDOCS:S|^|${WRKSRC}/|} ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

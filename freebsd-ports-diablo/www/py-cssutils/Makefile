@@ -1,0 +1,33 @@
+# Created by: ijliao
+# $FreeBSD$
+
+PORTNAME=	cssutils
+PORTVERSION=	1.0.2
+PORTREVISION=	1
+PORTEPOCH=	1
+CATEGORIES=	www python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	CSS Cascading Style Sheets library for Python
+
+LICENSE=	GPLv3 LGPL3
+LICENSE_COMB=	dual
+LICENSE_FILE_GPLv3=	${WRKSRC}/COPYING
+LICENSE_FILE_LGPL3=	${WRKSRC}/COPYING.LESSER
+
+USES=		python
+USE_PYTHON=	autoplist concurrent distutils
+
+NO_ARCH=	yes
+
+PORTEXAMPLES=	*
+
+OPTIONS_DEFINE=	EXAMPLES
+
+post-install-EXAMPLES-on:
+	${MKDIR} ${STAGEDIR}${EXAMPLESDIR}/
+	${INSTALL_DATA} ${WRKSRC}/examples/* ${STAGEDIR}${EXAMPLESDIR}/
+
+.include <bsd.port.mk>

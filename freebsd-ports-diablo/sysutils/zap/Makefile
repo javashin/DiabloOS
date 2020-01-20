@@ -1,0 +1,32 @@
+# $FreeBSD$
+
+PORTNAME=	zap
+DISTVERSION=	0.8
+CATEGORIES=	sysutils
+
+MAINTAINER=	jrm@FreeBSD.org
+COMMENT=	Maintain and replicate ZFS snapshots
+
+LICENSE=	BSD2CLAUSE
+
+NO_ARCH=	yes
+NO_BUILD=	yes
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	Jehops
+
+PLIST_FILES=	bin/${PORTNAME} man/man1/${PORTNAME}.1.gz
+PORTDOCS=	README.org
+
+USERS=		${PORTNAME}
+GROUPS=		${PORTNAME}
+
+OPTIONS_DEFINE=	DOCS
+
+do-install:
+	${INSTALL_SCRIPT} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/${PORTNAME}.1 ${STAGEDIR}${PREFIX}/man/man1
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	(cd ${WRKSRC} && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR})
+
+.include <bsd.port.mk>

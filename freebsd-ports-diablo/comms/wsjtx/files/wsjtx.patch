@@ -1,0 +1,58 @@
+--- wsjtx/CMakeLists.txt.orig	2019-11-26 09:22:32.000000000 -0500
++++ wsjtx/CMakeLists.txt	2020-01-03 11:52:01.553241000 -0500
+@@ -1,5 +1,4 @@
+ cmake_minimum_required (VERSION 2.8.10 FATAL_ERROR)
+-
+ if (APPLE)
+   #
+   # The following variables define the portability and compatability attributes of the Mac OS X build
+@@ -136,7 +135,13 @@
+   set (is_debug_build 1)
+ endif ()
+ 
++if (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
++  set (FREEBSD TRUE)
++  link_directories("/usr/lib" "${LOCALBASE}/lib")
++  include_directories("/usr/include" "${LOCALBASE}/include")
++endif()
+ 
++
+ #
+ # Options & features
+ #
+@@ -859,8 +864,20 @@
+ #
+ # OpenMP
+ #
+-find_package (OpenMP)
++#    OpenMP_C_FLAGS - flags to add to the C compiler for OpenMP support
++#    OpenMP_CXX_FLAGS - flags to add to the CXX compiler for OpenMP support
++#    OpenMP_Fortran_FLAGS - flags to add to the Fortran compiler for OpenMP support
++#    OPENMP_FOUND - true if openmp is detected
+ 
++if (FREEBSD)
++  set (OpenMP_C_FLAGS "-openmp")
++  set (OpenMP_CXX_FLAGS "-openmp")
++  set (OpenMP_Fortran_FLAGS "-openmp")
++  set (OPENMP_FOUND TRUE)
++else()
++  find_package (OpenMP)
++endif()
++
+ #
+ # fftw3 single precision library
+ #
+@@ -1325,6 +1342,13 @@
+ target_link_libraries (record_time_signal wsjt_cxx wsjt_qtmm wsjt_qt)
+ 
+ endif(WSJT_BUILD_UTILS)
++
++if(FREEBSD)
++   set (extraLIBS "ltdl" "usb")
++ else()
++   set (extraLIBS "")
++endif()
++  
+ 
+ # build the main application
+ add_executable (wsjtx MACOSX_BUNDLE

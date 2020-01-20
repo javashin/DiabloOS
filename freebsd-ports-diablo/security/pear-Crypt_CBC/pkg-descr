@@ -1,0 +1,3 @@
+A PEAR class to emulate Perl's Crypt::CBC module.
+
+WWW: https://pear.php.net/package-info.php?package=Crypt_CBC

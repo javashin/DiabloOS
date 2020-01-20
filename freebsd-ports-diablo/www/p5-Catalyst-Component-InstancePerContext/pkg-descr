@@ -1,0 +1,3 @@
+Return a new instance a component on each request
+
+WWW: https://metacpan.org/release/GRODITI/Catalyst-Component-InstancePerContext-0.001001

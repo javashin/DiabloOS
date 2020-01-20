@@ -1,0 +1,7 @@
+#!/bin/sh
+# $FreeBSD$
+
+LOOK_AND_FEEL="%%PLASTIC3D%%"
+
+exec "%%LOCALBASE%%/bin/java" -cp "%%JAVAJARDIR%%" ${LOOK_AND_FEEL} -jar "%%JDRAWJAR%%" "$@"
+

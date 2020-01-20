@@ -1,0 +1,16 @@
+[
+{ type: install
+  message: <<EOM
+tuptime requires execution at startup and shutdown on rc.d, please
+add it to /etc/rc.conf and start:
+
+	sysrc tuptime_enable=YES
+	service tuptime start
+
+tuptime requires a scheduled execution on cron, please add to
+/etc/crontab:
+
+	*/5 * * * * root %%PREFIX%%/bin/tuptime -x > /dev/null
+EOM
+}
+]

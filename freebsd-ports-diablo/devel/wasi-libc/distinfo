@@ -1,0 +1,9 @@
+TIMESTAMP = 1577542325
+SHA256 (stdarg.h) = 60ada523abc30f63724d197f7cb1010381af5222c87217b9fc36d506a8c75c2f
+SIZE (stdarg.h) = 1115
+SHA256 (stddef.h) = ce3e030f5445b76e3f53926e48f9b9359c2bd4696de12a98a5779b3c88a34948
+SIZE (stddef.h) = 3589
+SHA256 (CraneStation-wasi-libc-g20191221-a280fead2ae71b9a230d3b48c1f95867431888e4_GH0.tar.gz) = 3d79b48c63cdaaea441afb366872bf47d82349d3f05a5a4ed1fddc1cc266987b
+SIZE (CraneStation-wasi-libc-g20191221-a280fead2ae71b9a230d3b48c1f95867431888e4_GH0.tar.gz) = 1209358
+SHA256 (WebAssembly-WASI-8ff4e84_GH0.tar.gz) = 8feb5ed06981cfc6cba47ea6f5bdd095055b1f470b630bfacc9dfc648c321111
+SIZE (WebAssembly-WASI-8ff4e84_GH0.tar.gz) = 247732
