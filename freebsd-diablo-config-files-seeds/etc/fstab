@@ -1,0 +1,26 @@
+# Device	Mountpoint	FStype	Options	Dump	Pass#
+zroot/ROOT/FreeBSD	        /		zfs	rw	0	0
+/dev/diskid/DISK-110612PBSC00PYKWMZUSp6 none	swap	sw	0	0
+#/dev/diskid/DISK-110612PBSC00PYKWMZUSp3         /usr/home/javashin/Desktop/NTFS/   ntfs-3g  rw 0  0
+#/dev/diskid/DISK-110612PBSC00PYKWMZUSp1         /boot/efi         rw      0        0
+#/dev/zvol/root/javashin-pipelight  /home/javashin/.wine-pipelight	ufs            rw,late              0       0
+
+#proc                /proc         procfs        rw,auto       0       0
+#fdesc	            /dev/fd	  fdescfs	rw,auto	      0	      0
+#/dev/zvol/root/javashin-pipelight  /usr/home/javashin/.gvfs	ufs            rw,late              0       0
+
+
+#/dev/ada0p5     /               ufs     rw      1       1 
+#/dev/ada0p6     none            swap    sw      0       0    
+
+
+fdesc   /dev/fd         fdescfs         rw      0       0
+proc    /proc           procfs          rw      0       0
+
+
+#tmpfs           /tmp         tmpfs   rw,size=8073741824,late        0      0
+
+
+#md99	none	swap	sw,file=/usr/swap0,late	0	0
+
+#devfs             /dev  devfs   rw,ruleset=4      0     0

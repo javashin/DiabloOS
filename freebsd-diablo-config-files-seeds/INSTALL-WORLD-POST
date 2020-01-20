@@ -1,0 +1,22 @@
+#zfs set readonly=off rpool/ROOT/FreeBSD
+#mount -w /
+
+#cd /usr/src
+
+#########################3make clean ; rm -rf /usr/obj/*
+
+#time make -DMALLOC_PRODUCTION -j5 installworld
+
+
+#buildworld 
+
+#cd /usr/src
+
+#mergemaster -Ui
+
+#cd /usr/src
+
+#make check-old
+#make BATCH_DELETE_OLD_FILES=yes delete-old
+#make check-old-libs
+#make BATCH_DELETE_OLD_FILES=yes delete-old-libs
