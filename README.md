@@ -20,7 +20,7 @@ On Desktops Like Mate Xfce4 Lxqt Lxde Or Just Window Managers BOXes Make Use Of 
 On Kde Plasma 5 Recompile Kwin With lowlatency Patches For The Best Performance. \
 Gnome ?
 
-7. Make your own -RELEASE DistFile Manifest Tarballs And Memstick Or ISO & Booteable System For Any Situation.
+7. Make your own -RELEASE DistFiles Manifest Tarballs And Memstick Or ISO & Booteable System For Any Situation.
 
 8. Finito Fin Finale EnD.
 
