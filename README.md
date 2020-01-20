@@ -47,14 +47,14 @@
 1. edit /mnt/DiabloOS/boot/loader.conf and Add The following = 
 
 {
-vfs.root.mountfrom="zfs:rpool/ROOT/DiabloOS"
+"" vfs.root.mountfrom="zfs:rpool/ROOT/DiabloOS"
 openzfs_load="YES"
 vfs.zfs.arc.max="1073741824"
 zpool_cache_load="YES"
 zpool_cache_type="/boot/zfs/zpool.cache"
 zpool_cache_name="/boot/zfs/zpool.cache"
 zfs_load="NO"
-opensolaris_load="NO"
+opensolaris_load="NO" ""
 }
 
 - Install refind-efi and install refind-install with efi esp mounted. boot freebsd from it.
