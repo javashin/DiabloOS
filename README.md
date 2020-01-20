@@ -6,12 +6,13 @@
 ### (DiabloOS Config Files) ###
 
 ### HOW TO USE THIS ###
-- After Install FreeBSD With src and ports from the installer and updated with freebsd-update 
+- After Install FreeBSD With src and ports from the installer and updated with freebsd-update if is -RELEASE Installation BOX for -STABLE And -CURRENT freebsd-update dont work Just Install From The Latest And Greatest Snapshot -STABLE Dont Have Debug Symbols 13-CURRENT Does More Work Is Needed But 13-CURRENT is THE BEST Way to Go.  
 
-- openzfs & openzfs-kmod ports both compiled and installed.
+- openzfs & openzfs-kmod ports both compiled and installed. (Inside VirtualBox Before Mount And Deduplicate).
 1. With = portsnap auto ; cd /usr/ports/sysutils/openzfs-kmod ; make install clean ; cd /usr/ports/sysutils/openzfs ; make install clean
 
-* Recommended But Optional Install On VirtualBox From Your Linux Distribution Installed On ZFS Working And Running , Inside VirtualBox Install -RELEASE , -STABLE or -CURRENT On AutoUFS Formated VDI Mount On Linux Using NBD Kernel Module Interface And Extract The ROOT FS TREE Making A Exact Copy With "cpdup" To The New Dataset.  
+* Recommended But Optional Install On VirtualBox From Your Linux Distribution Installed On ZFS Working And Running , Inside VirtualBox Install -RELEASE , -STABLE or -CURRENT On AutoUFS Formated VDI Mount On Linux Using NBD Kernel Module Interface And Extract The ROOT FS TREE Making A Exact Copy With "cpdup" To The New Dataset.
+Linux installed on zfs is not necessary just have working zfs modules and zfs utils better from last master tip from git.
 
 - To Deploy On OpenZFS ZfsOnLinux DataSet And Use ZOF ZfsOnFreeBSD Fork Modules And Avoid Using Legacy ZFS Code.
 - Create The New dataset For Freebsd on A Zfs On Linux Pool with 
