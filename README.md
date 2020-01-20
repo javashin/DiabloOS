@@ -6,6 +6,6 @@
 ### (DiabloOS Config Files) ###
 ### HOW TO USE THIS ###
 - After Install FreeBSD
-- To Deply On OpenZFS ZfsOnLinux 
+- To Deploy On OpenZFS ZfsOnLinux DataSet And Use ZOF ZfsOnFreeBSD Fork Modules And Avoid Using Legacy ZFS Code.
 Create The New dataset For Freebsd on A Zfs On Linux Pool with 
 Example : zfs create -o compression=lz4 -o acltype=noacl -o xattr=off -o atime=off zroot/ROOT/DiabloOS
