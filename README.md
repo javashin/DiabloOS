@@ -1,11 +1,37 @@
 ### DiabloOS FreeBSD Distro Fork Add-ON ###
+### The Goal Of This Project Is Manually Install A Fully Optimized FreeBSD OS For Desktop/Laptop Not For NOOBS.###
+
+1. Install Any Branch -RELEASE -STABLLE -CURRENT To ZOF https://zfsonfreebsd.github.io/ZoF/ .
+
+2. Remove Old Legacy Opensolaris ZFS From Kernel And Base (World/Userland) After make buildworld buildkernel installkernel reboot into single user installworld merge config files and remove old libs and bins Very Normal To Any l33t On Their Geek Boxes.
+
+3. Configure & Recompile The Kernel And Make It Thin-Optimized-Custom Removing Unwanted Modules Debugging Symols On -CURRENT. 
+
+4. Remove Native Sound Drivers And Add 4Front Technologies OSS4 http://www.opensound.com/oss.html .
+
+5. Everything And All Compiled With The Level 3 Of Compiler (-O3) Kernel+World Some Key Ports That Increase Performace. 
+
+6. Upgrade The GFX STACK =
+Libdrm (last stable version) \
+Mesa 3D OpenGL Vulkan Libs And DRI (last stable version) \  
+X11 Xorg-server (Last Master Tip From Gitlab) \
+Linux Kernel 5.0 KMS DRM Video DRIVERS. \
+On Desktops Like Mate Xfce4 Lxqt Lxde Or Just Window Managers BOXes Make Use Of The Best Compositor For Any Unix System "Picom" A Fork Of Compton Which Works Great.
+On Kde Plasma 5 Recompile Kwin With lowlatency Patches For The Best Performance.
+Gnome ?
+
 * INDEX
+
 1. freebsd-ports-diablo
+
 ### (DiabloOS GFX UPGRADE PORTS) ###
+
 2. freebsd-diablo-config-files-seeds
+
 ### (DiabloOS Config Files) ###
 
-### HOW TO USE THIS ###
+### HOW TO USE THIS REPO = ###
+
 - After Install FreeBSD With src and ports from the installer and updated with freebsd-update if is -RELEASE Installation BOX for -STABLE And -CURRENT freebsd-update dont work Just Install From The Latest And Greatest Snapshot -STABLE Dont Have Debug Symbols 13-CURRENT Does More Work Is Needed But 13-CURRENT is THE BEST Way to Go.  
 
 - openzfs & openzfs-kmod ports both compiled and installed. (Inside VirtualBox Before Mount And Deduplicate).
@@ -56,9 +82,12 @@ zpool_cache_name="/boot/zfs/zpool.cache" \
 zfs_load="NO" \
 opensolaris_load="NO"
 
-- Install refind-efi and install refind-install with efi esp mounted. boot freebsd from it.
+- Install the pkg from your linux distro refind-efi bootloader and install with refind-install to efi esp mounted. boot freebsd from it.
 
-# Continue With The Compilation Of A New Kernel "Thin Kernel" "Optimized Kernel" With ZFS Disabled And Audio to Enable OSS4 And With RealTime ON. And Upgrade The GFX STACK.
+
+### Continue With The Compilation Of A New Kernel "Thin Kernel" "Optimized Kernel" With ZFS Disabled And Audio to Enable OSS4 And With RealTime ON. And Upgrade The GFX STACK.
+
+### Everything Here Is BSD2CLAUSE , Creative Commons , Do What The FUck U Want With It.
 
 
 
