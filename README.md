@@ -1,5 +1,5 @@
 ### DiabloOS FreeBSD Distro Fork Add-ON By JavaShin-X ###
-### The Goal Of This Project Is Manually Install A Fully Optimized FreeBSD OS For Desktop/Laptop Not For NOOBS.###
+### The Goal Of This Project Is Manually Install A Fully Optimized FreeBSD OS For Desktop/Laptop Not For NOOBS.
 
 1. Install Any Branch -RELEASE -STABLLE -CURRENT To ZOF https://zfsonfreebsd.github.io/ZoF/ .
 
