@@ -1,0 +1,21 @@
+#!/bin/sh
+
+#picom-NEXT
+
+mv /usr/bin/ld /usr/bin/ld.llvm
+ln -s /usr/local/bin/ld.bfd /usr/bin/ld
+
+rm -rf build
+
+export CFLAGS="-march=native -mtune=native -O3 -falign-functions=32 -fstrict-aliasing -fomit-frame-pointer -fno-stack-protector -pipe -Wno-error=unused -Wno-error=unused-variable -Wunused -Wno-all -Wno-error -Wno-extra"
+
+export CXXFLAGS="-march=native -mtune=native -O3 -falign-functions=32 -fstrict-aliasing -fomit-frame-pointer -fno-stack-protector -pipe -Wno-error=unused -Wno-error=unused-variable -Wunused -Wno-all -Wno-error -Wno-extra"
+
+export CPPFLAGS="-march=native -mtune=native -O3 -falign-functions=32 -fstrict-aliasing -fomit-frame-pointer -fno-stack-protector -pipe -Wno-error=unused -Wno-error=unused-variable -Wunused -Wno-all -Wno-error -Wno-extra -I/usr/local/include"
+
+export LDFLAGS="-L/usr/local/include"
+
+time meson --buildtype=release --prefix=/usr/local . build ;  time meson configure build ; time ninja -j3 -v -C build ; time ninja -j3 -v -C build install
+
+#return ld.lld
+mv /usr/bin/ld.llvm /usr/bin/ld
