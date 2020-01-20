@@ -26,13 +26,13 @@ Gnome ?
 
 * INDEX
 
-1. freebsd-ports-diablo
-
 ### (DiabloOS GFX UPGRADE PORTS) ###
 
-2. freebsd-diablo-config-files-seeds
+1. freebsd-ports-diablo
 
 ### (DiabloOS Config Files) ###
+
+2. freebsd-diablo-config-files-seeds
 
 ### HOW TO USE THIS REPO = ###
 
