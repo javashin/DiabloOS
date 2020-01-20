@@ -43,6 +43,20 @@
 
 2. cp /mnt/DiabloOS/boot/loader.efi /boot/efi/EFI/FreeBSD/loader.efi
 
+- Configure The FreeBSD Loader :
+1. edit /mnt/DiabloOS/boot/loader.conf and Add The following = 
+
+{
+vfs.root.mountfrom="zfs:rpool/ROOT/DiabloOS"
+openzfs_load="YES"
+vfs.zfs.arc.max="1073741824"
+zpool_cache_load="YES"
+zpool_cache_type="/boot/zfs/zpool.cache"
+zpool_cache_name="/boot/zfs/zpool.cache"
+zfs_load="NO"
+opensolaris_load="NO"
+}
+
 - Install refind-efi and install refind-install with efi esp mounted. boot freebsd from it.
 
 # Continue With The Compilation Of A New Kernel "Thin Kernel" "Optimized Kernel" With ZFS Disabled And Audio to Enable OSS4 And With RealTime ON. And Upgrade The GFX STACK.
