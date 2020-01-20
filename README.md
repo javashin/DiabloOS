@@ -11,7 +11,7 @@
 - openzfs & openzfs-kmod ports both compiled and installed.
 1. With = portsnap auto ; cd /usr/ports/sysutils/openzfs-kmod ; make install clean ; cd /usr/ports/sysutils/openzfs ; make install clean
 
-* Recommended But Optional Install On VirtualBox From Your Linux Distribution Installed On ZFS Working And Running , Inside VirtualBox Install On AutoUFS Formated VDI Mount On Linux Using NBD Kernel Module Interface And Extract The ROOT FS TREE Making A Exact Copy With "cpdup" To The New Dataset.  
+* Recommended But Optional Install On VirtualBox From Your Linux Distribution Installed On ZFS Working And Running , Inside VirtualBox Install -RELEASE , -STABLE or -CURRENT On AutoUFS Formated VDI Mount On Linux Using NBD Kernel Module Interface And Extract The ROOT FS TREE Making A Exact Copy With "cpdup" To The New Dataset.  
 
 - To Deploy On OpenZFS ZfsOnLinux DataSet And Use ZOF ZfsOnFreeBSD Fork Modules And Avoid Using Legacy ZFS Code.
 - Create The New dataset For Freebsd on A Zfs On Linux Pool with 
