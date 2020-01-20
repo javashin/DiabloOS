@@ -55,7 +55,7 @@ Then "pkg update" , now start installing the goods = \
 - Now openzfs & openzfs-kmod ports can be both compiled and installed. .
 1. With = "portsnap auto" and on /usr/ports/sysutils/openzfs-kmod edit the Makefile and Comment The BROKEN Line To Be able To Compile Then = \
 
-cd /usr/ports/sysutils/openzfs-kmod ; make install clean ; cd /usr/ports/sysutils/openzfs ; make install clean"
+"cd /usr/ports/sysutils/openzfs-kmod ; make install clean ; cd /usr/ports/sysutils/openzfs ; make install clean"
 
 
 - To Deploy On OpenZFS ZfsOnLinux DataSet And Use ZOF ZfsOnFreeBSD Fork Modules And Avoid Using Legacy ZFS Code.
