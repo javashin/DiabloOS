@@ -9,7 +9,7 @@
 
 4. Remove Native Sound Drivers And Add 4Front Technologies OSS4 http://www.opensound.com/oss.html .
 
-5. Everything And All Compiled With The Level 3 Of Compiler (-O3) Kernel+World Some Key Ports That Increase Performace. 
+5. Everything And All Compiled With The Level 3 Of Compiler (-O3) Kernel+World Plus Some Key Ports That Increase Performace. 
 
 6. Upgrade The GFX STACK =
 Libdrm (last stable version) \
