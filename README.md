@@ -1,4 +1,4 @@
-### DiabloOS FreeBSD Distro Fork Add-ON ###
+### DiabloOS FreeBSD Distro Fork Add-ON By JavaShin-X ###
 ### The Goal Of This Project Is Manually Install A Fully Optimized FreeBSD OS For Desktop/Laptop Not For NOOBS.###
 
 1. Install Any Branch -RELEASE -STABLLE -CURRENT To ZOF https://zfsonfreebsd.github.io/ZoF/ .
@@ -16,9 +16,13 @@ Libdrm (last stable version) \
 Mesa 3D OpenGL Vulkan Libs And DRI (last stable version) \  
 X11 Xorg-server (Last Master Tip From Gitlab) \
 Linux Kernel 5.0 KMS DRM Video DRIVERS. \
-On Desktops Like Mate Xfce4 Lxqt Lxde Or Just Window Managers BOXes Make Use Of The Best Compositor For Any Unix System "Picom" A Fork Of Compton Which Works Great.
-On Kde Plasma 5 Recompile Kwin With lowlatency Patches For The Best Performance.
+On Desktops Like Mate Xfce4 Lxqt Lxde Or Just Window Managers BOXes Make Use Of The Best Compositor For Any Unix System "Picom" A Fork Of Compton Which Works Great. \
+On Kde Plasma 5 Recompile Kwin With lowlatency Patches For The Best Performance. \
 Gnome ?
+
+7. Make your own -RELEASE DistFile Manifest Tarballs And Memstick Or ISO & Booteable System For Any Situation.
+
+8. Finito Fin Finale EnD.
 
 * INDEX
 
@@ -89,6 +93,7 @@ opensolaris_load="NO"
 
 ### Everything Here Is BSD2CLAUSE , Creative Commons , Do What The FUck U Want With It.
 
+JavaShin-X 2020.
 
 
 
