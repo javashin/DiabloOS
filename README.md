@@ -36,13 +36,27 @@ Gnome ?
 
 ### HOW TO USE THIS REPO = ###
 
-- After Install FreeBSD With src and ports from the installer and updated with freebsd-update if is -RELEASE Installation BOX for -STABLE And -CURRENT freebsd-update dont work Just Install From The Latest And Greatest Snapshot -STABLE Dont Have Debug Symbols 13-CURRENT Does More Work Is Needed But 13-CURRENT is THE BEST Way to Go.  
+# Step 1. =
 
-- openzfs & openzfs-kmod ports both compiled and installed. (Inside VirtualBox Before Mount And Deduplicate).
-1. With = portsnap auto ; cd /usr/ports/sysutils/openzfs-kmod ; make install clean ; cd /usr/ports/sysutils/openzfs ; make install clean
+- After Install FreeBSD With src and ports from the installer and updated with freebsd-update if is -RELEASE Installation BOX for -STABLE And -CURRENT freebsd-update dont work Just Install From The Latest And Greatest Snapshot -STABLE Dont Have Debug Symbols 13-CURRENT Does , More Work Is Needed But 13-CURRENT is THE BEST Way to Go.  
 
 * Recommended But Optional Install On VirtualBox From Your Linux Distribution Installed On ZFS Working And Running , Inside VirtualBox Install -RELEASE , -STABLE or -CURRENT On AutoUFS Formated VDI Mount On Linux Using NBD Kernel Module Interface And Extract The ROOT FS TREE Making A Exact Copy With "cpdup" To The New Dataset.
 Linux installed on zfs is not necessary just have working zfs modules and zfs utils better from last master tip from git.
+
+### (Inside VirtualBox Before Mount And Deduplicate)
+- When the Installer Finished And Ask To Enter In Chroot Mode. \
+Install Pre-Deps Setting Up A Development Environment. \
+Enter To It And edit with "ee" the pkg configuration on /etc =  \
+ee /etc/pkg/FreeBSD.conf and change from "quaterly" to "latest"  \
+Then "pkg update" , now start installing the goods = \
+
+"pkg install bash dfc fish gcc python bison meson ninja mc dialog4ports patch gmake binutils automake autoconf portmaster portupgrade git subversion nano" 
+
+- Now openzfs & openzfs-kmod ports can be both compiled and installed. .
+1. With = "portsnap auto" and on /usr/ports/sysutils/openzfs-kmod edit the Makefile and Comment The BROKEN Line To Be able To Compile Then = \
+
+cd /usr/ports/sysutils/openzfs-kmod ; make install clean ; cd /usr/ports/sysutils/openzfs ; make install clean"
+
 
 - To Deploy On OpenZFS ZfsOnLinux DataSet And Use ZOF ZfsOnFreeBSD Fork Modules And Avoid Using Legacy ZFS Code.
 - Create The New dataset For Freebsd on A Zfs On Linux Pool with 
@@ -77,7 +91,7 @@ Linux installed on zfs is not necessary just have working zfs modules and zfs ut
 - Configure The FreeBSD Loader :
 1. edit /mnt/DiabloOS/boot/loader.conf and Add The following = 
 
-vfs.root.mountfrom="zfs:rpool/ROOT/DiabloOS"
+vfs.root.mountfrom="zfs:zroot/ROOT/DiabloOS"
 openzfs_load="YES" \
 vfs.zfs.arc.max="1073741824" \
 zpool_cache_load="YES" \
@@ -86,14 +100,36 @@ zpool_cache_name="/boot/zfs/zpool.cache" \
 zfs_load="NO" \
 opensolaris_load="NO"
 
+- Edit The FSTAB
+Commnet Out Or Remove The UFS And Swap Partitions From The Fstab And Add =
+
+zroot/ROOT/DiabloOS  /               zfs             rw	    0       0 \
+fdesc                /dev/fd         fdescfs         rw     0       0 \
+proc                 /proc           procfs          rw     0       0 
+
+- Add Swap Later On A Partition Or SwapFile After Boot . Some Useful Info Here = \
+https://www.ixsystems.com/community/resources/how-to-relocate-swap-to-an-ssd-or-other-partition.68/ \
+https://www.cyberciti.biz/faq/create-a-freebsd-swap-file/
+
 - Install the pkg from your linux distro refind-efi bootloader and install with refind-install to efi esp mounted. boot freebsd from it.
+
+# Step 2. =
+- Now On Our System Installed On ZOL Booted With ZOF Modules.
+Set Up A Desktop Normally with Firefox Or Chromium , with something like = pkg update ; pkg upgrade -y ; pkg install xorg xorg-server xorg-drivers xorg-apps kde5 firefox thunderbird  
+
+- Come Back Here To My Repo 
+
+
+
+
+
 
 
 ### Continue With The Compilation Of A New Kernel "Thin Kernel" "Optimized Kernel" With ZFS Disabled And Audio to Enable OSS4 And With RealTime ON. And Upgrade The GFX STACK.
 
 ### Everything Here Is BSD2CLAUSE , Creative Commons , Do What The FUck U Want With It.
 
-JavaShin-X 2020.
+# JavaShin-X 2020.
 
 
 
