@@ -1,7 +1,7 @@
-# $FreeBSD$
+# $FreeBSD: head/sysutils/openzfs-kmod/Makefile 523503 2020-01-18 22:25:05Z antoine $
 
 PORTNAME=	openzfs
-PORTVERSION=	2019101600
+PORTVERSION=	2020011300
 DISTVERSIONPREFIX=	v
 CATEGORIES=	sysutils
 PKGNAMESUFFIX?=	-kmod
@@ -11,11 +11,13 @@ COMMENT=	OpenZFS kernel module for FreeBSD
 
 LICENSE=	CDDL
 
+BROKEN=		fails to build
+
 USES=		kmod
 USE_GITHUB=	yes
 GH_ACCOUNT=	zfsonfreebsd
 GH_PROJECT=	ZoF
-GH_TAGNAME=	d4169da
+GH_TAGNAME=	5ccfc14
 KMODTARGET?=	openzfs.ko
 
 PLIST_FILES=	${KMODDIR}/${KMODTARGET}
