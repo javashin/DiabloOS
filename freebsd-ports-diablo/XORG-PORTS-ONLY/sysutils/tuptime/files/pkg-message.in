@@ -1,0 +1,13 @@
+======================================================================
+
+tuptime requires execution at startup and shutdown on rc.d, please
+add to /etc/rc.conf:
+
+	tuptime_enable="YES"
+
+tuptime requires a scheduled execution on cron, please add to
+/etc/crontab:
+
+	*/5 * * * * root %%PREFIX%%/bin/tuptime -x > /dev/null
+
+======================================================================

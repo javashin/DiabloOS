@@ -1,0 +1,18 @@
+# -*- makefile-bsdmake -*-
+
+OPTIONS_DEFINE+= 	CANBERRA DBUS DEBUG FFMPEG GCONF \
+			LIBPROXY OPTIMIZED_CFLAGS PROFILE TEST WAYLAND
+
+OPTIONS_DEFAULT+=	DBUS FFMPEG GCONF OPTIMIZED_CFLAGS PROFILE WAYLAND \
+			${OPTIONS_MULTI_AUDIO:NSNDIO}
+
+OPTIONS_MULTI+=		AUDIO
+OPTIONS_MULTI_AUDIO=	ALSA JACK PULSEAUDIO SNDIO
+
+# WebRTC legacy audio library only supports ALSA and PulseAudio
+JACK_IMPLIES=		ALSA
+
+CANBERRA_DESC?=		Sound theme alerts
+LIBPROXY_DESC?=		Proxy support via libproxy
+LIGHTNING_DESC?=	Calendar extension
+RUST_DESC?=		Build with components written in Rust language

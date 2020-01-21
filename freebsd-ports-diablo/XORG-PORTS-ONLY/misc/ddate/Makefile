@@ -1,0 +1,40 @@
+# Created by: Emanuel Haupt <ehaupt@critical.ch>
+# $FreeBSD$
+
+PORTNAME=	ddate
+DISTVERSIONPREFIX=	v
+DISTVERSION=	0.2.2-6
+DISTVERSIONSUFFIX=	-g899ca66
+PORTEPOCH=	3
+CATEGORIES=	misc
+
+MAINTAINER=	ehaupt@FreeBSD.org
+COMMENT=	Command to print the date in Discordian date format
+
+LICENSE=	GPLv2
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	bo0ts
+
+OPTIONS_DEFINE=	USFORMAT PRAISEBOB KILLBOB
+
+USFORMAT_DESC=	US time format
+PRAISEBOB_DESC=	SubGenius slogans
+KILLBOB_DESC=	Countdown to X-Day
+
+OPTIONS_DEFAULT=KILLBOB
+
+USFORMAT_CFLAGS=	-DUS_FORMAT=\"1\"
+PRAISEBOB_CFLAGS=	-DPRAISE_BOB=\"13013\"
+KILLBOB_CFLAGS=		-DKILL_BOB=\"13013\"
+
+PLIST_FILES=	bin/ddate man/man1/ddate.1.gz
+
+do-build:
+	${CC} ${CFLAGS} ${WRKSRC}/${PORTNAME}.c -o ${WRKSRC}/${PORTNAME}
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/${PORTNAME}.1 ${STAGEDIR}${MANPREFIX}/man/man1
+
+.include <bsd.port.mk>

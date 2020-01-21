@@ -1,0 +1,9 @@
+%%DATADIR%%/graylog.jar
+%%DATADIR%%/plugin/%%PORTNAME%%-plugin-aws-%%DISTVERSION%%.jar
+%%DATADIR%%/plugin/%%PORTNAME%%-plugin-collector-%%DISTVERSION%%.jar
+%%DATADIR%%/plugin/%%PORTNAME%%-plugin-threatintel-%%DISTVERSION%%.jar
+@dir %%ETCDIR%%
+@dir(%%GRAYLOGUSER%%,%%GRAYLOGGROUP%%,750) %%GRAYLOG_DATA_DIR%%
+@dir(%%GRAYLOGUSER%%,%%GRAYLOGGROUP%%,750) %%GRAYLOG_LOGS_DIR%%
+@sample(%%GRAYLOGUSER%%,%%GRAYLOGGROUP%%,440) %%ETCDIR%%/graylog.conf.example
+@sample(%%GRAYLOGUSER%%,%%GRAYLOGGROUP%%,440) %%ETCDIR%%/log4j2.xml.example

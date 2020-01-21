@@ -1,0 +1,661 @@
+diff -ur xorg-server-1.20.99.1.orig/config/config-backends.h xorg-server-1.20.99.1/config/config-backends.h
+--- xorg-server-1.20.99.1.orig/config/config-backends.h	2019-10-12 06:19:14.000000000 -0400
++++ xorg-server-1.20.99.1/config/config-backends.h	2019-10-14 01:44:05.079823000 -0400
+@@ -43,4 +43,7 @@
+ #elif defined(CONFIG_WSCONS)
+ int config_wscons_init(void);
+ void config_wscons_fini(void);
++#elif defined(CONFIG_DEVD)
++int config_devd_init(void);
++void config_devd_fini(void);
+ #endif
+diff -ur xorg-server-1.20.99.1.orig/config/config.c xorg-server-1.20.99.1/config/config.c
+--- xorg-server-1.20.99.1.orig/config/config.c	2019-10-12 06:19:14.000000000 -0400
++++ xorg-server-1.20.99.1/config/config.c	2019-10-14 01:44:05.080439000 -0400
+@@ -55,6 +55,9 @@
+ #elif defined(CONFIG_WSCONS)
+     if (!config_wscons_init())
+         ErrorF("[config] failed to initialise wscons\n");
++#elif defined(CONFIG_DEVD)
++    if (!config_devd_init())
++        ErrorF("[config] failed to initialise devd\n");
+ #endif
+ }
+ 
+@@ -67,6 +70,8 @@
+     config_hal_fini();
+ #elif defined(CONFIG_WSCONS)
+     config_wscons_fini();
++#elif defined(CONFIG_DEVD)
++    config_devd_fini();
+ #endif
+ }
+ 
+diff -ur xorg-server-1.20.99.1.orig/config/Makefile.in xorg-server-1.20.99.1/config/Makefile.in
+--- xorg-server-1.20.99.1.orig/config/Makefile.in	2019-10-13 20:22:16.000000000 -0400
++++ xorg-server-1.20.99.1/config/Makefile.in	2019-10-14 01:44:05.081439000 -0400
+@@ -89,16 +89,18 @@
+ POST_UNINSTALL = :
+ build_triplet = @build@
+ host_triplet = @host@
+-@NEED_DBUS_TRUE@am__append_1 = $(DBUS_CFLAGS)
+-@NEED_DBUS_TRUE@am__append_2 = dbus-core.c
+-@NEED_DBUS_TRUE@am__append_3 = $(DBUS_LIBS)
+-@CONFIG_UDEV_TRUE@am__append_4 = $(UDEV_CFLAGS)
+-@CONFIG_UDEV_TRUE@am__append_5 = udev.c
+-@CONFIG_UDEV_TRUE@am__append_6 = $(UDEV_LIBS)
+-@CONFIG_HAL_TRUE@@CONFIG_UDEV_FALSE@am__append_7 = $(HAL_CFLAGS)
+-@CONFIG_HAL_TRUE@@CONFIG_UDEV_FALSE@am__append_8 = hal.c
+-@CONFIG_HAL_TRUE@@CONFIG_UDEV_FALSE@am__append_9 = $(HAL_LIBS)
+-@CONFIG_HAL_FALSE@@CONFIG_UDEV_FALSE@@CONFIG_WSCONS_TRUE@am__append_10 = wscons.c
++@CONFIG_DEVD_TRUE@am__append_1 = devd.c
++@CONFIG_DEVD_TRUE@am__append_2 = -lusbhid
++@NEED_DBUS_TRUE@am__append_3 = $(DBUS_CFLAGS)
++@NEED_DBUS_TRUE@am__append_4 = dbus-core.c
++@NEED_DBUS_TRUE@am__append_5 = $(DBUS_LIBS)
++@CONFIG_UDEV_TRUE@am__append_6 = $(UDEV_CFLAGS)
++@CONFIG_UDEV_TRUE@am__append_7 = udev.c
++@CONFIG_UDEV_TRUE@am__append_8 = $(UDEV_LIBS)
++@CONFIG_HAL_TRUE@@CONFIG_UDEV_FALSE@am__append_9 = $(HAL_CFLAGS)
++@CONFIG_HAL_TRUE@@CONFIG_UDEV_FALSE@am__append_10 = hal.c
++@CONFIG_HAL_TRUE@@CONFIG_UDEV_FALSE@am__append_11 = $(HAL_LIBS)
++@CONFIG_HAL_FALSE@@CONFIG_UDEV_FALSE@@CONFIG_WSCONS_TRUE@am__append_12 = wscons.c
+ subdir = config
+ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
+ am__aclocal_m4_deps = $(top_srcdir)/m4/ac_define_dir.m4 \
+@@ -126,16 +128,18 @@
+ @CONFIG_UDEV_TRUE@am__DEPENDENCIES_3 = $(am__DEPENDENCIES_1)
+ @CONFIG_HAL_TRUE@@CONFIG_UDEV_FALSE@am__DEPENDENCIES_4 =  \
+ @CONFIG_HAL_TRUE@@CONFIG_UDEV_FALSE@	$(am__DEPENDENCIES_1)
+-libconfig_la_DEPENDENCIES = $(am__DEPENDENCIES_2) \
+-	$(am__DEPENDENCIES_3) $(am__DEPENDENCIES_4)
+-am__libconfig_la_SOURCES_DIST = config.c config-backends.h dbus-core.c \
+-	udev.c hal.c wscons.c
+-@NEED_DBUS_TRUE@am__objects_1 = dbus-core.lo
+-@CONFIG_UDEV_TRUE@am__objects_2 = udev.lo
+-@CONFIG_HAL_TRUE@@CONFIG_UDEV_FALSE@am__objects_3 = hal.lo
+-@CONFIG_HAL_FALSE@@CONFIG_UDEV_FALSE@@CONFIG_WSCONS_TRUE@am__objects_4 = wscons.lo
++libconfig_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
++	$(am__DEPENDENCIES_2) $(am__DEPENDENCIES_3) \
++	$(am__DEPENDENCIES_4)
++am__libconfig_la_SOURCES_DIST = config.c config-backends.h devd.c \
++	dbus-core.c udev.c hal.c wscons.c
++@CONFIG_DEVD_TRUE@am__objects_1 = devd.lo
++@NEED_DBUS_TRUE@am__objects_2 = dbus-core.lo
++@CONFIG_UDEV_TRUE@am__objects_3 = udev.lo
++@CONFIG_HAL_TRUE@@CONFIG_UDEV_FALSE@am__objects_4 = hal.lo
++@CONFIG_HAL_FALSE@@CONFIG_UDEV_FALSE@@CONFIG_WSCONS_TRUE@am__objects_5 = wscons.lo
+ am_libconfig_la_OBJECTS = config.lo $(am__objects_1) $(am__objects_2) \
+-	$(am__objects_3) $(am__objects_4)
++	$(am__objects_3) $(am__objects_4) $(am__objects_5)
+ libconfig_la_OBJECTS = $(am_libconfig_la_OBJECTS)
+ AM_V_lt = $(am__v_lt_@AM_V@)
+ am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
+@@ -157,7 +161,7 @@
+ depcomp = $(SHELL) $(top_srcdir)/depcomp
+ am__maybe_remake_depfiles = depfiles
+ am__depfiles_remade = ./$(DEPDIR)/config.Plo ./$(DEPDIR)/dbus-core.Plo \
+-	./$(DEPDIR)/hal.Plo ./$(DEPDIR)/udev.Plo \
++	./$(DEPDIR)/devd.Plo ./$(DEPDIR)/hal.Plo ./$(DEPDIR)/udev.Plo \
+ 	./$(DEPDIR)/wscons.Plo
+ am__mv = mv -f
+ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
+@@ -589,12 +593,14 @@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-AM_CFLAGS = $(DIX_CFLAGS) $(am__append_1) $(am__append_4) \
+-	$(am__append_7)
++AM_CFLAGS = $(DIX_CFLAGS) $(am__append_3) $(am__append_6) \
++	$(am__append_9)
+ noinst_LTLIBRARIES = libconfig.la
+-libconfig_la_SOURCES = config.c config-backends.h $(am__append_2) \
+-	$(am__append_5) $(am__append_8) $(am__append_10)
+-libconfig_la_LIBADD = $(am__append_3) $(am__append_6) $(am__append_9)
++libconfig_la_SOURCES = config.c config-backends.h $(am__append_1) \
++	$(am__append_4) $(am__append_7) $(am__append_10) \
++	$(am__append_12)
++libconfig_la_LIBADD = $(am__append_2) $(am__append_5) $(am__append_8) \
++	$(am__append_11)
+ @CONFIG_UDEV_TRUE@@XORG_TRUE@xorgconfddir = $(datadir)/X11/$(XF86CONFIGDIR)
+ @CONFIG_UDEV_TRUE@@XORG_TRUE@xorgconfd_DATA = 10-quirks.conf
+ EXTRA_DIST = x11-input.fdi fdi2iclass.py 10-quirks.conf
+@@ -654,6 +660,7 @@
+ 
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/config.Plo@am__quote@ # am--include-marker
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dbus-core.Plo@am__quote@ # am--include-marker
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/devd.Plo@am__quote@ # am--include-marker
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hal.Plo@am__quote@ # am--include-marker
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/udev.Plo@am__quote@ # am--include-marker
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/wscons.Plo@am__quote@ # am--include-marker
+@@ -842,6 +849,7 @@
+ distclean: distclean-am
+ 		-rm -f ./$(DEPDIR)/config.Plo
+ 	-rm -f ./$(DEPDIR)/dbus-core.Plo
++	-rm -f ./$(DEPDIR)/devd.Plo
+ 	-rm -f ./$(DEPDIR)/hal.Plo
+ 	-rm -f ./$(DEPDIR)/udev.Plo
+ 	-rm -f ./$(DEPDIR)/wscons.Plo
+@@ -892,6 +900,7 @@
+ maintainer-clean: maintainer-clean-am
+ 		-rm -f ./$(DEPDIR)/config.Plo
+ 	-rm -f ./$(DEPDIR)/dbus-core.Plo
++	-rm -f ./$(DEPDIR)/devd.Plo
+ 	-rm -f ./$(DEPDIR)/hal.Plo
+ 	-rm -f ./$(DEPDIR)/udev.Plo
+ 	-rm -f ./$(DEPDIR)/wscons.Plo
+diff -ur xorg-server-1.20.99.1.orig/config/udev.c xorg-server-1.20.99.1/config/udev.c
+--- xorg-server-1.20.99.1.orig/config/udev.c	2019-10-12 06:19:14.000000000 -0400
++++ xorg-server-1.20.99.1/config/udev.c	2019-10-14 01:44:05.082152000 -0400
+@@ -29,6 +29,7 @@
+ 
+ #include <libudev.h>
+ #include <ctype.h>
++#include <fcntl.h>
+ #include <unistd.h>
+ 
+ #include "input.h"
+@@ -198,7 +199,21 @@
+         attrs.product = strdup(name);
+     input_options = input_option_new(input_options, "name", name);
+     input_options = input_option_new(input_options, "path", path);
+-    input_options = input_option_new(input_options, "device", path);
++    if(strstr(path, "kbdmux") != NULL) {
++        /*
++         * Don't pass "device" option if the keyboard is already attached
++         * to the console (ie. open() fails). This would activate a special
++         * logic in xf86-input-keyboard. Prevent any other attached to console
++         * keyboards being processed. There can be only one such device.
++         */
++        int fd = open(path, O_RDONLY);
++        if (fd > -1) {
++            close(fd);
++            input_options = input_option_new(input_options, "device", path);
++        }
++    }
++    else
++        input_options = input_option_new(input_options, "device", path);
+     input_options = input_option_new(input_options, "major", itoa(major(devnum)));
+     input_options = input_option_new(input_options, "minor", itoa(minor(devnum)));
+     if (path)
+@@ -280,6 +295,18 @@
+         }
+     }
+ 
++    if (attrs.flags & (ATTR_KEY | ATTR_KEYBOARD)) {
++        if (!feature_present("evdev_support"))
++            input_options = input_option_new(input_options, "driver", "kbd");
++    } else if (attrs.flags & ATTR_POINTER) {
++        if (strstr(path, "vbox"))
++            input_options = input_option_new(input_options, "driver", "vboxmouse");
++        else {
++            if (!feature_present("evdev_support"))
++                input_options = input_option_new(input_options, "driver", "mouse");
++        }
++    }
++
+     input_options = input_option_new(input_options, "config_info", config_info);
+ 
+     /* Default setting needed for non-seat0 seats */
+diff -ur xorg-server-1.20.99.1.orig/configure xorg-server-1.20.99.1/configure
+--- xorg-server-1.20.99.1.orig/configure	2019-10-13 20:22:14.000000000 -0400
++++ xorg-server-1.20.99.1/configure	2019-10-14 01:44:05.097913000 -0400
+@@ -1002,6 +1002,8 @@
+ CONFIG_UDEV_TRUE
+ UDEV_LIBS
+ UDEV_CFLAGS
++CONFIG_DEVD_FALSE
++CONFIG_DEVD_TRUE
+ HAVE_SYSTEMD_DAEMON_FALSE
+ HAVE_SYSTEMD_DAEMON_TRUE
+ SYSTEMD_DAEMON_LIBS
+@@ -1335,6 +1337,7 @@
+ enable_dbe
+ enable_xf86bigfont
+ enable_dpms
++enable_config_devd
+ enable_config_udev
+ enable_config_udev_kms
+ enable_config_hal
+@@ -2151,6 +2154,7 @@
+   --disable-dbe           Build DBE extension (default: enabled)
+   --enable-xf86bigfont    Build XF86 Big Font extension (default: disabled)
+   --disable-dpms          Build DPMS extension (default: enabled)
++  --enable-config-devd    Build devd support (default: auto)
+   --enable-config-udev    Build udev support (default: auto)
+   --enable-config-udev-kms
+                           Build udev kms support (default: auto)
+@@ -21743,7 +21747,7 @@
+ 	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+ $as_echo "no" >&6; }
+ else
+-	if test `${RAWCPP} -traditional < conftest.$ac_ext | grep -c 'preserve   \"'` -eq 1 ; then
++	if true; then
+ 		TRADITIONALCPPFLAGS="-traditional"
+ 		RAWCPPFLAGS="${RAWCPPFLAGS} -traditional"
+ 		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+@@ -23122,9 +23126,13 @@
+ 	esac
+ 	GLX_ARCH_DEFINES="-D__GLX_ALIGN64 -mieee"
+ 	;;
+-  arm*)
++  arm*|aarch64*)
+ 	ARM_VIDEO=yes
+ 	DEFAULT_INT10="stub"
++	case $host_os in
++		*freebsd*)	$as_echo "#define USE_DEV_IO 1" >>confdefs.h
++ ;;
++	esac
+ 	;;
+   i*86)
+ 	I386_VIDEO=yes
+@@ -23872,6 +23880,13 @@
+   DPMSExtension=yes
+ fi
+ 
++# Check whether --enable-config-devd was given.
++if test "${enable_config_devd+set}" = set; then :
++  enableval=$enable_config_devd; CONFIG_DEVD=$enableval
++else
++  CONFIG_DEVD=auto
++fi
++
+ # Check whether --enable-config-udev was given.
+ if test "${enable_config_udev+set}" = set; then :
+   enableval=$enable_config_udev; CONFIG_UDEV=$enableval
+@@ -25605,6 +25620,31 @@
+ 	as_fn_error $? "Hotplugging through both libudev and hal not allowed" "$LINENO" 5
+ fi
+ 
++if test "x$CONFIG_DEVD" = xauto; then
++	case $host_os in
++		*freebsd*)
++			CONFIG_DEVD=yes
++			;;
++		*)
++			CONFIG_DEVD=no
++			;;
++	esac
++fi
++ if test "x$CONFIG_DEVD" = xyes; then
++  CONFIG_DEVD_TRUE=
++  CONFIG_DEVD_FALSE='#'
++else
++  CONFIG_DEVD_TRUE='#'
++  CONFIG_DEVD_FALSE=
++fi
++
++if test "x$CONFIG_DEVD" = xyes; then
++
++$as_echo "#define CONFIG_DEVD 1" >>confdefs.h
++
++fi
++
++if test "x$CONFIG_UDEV" != xno; then
+ 
+ pkg_failed=no
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking for UDEV" >&5
+@@ -25676,8 +25716,13 @@
+ $as_echo "yes" >&6; }
+ 	HAVE_LIBUDEV=yes
+ fi
+-if test "x$CONFIG_UDEV" = xauto; then
+-	CONFIG_UDEV="$HAVE_LIBUDEV"
++	if test "x$CONFIG_UDEV" = xauto; then
++		CONFIG_UDEV="$HAVE_LIBUDEV"
++ 
++ $as_echo "#define HAVE_LIBUDEV 1" >>confdefs.h
++ 
++	fi
++
+ fi
+  if test "x$CONFIG_UDEV" = xyes; then
+   CONFIG_UDEV_TRUE=
+@@ -25921,7 +25966,14 @@
+ 
+ if test "x$SYSTEMD_LOGIND" = xauto; then
+         if test "x$HAVE_DBUS" = xyes -a "x$CONFIG_UDEV" = xyes ; then
+-                SYSTEMD_LOGIND=yes
++            case $host_os in
++                *linux*)
++                        SYSTEMD_LOGIND=yes
++                        ;;
++                *)
++                        SYSTEMD_LOGIND=no
++                        ;;
++            esac
+         else
+                 SYSTEMD_LOGIND=no
+         fi
+@@ -32375,17 +32427,17 @@
+ ac_config_commands="$ac_config_commands sdksyms"
+ 
+ 
+-if test "x$CONFIG_HAL" = xno && test "x$CONFIG_UDEV" = xno; then
++if test "x$CONFIG_HAL" = xno && test "x$CONFIG_UDEV" = xno && test "x$CONFIG_DEVD" = xno; then
+     { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING:
+-             ***********************************************
+-             Neither HAL nor udev backend will be enabled.
++             *****************************************************
++             Neither HAL, devd, nor udev backend will be enabled.
+              Input device hotplugging will not be available!
+-             ***********************************************" >&5
++             *****************************************************" >&5
+ $as_echo "$as_me: WARNING:
+-             ***********************************************
+-             Neither HAL nor udev backend will be enabled.
++             *****************************************************
++             Neither HAL, devd, nor udev backend will be enabled.
+              Input device hotplugging will not be available!
+-             ***********************************************" >&2;}
++             *****************************************************" >&2;}
+ fi
+ 
+ ac_config_files="$ac_config_files Makefile glx/Makefile include/Makefile composite/Makefile damageext/Makefile dbe/Makefile dix/Makefile doc/Makefile doc/dtrace/Makefile man/Makefile fb/Makefile glamor/Makefile record/Makefile config/Makefile mi/Makefile miext/Makefile miext/sync/Makefile miext/damage/Makefile miext/shadow/Makefile miext/rootless/Makefile os/Makefile pseudoramiX/Makefile randr/Makefile render/Makefile xkb/Makefile Xext/Makefile Xi/Makefile xfixes/Makefile exa/Makefile dri3/Makefile present/Makefile hw/Makefile hw/xfree86/Makefile hw/xfree86/Xorg.sh hw/xfree86/common/Makefile hw/xfree86/ddc/Makefile hw/xfree86/dixmods/Makefile hw/xfree86/doc/Makefile hw/xfree86/dri/Makefile hw/xfree86/dri2/Makefile hw/xfree86/dri2/pci_ids/Makefile hw/xfree86/drivers/Makefile hw/xfree86/drivers/modesetting/Makefile hw/xfree86/exa/Makefile hw/xfree86/exa/man/Makefile hw/xfree86/fbdevhw/Makefile hw/xfree86/fbdevhw/man/Makefile hw/xfree86/glamor_egl/Makefile hw/xfree86/i2c/Makefile hw/xfree86/int10/Makefile hw/xfree86/loader/Makefile hw/xfree86/man/Makefile hw/xfree86/modes/Makefile hw/xfree86/os-support/Makefile hw/xfree86/os-support/bsd/Makefile hw/xfree86/os-support/bus/Makefile hw/xfree86/os-support/hurd/Makefile hw/xfree86/os-support/misc/Makefile hw/xfree86/os-support/linux/Makefile hw/xfree86/os-support/solaris/Makefile hw/xfree86/os-support/stub/Makefile hw/xfree86/parser/Makefile hw/xfree86/ramdac/Makefile hw/xfree86/shadowfb/Makefile hw/xfree86/vgahw/Makefile hw/xfree86/x86emu/Makefile hw/xfree86/xkb/Makefile hw/xfree86/utils/Makefile hw/xfree86/utils/man/Makefile hw/xfree86/utils/cvt/Makefile hw/xfree86/utils/gtf/Makefile hw/dmx/config/Makefile hw/dmx/config/man/Makefile hw/dmx/doc/Makefile hw/dmx/doxygen/doxygen.conf hw/dmx/doxygen/Makefile hw/dmx/examples/Makefile hw/dmx/input/Makefile hw/dmx/glxProxy/Makefile hw/dmx/Makefile hw/dmx/man/Makefile hw/vfb/Makefile hw/vfb/man/Makefile hw/xnest/Makefile hw/xnest/man/Makefile hw/xwin/Makefile hw/xwin/dri/Makefile hw/xwin/glx/Makefile hw/xwin/man/Makefile hw/xwin/winclipboard/Makefile hw/xquartz/Makefile hw/xquartz/GL/Makefile hw/xquartz/bundle/Makefile hw/xquartz/man/Makefile hw/xquartz/mach-startup/Makefile hw/xquartz/pbproxy/Makefile hw/xquartz/xpr/Makefile hw/kdrive/Makefile hw/kdrive/ephyr/Makefile hw/kdrive/ephyr/man/Makefile hw/kdrive/src/Makefile hw/xwayland/Makefile test/Makefile xserver.ent xorg-server.pc"
+@@ -32648,6 +32700,10 @@
+   as_fn_error $? "conditional \"HAVE_SYSTEMD_DAEMON\" was never defined.
+ Usually this means the macro was only invoked conditionally." "$LINENO" 5
+ fi
++if test -z "${CONFIG_DEVD_TRUE}" && test -z "${CONFIG_DEVD_FALSE}"; then
++  as_fn_error $? "conditional \"CONFIG_DEVD\" was never defined.
++Usually this means the macro was only invoked conditionally." "$LINENO" 5
++fi
+ if test -z "${CONFIG_UDEV_TRUE}" && test -z "${CONFIG_UDEV_FALSE}"; then
+   as_fn_error $? "conditional \"CONFIG_UDEV\" was never defined.
+ Usually this means the macro was only invoked conditionally." "$LINENO" 5
+diff -ur xorg-server-1.20.99.1.orig/glamor/glamor_egl.c xorg-server-1.20.99.1/glamor/glamor_egl.c
+--- xorg-server-1.20.99.1.orig/glamor/glamor_egl.c	2019-10-12 06:19:14.000000000 -0400
++++ xorg-server-1.20.99.1/glamor/glamor_egl.c	2019-10-14 01:44:05.099235000 -0400
+@@ -428,7 +428,7 @@
+     struct gbm_bo *bo;
+     int fd;
+ 
+-    if (!glamor_make_pixmap_exportable(pixmap, FALSE))
++    if (!glamor_make_pixmap_exportable(pixmap, TRUE))
+         return -1;
+ 
+     bo = glamor_gbm_bo_from_pixmap_internal(screen, pixmap);
+@@ -457,7 +457,7 @@
+ 
+     glamor_egl = glamor_egl_get_screen_private(screen);
+ 
+-    if (!glamor_make_pixmap_exportable(pixmap, FALSE))
++    if (!glamor_make_pixmap_exportable(pixmap, TRUE))
+         goto failure;
+ 
+     bo = glamor_gbm_bo_from_pixmap_internal(screen, pixmap);
+diff -ur xorg-server-1.20.99.1.orig/hw/xfree86/common/xf86AutoConfig.c xorg-server-1.20.99.1/hw/xfree86/common/xf86AutoConfig.c
+--- xorg-server-1.20.99.1.orig/hw/xfree86/common/xf86AutoConfig.c	2019-10-12 06:19:14.000000000 -0400
++++ xorg-server-1.20.99.1/hw/xfree86/common/xf86AutoConfig.c	2019-10-14 01:44:05.100091000 -0400
+@@ -294,7 +294,7 @@
+     xf86PciMatchDriver(md);
+ #endif
+ 
+-#if defined(__linux__)
++#if defined(__linux__) || defined(__FreeBSD__) || defined(__DragonFly__)
+     xf86AddMatchedDriver(md, "modesetting");
+ #endif
+ 
+@@ -302,8 +302,10 @@
+     /* Fallback to platform default frame buffer driver */
+ #if !defined(__linux__) && defined(__sparc__)
+     xf86AddMatchedDriver(md, "wsfb");
+-#else
++#elif defined(__linux__)
+     xf86AddMatchedDriver(md, "fbdev");
++#elif defined(__FreeBSD__)
++    xf86AddMatchedDriver(md, "scfb");
+ #endif
+ #endif                          /* !__sun */
+ 
+diff -ur xorg-server-1.20.99.1.orig/hw/xfree86/common/xf86Config.c xorg-server-1.20.99.1/hw/xfree86/common/xf86Config.c
+--- xorg-server-1.20.99.1.orig/hw/xfree86/common/xf86Config.c	2019-10-12 06:19:14.000000000 -0400
++++ xorg-server-1.20.99.1/hw/xfree86/common/xf86Config.c	2019-10-14 01:44:05.101524000 -0400
+@@ -1279,13 +1279,16 @@
+     }
+ 
+     if (!xf86Info.forceInputDevices && !(foundPointer && foundKeyboard)) {
+-#if defined(CONFIG_HAL) || defined(CONFIG_UDEV) || defined(CONFIG_WSCONS)
++#if defined(CONFIG_HAL) || defined(CONFIG_UDEV) || defined(CONFIG_WSCONS) || \
++	defined(CONFIG_DEVD)
+         const char *config_backend;
+ 
+ #if defined(CONFIG_HAL)
+         config_backend = "HAL";
+ #elif defined(CONFIG_UDEV)
+         config_backend = "udev";
++#elif defined(CONFIG_DEVD)
++        config_backend = "devd";
+ #else
+         config_backend = "wscons";
+ #endif
+diff -ur xorg-server-1.20.99.1.orig/hw/xfree86/common/xf86Globals.c xorg-server-1.20.99.1/hw/xfree86/common/xf86Globals.c
+--- xorg-server-1.20.99.1.orig/hw/xfree86/common/xf86Globals.c	2019-10-12 06:19:14.000000000 -0400
++++ xorg-server-1.20.99.1/hw/xfree86/common/xf86Globals.c	2019-10-14 01:44:05.102083000 -0400
+@@ -118,7 +118,8 @@
+     .miscModInDevEnabled = TRUE,
+     .miscModInDevAllowNonLocal = FALSE,
+     .pmFlag = TRUE,
+-#if defined(CONFIG_HAL) || defined(CONFIG_UDEV) || defined(CONFIG_WSCONS)
++#if defined(CONFIG_HAL) || defined(CONFIG_UDEV) || defined(CONFIG_WSCONS) || \
++	defined(CONFIG_DEVD)
+     .forceInputDevices = FALSE,
+     .autoAddDevices = TRUE,
+     .autoEnableDevices = TRUE,
+diff -ur xorg-server-1.20.99.1.orig/hw/xfree86/common/xf86Xinput.c xorg-server-1.20.99.1/hw/xfree86/common/xf86Xinput.c
+--- xorg-server-1.20.99.1.orig/hw/xfree86/common/xf86Xinput.c	2019-10-12 06:19:14.000000000 -0400
++++ xorg-server-1.20.99.1/hw/xfree86/common/xf86Xinput.c	2019-10-14 01:44:05.103128000 -0400
+@@ -874,7 +874,7 @@
+ {
+     InputDriverPtr drv = NULL;
+     DeviceIntPtr dev = NULL;
+-    Bool paused = FALSE;
++    Bool paused = 0;
+     int rval;
+     char *path = NULL;
+ 
+@@ -1037,6 +1037,7 @@
+         if (strcmp(key, "_source") == 0 &&
+             (strcmp(value, "server/hal") == 0 ||
+              strcmp(value, "server/udev") == 0 ||
++             strcmp(value, "server/devd") == 0 ||
+              strcmp(value, "server/wscons") == 0)) {
+             is_auto = 1;
+             if (!xf86Info.autoAddDevices) {
+diff -ur xorg-server-1.20.99.1.orig/hw/xfree86/Makefile.in xorg-server-1.20.99.1/hw/xfree86/Makefile.in
+--- xorg-server-1.20.99.1.orig/hw/xfree86/Makefile.in	2019-10-13 20:22:18.000000000 -0400
++++ xorg-server-1.20.99.1/hw/xfree86/Makefile.in	2019-10-14 01:44:05.104129000 -0400
+@@ -1166,7 +1166,7 @@
+ @INSTALL_SETUID_TRUE@	chmod u+s $(DESTDIR)$(bindir)/Xorg
+ @SUID_WRAPPER_TRUE@	$(MKDIR_P) $(DESTDIR)$(SUID_WRAPPER_DIR)
+ @SUID_WRAPPER_TRUE@	mv $(DESTDIR)$(bindir)/Xorg $(DESTDIR)$(SUID_WRAPPER_DIR)/Xorg
+-@SUID_WRAPPER_TRUE@	${INSTALL} -m 755 Xorg.sh $(DESTDIR)$(bindir)/Xorg
++@SUID_WRAPPER_TRUE@	(test ! -f $(DESTDIR)$(bindir)/Xorg && ${INSTALL} -m 755 Xorg.sh $(DESTDIR)$(bindir)/Xorg || cd $(DESTDIR)$(bindir) && rm -f X && $(LN_S) Xorg.wrap$(EXEEXT) X)
+ @SUID_WRAPPER_TRUE@	-chown 0 $(DESTDIR)$(SUID_WRAPPER_DIR)/Xorg.wrap && chmod u+s $(DESTDIR)$(SUID_WRAPPER_DIR)/Xorg.wrap
+ 
+ uninstall-local:
+diff -ur xorg-server-1.20.99.1.orig/hw/xfree86/os-support/bsd/bsd_init.c xorg-server-1.20.99.1/hw/xfree86/os-support/bsd/bsd_init.c
+--- xorg-server-1.20.99.1.orig/hw/xfree86/os-support/bsd/bsd_init.c	2019-10-12 06:19:14.000000000 -0400
++++ xorg-server-1.20.99.1/hw/xfree86/os-support/bsd/bsd_init.c	2019-10-14 01:44:05.104973000 -0400
+@@ -48,6 +48,8 @@
+ #if defined (SYSCONS_SUPPORT) || defined (PCVT_SUPPORT)
+ static int VTnum = -1;
+ static int initialVT = -1;
++static struct termios tty_attr;	/* tty state to restore */
++static int tty_mode;		/* kbd mode to restore */
+ #endif
+ 
+ #ifdef PCCONS_SUPPORT
+@@ -230,6 +232,9 @@
+              * Add cases for other *BSD that behave the same.
+              */
+ #if defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
++#if defined(__sparc64__)
++	    pci_system_init_dev_mem(fd);
++#endif
+             uname(&uts);
+             i = atof(uts.release) * 100;
+             if (i >= 310)
+@@ -253,6 +258,7 @@
+ #endif
+  acquire_vt:
+             if (!xf86Info.ShareVTs) {
++                struct termios nTty;
+                 /*
+                  * now get the VT
+                  */
+@@ -287,6 +293,26 @@
+                 if (ioctl(xf86Info.consoleFd, KDSETMODE, KD_GRAPHICS) < 0) {
+                     FatalError("xf86OpenConsole: KDSETMODE KD_GRAPHICS failed");
+                 }
++
++                tcgetattr(xf86Info.consoleFd, &tty_attr);
++                ioctl(xf86Info.consoleFd, KDGKBMODE, &tty_mode);
++
++                /* disable special keys */
++                if (ioctl(xf86Info.consoleFd, KDSKBMODE, K_RAW) < 0) {
++                    FatalError("xf86OpenConsole: KDSKBMODE K_RAW failed (%s)",
++                               strerror(errno));
++                }
++
++                nTty = tty_attr;
++                nTty.c_iflag = IGNPAR | IGNBRK;
++                nTty.c_oflag = 0;
++                nTty.c_cflag = CREAD | CS8;
++                nTty.c_lflag = 0;
++                nTty.c_cc[VTIME] = 0;
++                nTty.c_cc[VMIN] = 1;
++                cfsetispeed(&nTty, 9600);
++                cfsetospeed(&nTty, 9600);
++                tcsetattr(xf86Info.consoleFd, TCSANOW, &nTty);
+             }
+             else {              /* xf86Info.ShareVTs */
+                 close(xf86Info.consoleFd);
+@@ -594,6 +620,8 @@
+     case SYSCONS:
+     case PCVT:
+         ioctl(xf86Info.consoleFd, KDSETMODE, KD_TEXT);  /* Back to text mode */
++        ioctl(xf86Info.consoleFd, KDSKBMODE, tty_mode);
++        tcsetattr(xf86Info.consoleFd, TCSANOW, &tty_attr);
+         if (ioctl(xf86Info.consoleFd, VT_GETMODE, &VT) != -1) {
+             VT.mode = VT_AUTO;
+             ioctl(xf86Info.consoleFd, VT_SETMODE, &VT); /* dflt vt handling */
+diff -ur xorg-server-1.20.99.1.orig/hw/xfree86/os-support/bsd/i386_video.c xorg-server-1.20.99.1/hw/xfree86/os-support/bsd/i386_video.c
+--- xorg-server-1.20.99.1.orig/hw/xfree86/os-support/bsd/i386_video.c	2019-10-12 06:19:14.000000000 -0400
++++ xorg-server-1.20.99.1/hw/xfree86/os-support/bsd/i386_video.c	2019-10-14 01:44:05.105582000 -0400
+@@ -32,6 +32,7 @@
+ #include "xf86Priv.h"
+ 
+ #include <errno.h>
++#include <sys/types.h>
+ #include <sys/mman.h>
+ 
+ #include "xf86_OSlib.h"
+diff -ur xorg-server-1.20.99.1.orig/hw/xfree86/os-support/bsd/ppc_video.c xorg-server-1.20.99.1/hw/xfree86/os-support/bsd/ppc_video.c
+--- xorg-server-1.20.99.1.orig/hw/xfree86/os-support/bsd/ppc_video.c	2019-10-12 06:19:14.000000000 -0400
++++ xorg-server-1.20.99.1/hw/xfree86/os-support/bsd/ppc_video.c	2019-10-14 01:44:05.106104000 -0400
+@@ -79,7 +79,11 @@
+ {
+ 
+     if (ioBase != MAP_FAILED) {
++#if defined(__FreeBSD__)
++        munmap(__DEVOLATILE(unsigned char *, ioBase), 0x10000);
++#else
+         munmap(__UNVOLATILE(ioBase), 0x10000);
++#endif
+         ioBase = MAP_FAILED;
+     }
+ }
+diff -ur xorg-server-1.20.99.1.orig/hw/xfree86/os-support/misc/Makefile.in xorg-server-1.20.99.1/hw/xfree86/os-support/misc/Makefile.in
+--- xorg-server-1.20.99.1.orig/hw/xfree86/os-support/misc/Makefile.in	2019-10-13 20:22:19.000000000 -0400
++++ xorg-server-1.20.99.1/hw/xfree86/os-support/misc/Makefile.in	2019-10-14 01:44:05.106894000 -0400
+@@ -539,7 +539,8 @@
+ 
+ #AM_LDFLAGS = -r
+ AM_CPPFLAGS = $(XORG_INCS)
+-AM_CFLAGS = $(XORG_CFLAGS) $(DIX_CFLAGS)
++@I386_VIDEO_TRUE@I386_VIDEO_CFLAGS = -mno-sse
++AM_CFLAGS = $(I386_VIDEO_CFLAGS) $(XORG_CFLAGS) $(DIX_CFLAGS)
+ EXTRA_DIST = $(I386_SRCS) $(PORTIO_SRCS)
+ all: all-am
+ 
+diff -ur xorg-server-1.20.99.1.orig/hw/xfree86/xorg-wrapper.c xorg-server-1.20.99.1/hw/xfree86/xorg-wrapper.c
+--- xorg-server-1.20.99.1.orig/hw/xfree86/xorg-wrapper.c	2019-10-12 06:19:14.000000000 -0400
++++ xorg-server-1.20.99.1/hw/xfree86/xorg-wrapper.c	2019-10-14 01:44:05.107496000 -0400
+@@ -191,9 +191,6 @@
+ 
+ int main(int argc, char *argv[])
+ {
+-#ifdef WITH_LIBDRM
+-    struct drm_mode_card_res res;
+-#endif
+     char buf[PATH_MAX];
+     int i, r, fd;
+     int kms_cards = 0;
+@@ -230,9 +227,10 @@
+         }
+     }
+ 
+-#ifdef WITH_LIBDRM
++#if defined(WITH_LIBDRM) && defined(__linux__)
+     /* Detect if we need root rights, except when overridden by the config */
+     if (needs_root_rights == -1) {
++        struct drm_mode_card_res res;
+         for (i = 0; i < 16; i++) {
+             snprintf(buf, sizeof(buf), DRM_DEV_NAME, DRM_DIR_NAME, i);
+             fd = open(buf, O_RDWR);
+diff -ur xorg-server-1.20.99.1.orig/include/dix-config.h.in xorg-server-1.20.99.1/include/dix-config.h.in
+--- xorg-server-1.20.99.1.orig/include/dix-config.h.in	2019-10-12 06:19:14.000000000 -0400
++++ xorg-server-1.20.99.1/include/dix-config.h.in	2019-10-14 01:44:05.108273000 -0400
+@@ -400,6 +400,9 @@
+ /* Support D-Bus */
+ #undef HAVE_DBUS
+ 
++/* Use devd for input hotplug */
++#undef CONFIG_DEVD
++
+ /* Use libudev for input hotplug */
+ #undef CONFIG_UDEV
+ 
+diff -ur xorg-server-1.20.99.1.orig/Makefile.in xorg-server-1.20.99.1/Makefile.in
+--- xorg-server-1.20.99.1.orig/Makefile.in	2019-10-13 20:22:16.000000000 -0400
++++ xorg-server-1.20.99.1/Makefile.in	2019-10-14 01:44:05.109214000 -0400
+@@ -639,7 +639,7 @@
+ 
+ @XORG_TRUE@aclocaldir = $(datadir)/aclocal
+ @XORG_TRUE@aclocal_DATA = xorg-server.m4
+-@XORG_TRUE@pkgconfigdir = $(libdir)/pkgconfig
++@XORG_TRUE@pkgconfigdir = $(prefix)/libdata/pkgconfig
+ @XORG_TRUE@pkgconfig_DATA = xorg-server.pc
+ EXTRA_DIST = xorg-server.pc.in xorg-server.m4 autogen.sh README.md \
+ 	meson_options.txt include/xorg-config.h.meson.in \
+diff -ur xorg-server-1.20.99.1.orig/test/xtest.c xorg-server-1.20.99.1/test/xtest.c
+--- xorg-server-1.20.99.1.orig/test/xtest.c	2019-10-12 06:19:14.000000000 -0400
++++ xorg-server-1.20.99.1/test/xtest.c	2019-10-14 01:44:05.109753000 -0400
+@@ -59,10 +59,10 @@
+ static void
+ xtest_init_devices(void)
+ {
+-    ScreenRec screen = {0};
+-    ClientRec server_client = {0};
+-    WindowRec root = {0};
+-    WindowOptRec optional = {0};
++    ScreenRec screen = {{0}};
++    ClientRec server_client = {{0}};
++    WindowRec root = {{0}};
++    WindowOptRec optional = {{0}};
+ 
+     /* random stuff that needs initialization */
+     root.drawable.id = 0xab;
+diff -ur xorg-server-1.20.99.1.orig/xkb/Makefile.in xorg-server-1.20.99.1/xkb/Makefile.in
+--- xorg-server-1.20.99.1.orig/xkb/Makefile.in	2019-10-13 20:22:22.000000000 -0400
++++ xorg-server-1.20.99.1/xkb/Makefile.in	2019-10-14 01:44:05.110695000 -0400
+@@ -932,7 +932,7 @@
+ 
+ info-am:
+ 
+-install-data-am: install-dist_xkbcompiledDATA
++install-data-am:
+ 
+ install-dvi: install-dvi-am
+ 

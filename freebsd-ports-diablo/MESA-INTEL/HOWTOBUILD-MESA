@@ -1,7 +1,14 @@
 #!/bin/sh
 
+cd MESA-INTEL
+
+echo "###-Install DEPS-###"  
+
+pkg install -y py37-mako glslang
+cd ../graphics/libdrm ; make deinstall reinstall clean ; cd - 
+
 #UnComment For Reinstall
-#rm -rf mesa-19.3*
+rm -rf mesa-19.3*
 
 wget https://mesa.freedesktop.org/archive/mesa-19.3.2.tar.xz
 
@@ -38,4 +45,4 @@ cp -Rfa /usr/local/lib/pkgconfig/* /usr/local/libdata/pkgconfig/
 
 mv /usr/bin/ld.llvm /usr/bin/ld
 
-
+cd ../x11-servers/xorg-server ; sh ./COMPILE-XORG-GIT.sh

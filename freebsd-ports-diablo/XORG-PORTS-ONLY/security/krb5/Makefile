@@ -1,0 +1,8 @@
+# $FreeBSD$
+
+VERSIONS=		115 116 117
+KRB5_VERSION?=		117
+
+MASTERDIR=		${.CURDIR}/../krb5-${KRB5_VERSION}
+
+.include "${MASTERDIR}/Makefile"

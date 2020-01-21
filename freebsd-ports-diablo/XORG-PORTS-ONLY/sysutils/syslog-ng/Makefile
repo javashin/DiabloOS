@@ -1,0 +1,8 @@
+# $FreeBSD$
+
+VERSIONS=		39 314 315 317 318 319 320 321
+SYSLOG_NG_VERSION?=	321
+
+MASTERDIR=		${.CURDIR}/../syslog-ng${SYSLOG_NG_VERSION}
+
+.include "${MASTERDIR}/Makefile"

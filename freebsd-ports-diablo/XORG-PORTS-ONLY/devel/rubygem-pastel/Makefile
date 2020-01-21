@@ -1,0 +1,24 @@
+# Created by: Po-Chuan Hsieh <sunpoet@FreeBSD.org>
+# $FreeBSD$
+
+PORTNAME=	pastel
+PORTVERSION=	0.7.2
+PORTREVISION=	1
+CATEGORIES=	devel rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Terminal strings styling with intuitive and clean API
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE.txt
+
+RUN_DEPENDS=	rubygem-equatable>=0.5.0:devel/rubygem-equatable \
+		rubygem-tty-color>=0.4.0:devel/rubygem-tty-color
+
+USES=		gem
+USE_RUBY=	yes
+
+NO_ARCH=	yes
+
+.include <bsd.port.mk>

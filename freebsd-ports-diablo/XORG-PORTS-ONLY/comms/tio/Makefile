@@ -1,0 +1,29 @@
+# $FreeBSD$
+
+PORTNAME=	tio
+DISTVERSIONPREFIX=	v
+DISTVERSION=	1.32
+CATEGORIES=	comms
+
+MAINTAINER=	dg@syrec.org
+COMMENT=	Simple TTY terminal I/O application
+
+LICENSE=	GPLv2+
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+USES=		autoreconf
+USE_GITHUB=	yes
+
+GNU_CONFIGURE=	yes
+
+OPTIONS_DEFINE=	BASH DOCS
+OPTIONS_DEFAULT=	BASH
+OPTIONS_SUB=	yes
+
+BASH_CONFIGURE_WITH=	bash-completion-dir
+
+post-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/README ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

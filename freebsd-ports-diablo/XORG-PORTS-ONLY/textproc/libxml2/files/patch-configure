@@ -1,0 +1,11 @@
+--- configure.orig	2016-05-23 08:00:35 UTC
++++ configure
+@@ -15639,6 +15639,8 @@ fi
+ 	       fi
+ 	   fi
+        ;;
++       *freebsd*) THREAD_LIBS=""
++       ;;
+     esac
+     if test "$WITH_THREADS" = "1" ; then
+ 	THREAD_CFLAGS="$THREAD_CFLAGS -D_REENTRANT"

@@ -1,0 +1,20 @@
+--- Makefile.orig	2018-05-01 18:43:15 UTC
++++ Makefile
+@@ -9,14 +9,14 @@ ALLCOMPILED=$(wildcard $(LISPDIR)/*.elc)
+ 
+ DESTDIR=
+ PREFIX=$(DESTDIR)/usr/local
+-INFODIR=$(PREFIX)/info
+-MAN1DIR=$(PREFIX)/share/man/man1
++INFODIR=$(PREFIX)/share/info
++MAN1DIR=$(PREFIX)/man/man1
+ BINDIR=$(PREFIX)/bin
+ SITELISP=$(PREFIX)/share/emacs/site-lisp/emms
+ 
+ GINSTALLINFO = /usr/bin/ginstall-info --info-dir=$(INFODIR)
+ # For systems without ginstall-info
+-INSTALLINFO = /usr/bin/install-info --info-dir=$(INFODIR)
++INSTALLINFO = /usr/local/bin/install-info --info-dir=$(INFODIR)
+ CHANGELOG_CMD = git log --pretty=medium --no-merges
+ 
+ # The currently released version of EMMS

@@ -1,0 +1,92 @@
+--- makefile.orig	2019-04-24 05:00:38 UTC
++++ makefile
+@@ -194,19 +194,19 @@ GENIEOS := solaris
+ endif
+ ifeq ($(firstword $(filter FreeBSD,$(UNAME))),FreeBSD)
+ OS := freebsd
+-GENIEOS := freebsd
++GENIEOS := bsd
+ endif
+ ifeq ($(firstword $(filter GNU/kFreeBSD,$(UNAME))),GNU/kFreeBSD)
+ OS := freebsd
+-GENIEOS := freebsd
++GENIEOS := bsd
+ endif
+ ifeq ($(firstword $(filter NetBSD,$(UNAME))),NetBSD)
+ OS := netbsd
+-GENIEOS := freebsd
++GENIEOS := bsd
+ endif
+ ifeq ($(firstword $(filter OpenBSD,$(UNAME))),OpenBSD)
+ OS := openbsd
+-GENIEOS := freebsd
++GENIEOS := bsd
+ endif
+ ifeq ($(firstword $(filter Darwin,$(UNAME))),Darwin)
+ OS := macosx
+@@ -395,13 +395,13 @@ endif
+ endif # BIGENDIAN
+ 
+ ifndef PYTHON_EXECUTABLE
+-PYTHON := python
++#PYTHON := python
+ else
+-PYTHON := $(PYTHON_EXECUTABLE)
++#PYTHON := $(PYTHON_EXECUTABLE)
+ endif
+-CC := $(SILENT)gcc
+-LD := $(SILENT)g++
+-CXX:= $(SILENT)g++
++#CC := $(SILENT)gcc
++#LD := $(SILENT)g++
++#CXX:= $(SILENT)g++
+ 
+ #-------------------------------------------------
+ # specify OSD layer: windows, sdl, etc.
+@@ -531,19 +531,19 @@ endif
+ ifdef OVERRIDE_CC
+ PARAMS += --CC='$(OVERRIDE_CC)'
+ ifndef CROSS_BUILD
+-CC := $(OVERRIDE_CC)
++#CC := $(OVERRIDE_CC)
+ endif
+ endif
+ ifdef OVERRIDE_CXX
+ PARAMS += --CXX='$(OVERRIDE_CXX)'
+ ifndef CROSS_BUILD
+-CXX := $(OVERRIDE_CXX)
++#CXX := $(OVERRIDE_CXX)
+ endif
+ endif
+ ifdef OVERRIDE_LD
+ PARAMS += --LD='$(OVERRIDE_LD)'
+ ifndef CROSS_BUILD
+-LD := $(OVERRIDE_LD)
++#LD := $(OVERRIDE_LD)
+ endif
+ endif
+ 
+@@ -1400,6 +1400,23 @@ freebsd: freebsd_x86
+ freebsd_x86: generate $(PROJECTDIR)/$(MAKETYPE)-freebsd/Makefile
+ 	$(SILENT) $(MAKE) -C $(PROJECTDIR)/$(MAKETYPE)-freebsd config=$(CONFIG)32 precompile
+ 	$(SILENT) $(MAKE) -C $(PROJECTDIR)/$(MAKETYPE)-freebsd config=$(CONFIG)32
++
++#-------------------------------------------------
++# gmake-freebsd-clang
++#-------------------------------------------------
++
++$(PROJECTDIR)/$(MAKETYPE)-freebsd-clang/Makefile: makefile $(SCRIPTS) $(GENIE)
++	$(SILENT) $(GENIE) $(PARAMS) $(TARGET_PARAMS) --gcc=freebsd-clang --gcc_version=$(CLANG_VERSION) $(MAKETYPE)
++
++.PHONY: freebsd_x64_clang
++freebsd_x64_clang: generate $(PROJECTDIR)/$(MAKETYPE)-freebsd-clang/Makefile
++	$(SILENT) $(MAKE) -C $(PROJECTDIR)/$(MAKETYPE)-freebsd-clang config=$(CONFIG)64 precompile
++	$(SILENT) $(MAKE) -C $(PROJECTDIR)/$(MAKETYPE)-freebsd-clang config=$(CONFIG)64
++
++.PHONY: freebsd_x86_clang
++freebsd_x86_clang: generate $(PROJECTDIR)/$(MAKETYPE)-freebsd-clang/Makefile
++	$(SILENT) $(MAKE) -C $(PROJECTDIR)/$(MAKETYPE)-freebsd-clang config=$(CONFIG)32 precompile
++	$(SILENT) $(MAKE) -C $(PROJECTDIR)/$(MAKETYPE)-freebsd-clang config=$(CONFIG)32
+ 
+ #-------------------------------------------------
+ # gmake-freebsd-clang

@@ -1,0 +1,17 @@
+#!/bin/sh
+
+echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+echo "###- Recompile Kwin With Lowlatency Patches For Kwin_x11 -###"
+echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+
+cd /usr/ports/x11-wm/plasma5-kwin
+make clean extract 
+wget https://github.com/tildearrow/kwin-lowlatency/archive/v5.17.5.zip
+unzip v5.17.5.zip
+rm -rf work/kwin-5.17.5/*
+cp -Rfa kwin-lowlatency-5.17.5/* work/kwin-5.17.5/
+pkg install -y cmake qt5-buildtools qt5-qmake 
+make package
+make deinstall reinstall clean
+
+echo "###- DONE Re-Login KDE Plasma Session -###"

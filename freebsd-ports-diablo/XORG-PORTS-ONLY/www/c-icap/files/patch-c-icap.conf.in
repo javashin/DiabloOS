@@ -1,0 +1,11 @@
+--- c-icap.conf.in.orig	2018-09-12 13:40:37 UTC
++++ c-icap.conf.in
+@@ -132,7 +132,7 @@ MaxRequestsPerChild  0
+ #	Port [::1]:1346
+ # Default:
+ #	None
+-Port 1344
++Port 127.0.0.1:1344
+ 
+ # TAG: TlsPort
+ # Format: TlsPort [address:]port [tls-method=method] [cert=path_to_pem_cert] [key=path_to_pem_key] [client_ca=path_to_pem_file] [ciphers=ciph1:ciph2...] [tls_options=[!]Opt1|[!]Opt2|...]

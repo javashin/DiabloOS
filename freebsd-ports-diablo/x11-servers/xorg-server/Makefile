@@ -6,7 +6,7 @@ PORTVERSION?=	1.20.99.1
 PORTREVISION?=	0
 PORTEPOCH?=	1
 CATEGORIES=	x11-servers
-MASTER_SITES=	XORG/individual/xserver
+#MASTER_SITES=	XORG/individual/xserver
 DISTNAME=	xorg-server-${PORTVERSION}
 
 MAINTAINER=	x11@FreeBSD.org

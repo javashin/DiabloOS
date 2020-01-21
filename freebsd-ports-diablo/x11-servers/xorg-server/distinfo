@@ -1,33 +1,3 @@
-#TIMESTAMP = 1553221338
-#[root@hellbox-l440 /xorg-server-next-port]# ls -las xorg-server-1.20.99.1.tar.bz2
-#1 -rw-r--r--  1 root  javashin  5474846 Oct 13 22:10 xorg-server-1.20.99.1.tar.bz2
-#[root@hellbox-l440 /xorg-server-next-port]# sha256 xorg-server-1.20.99.1.tar.bz2
-#SHA256 (xorg-server-1.20.99.1.tar.bz2) = 994d87327871acfa7119eb0fcedde4b2f3988614fd1b13b9fb9ce026851770cb
-#[root@hellbox-l440 /xorg-server-next-port]# 
+SHA256 (xorg-server-1.20.99.1.tar.gz) = 614fe8377c89b97b0fb5b24aef8b39f2adf86e54226d01acd030c64276acd3bb
+SIZE (xorg-server-1.20.99.1.tar.gz) = 8285781
 
-
-SHA256 (xorg/xserver/xorg-server-1.20.99.1.tar.bz2) = 994d87327871acfa7119eb0fcedde4b2f3988614fd1b13b9fb9ce026851770cb
-#3975e8d327cd26969cbf9fcf620b917d9ea109901d1d30fdae76e16910f9db33
-
-
-
-#881226fd6b6c762e25d235480a43ebbfc77beb8811325644c9aafe1f74a07af9
-
-
-#af97260f00fb6c1626ca5b0e96400ed9827903730e7902f72076a0f1a5b68264
-#e00a1c5e3789ddce66fa7739c673bdb6616bafce35fbae8f6eabe06e623ed2f6
-#a81d8243f37e75a03d4f8c55f96d0bc25802be6ec45c3bfa5cb614c6d01bac9d
-#fe0fd493ebe93bfc56bede382fa204458ff5f636ea54d413a5d1bd58e19166ee
-
-
-SIZE (xorg/xserver/xorg-server-1.20.99.1.tar.bz2) = 5474846
-#5562071
-
-
-#5522326
-
-
-
-#5508279
-#3780953
-#6126757
