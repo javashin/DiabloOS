@@ -10,7 +10,7 @@ COMMENT=	OpenZFS userland for FreeBSD
 
 LICENSE=	CDDL
 
-BROKEN_aarch64=	invokes x86 assembler
+#BROKEN_aarch64=	invokes x86 assembler
 
 RUN_DEPENDS=	openzfs-kmod>=0:sysutils/openzfs-kmod
 
