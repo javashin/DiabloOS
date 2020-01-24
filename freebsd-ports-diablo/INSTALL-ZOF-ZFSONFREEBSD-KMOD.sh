@@ -1,5 +1,5 @@
 #!/bin/sh
-
+pkg install -y wget
 cd sysutils/openzfs-kmod/
 make clean extract
 rm -rf work/ZoF*/*
