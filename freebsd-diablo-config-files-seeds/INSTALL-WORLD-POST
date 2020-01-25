@@ -1,3 +1,16 @@
+###
+svn checkout https://svn.FreeBSD.org/base/head /usr/src
+git clone https://github.com/freebsd/freebsd.git -b master /usr/src
+
+
+
+#time make -DMALLOC_PRODUCTION -j3 buildworld NO_CLEAN=YES
+#time make -DMALLOC_PRODUCTION -j3 buildworld buildkernel installkernel 1>/tmp/buildworld-buildkernel-CURR-$(date +%F).log 2>&1 & 
+#option LOCK_PROFILING
+
+# time make -DMALLOC_PRODUCTION -DKERNFAST KERNFAST=DIABLO KERNCONF=DIABLO -j3 buildkernel installkernel 1>/tmp/@-buildkernel-CURR-$(date +%F).log 2>&1 &
+
+
 #zfs set readonly=off rpool/ROOT/FreeBSD
 #mount -w /
 
