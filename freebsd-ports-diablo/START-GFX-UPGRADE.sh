@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "NEEDS TO BE RUN ON DiabloOS/ports-freebsd-diablo Or May Fail"
+
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 echo "###########################################################################################"
 echo "###- This SCRIPT Tries To Do The BEST TO UPGRADE The Whole Graphic Stack For INTEL GFX -###"
@@ -11,7 +13,7 @@ echo "@@@@@@@@@@@@@@@@@@@@@@"
 echo "###- Install DEPS -###"
 echo "@@@@@@@@@@@@@@@@@@@@@@"
 
-pkg install -y py37-mako glslang evdev-proto libevdev xorg-macros font-util utash
+pkg install -y py37-mako glslang evdev-proto libevdev xorg-macros font-util uthash
 
 echo "@@@@@@@@@@@@@@@@@@@@@@@@"
 echo "###- Upgrade Libdrm -###"
@@ -19,12 +21,14 @@ echo "@@@@@@@@@@@@@@@@@@@@@@@@"
 
 cd graphics/libdrm ; make deinstall reinstall clean 
 
-#UnComment For Reinstall
-#rm -rf mesa-19.3*
+cd ..
+cd ..
 
-cd ../../
 
 cd MESA-INTEL
+
+#UnComment For Reinstall
+#rm -rf mesa-19.3*
 
 wget https://mesa.freedesktop.org/archive/mesa-19.3.2.tar.xz
 
@@ -67,28 +71,36 @@ mv /usr/bin/ld.llvm /usr/bin/ld
 
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 echo "###- Upgrade Xorg-Server -###"
-echo "###- Configure = Select devd and fix glamor Leave suid -###"
+echo "###- Configure = Select DEVD and FIXDRM Leave suid -###"
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
-cd ../
+cd ../../
+
 cd XORG-PORTS-ONLY/x11-servers/xorg-server
+
 sh ./COMPILE-XORG-GIT.sh
 
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 echo "###- Upgrade Xorg-Drivers To Match New Xorg-Server Version -###"
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
+
+pkg install -f -y xf86-video-intel 
 cd ../../../
-#cd x11-drivers/xf86-video-intel ; make install clean
 sh ./UPGRADE-INTEL-DDX.sh
 portsnap auto
 cd /usr/ports
 pkg install -y xf86-input-synaptics xf86-input-evdev xf86-input-libinput 
+
+echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+echo "###- Select EVDEV On Synaptics Options Dialog  -###"
+echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+
 portmaster --force-config xf86-input-synaptics xf86-input-mouse xf86-input-keyboard xf86-input-evdev xf86-input-libinput
 
-echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-echo "###- Trick The KMS-DRM 4.16 port To Compile 5.0 on 12.1 -Release -###"
-echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+#echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+#echo "###- Trick The KMS-DRM 4.16 port To Compile 5.0 on 12.1 -Release -###"
+#echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
 #cd /usr/ports/graphics/drm-fbsd12.0-kmod
 #make clean extract
