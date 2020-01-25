@@ -131,9 +131,9 @@ Like /etc/make.conf & /etc/src.conf Just Take What U Need.
 Set The Optimizations Flags on make.conf Something Like This Example =
 
 CPUTYPE?=haswell
-CFLAGS=-O3 -march=native -mtune=native -falign-functions=32 -fstrict-aliasing -fomit-frame-pointer -fno-stack-protector -pipe
-COPTFLAGS=-O3 -march=native -mtune=native -falign-functions=32 -fstrict-aliasing -fomit-frame-pointer -fno-stack-protector -pipe
-CXXFLAGS+=-O3 -march=native -mtune=native -falign-functions=32 -fstrict-aliasing -fomit-frame-pointer -fno-stack-protector -pipe 
+CFLAGS=-O3 -march=native -mtune=native -falign-functions=32 -fstrict-aliasing -fomit-frame-pointer -fno-stack-protector -pipe \
+COPTFLAGS=-O3 -march=native -mtune=native -falign-functions=32 -fstrict-aliasing -fomit-frame-pointer -fno-stack-protector -pipe \
+CXXFLAGS+=-O3 -march=native -mtune=native -falign-functions=32 -fstrict-aliasing -fomit-frame-pointer -fno-stack-protector -pipe \
 
 Copy The Configuration Of The Kernel DIABLO GENERIC2 GENERIC2.hints on 
 freebsd-diablo-config-files-seeds/usr/src/sys/amd64/conf edit them and suit to your needs copy them to 
@@ -141,8 +141,8 @@ freebsd-diablo-config-files-seeds/usr/src/sys/amd64/conf edit them and suit to y
 
 Now On /usr/src
 
-Start The Compilation Of The Kernel With =
-with bash 
+Start The Compilation Of The Kernel With = \
+with bash \
 time make -DMALLOC_PRODUCTION KERNCONF=DIABLO -j3 buildkernel installkernel
 
 
